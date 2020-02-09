@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">GMIS </string>
+
+    <string name="clint_name">أحمد فارس</string>
+    <string name="full_name">الاسم بالكامل</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="address">العنوان</string>
+    <string name="user_phone">رقم التليفون</string>
+    <string name="home_number">رقم الشقة</string>
+
+    <string name="emp_name">أسم العامل: </string>
+    <string name="emp_name_data"> أسامة أمين</string>
+    <string name="emp_phone">رقم العامل:  </string>
+    <string name="bin_number">رقم السلة: </string>
+    <string name="cost">المصاريف الشهرية: </string>
+    <string name="bin_status">الحالة: </string>
+
+    <string name="point_num">عدد النقاط: </string>
+    <string name="point_num_data">50 </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

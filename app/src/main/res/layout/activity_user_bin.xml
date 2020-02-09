@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="60dp"
+        android:elevation="80dp"
+        android:outlineAmbientShadowColor="#000"
+        card_view:cardBackgroundColor="#EBE9E9"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="6dp"
+        card_view:cardMaxElevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/progress_user"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="40dp"
+                android:indeterminateDrawable="@drawable/progress_circle"
+                android:progress="70"
+                android:progressDrawable="@drawable/progress_circle" />
+
+            <TextView
+                android:id="@+id/bin_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:layout_toLeftOf="@+id/progress_user"
+                android:fontFamily="@font/monadi"
+                android:text="@string/bin_number"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/bin_number_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/bin_number"
+                android:fontFamily="@font/monadi"
+                android:text="5"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/emp_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bin_number"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/progress_user"
+                android:fontFamily="@font/monadi"
+                android:text="@string/emp_name"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/emp_name_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bin_number_data"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/emp_name"
+                android:fontFamily="@font/monadi"
+                android:text="احمد فارس "
+                android:textSize="17sp" />
+
+            <RatingBar
+                style="@style/Widget.AppCompat.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/progress_user"
+                android:numStars="4"
+                android:rating="3.5"
+                android:stepSize=".5" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

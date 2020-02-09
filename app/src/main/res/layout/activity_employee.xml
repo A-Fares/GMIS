@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F0F5"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_emp_profile"
+        android:drawableRight="@drawable/emp_logo"
+        android:fontFamily="@font/amin"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:text="أسامة امين"
+        android:textColor="#fff"
+        android:textSize="30dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:scrollbarThumbVertical="@null"
+        android:scrollbars="vertical" />
+</LinearLayout>
