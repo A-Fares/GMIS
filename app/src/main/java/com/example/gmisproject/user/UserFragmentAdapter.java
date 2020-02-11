@@ -11,8 +11,6 @@ import com.example.gmisproject.MainActivity;
 public class UserFragmentAdapter extends FragmentPagerAdapter {
 
 
-
-
     public UserFragmentAdapter(MainActivity mainActivity, FragmentManager fm) {
         super(fm);
     }

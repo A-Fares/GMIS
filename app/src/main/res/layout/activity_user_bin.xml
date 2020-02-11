@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="40dp"
@@ -24,7 +24,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="wrap_content">
 
             <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/progress_user"
@@ -32,10 +32,12 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
-                android:indeterminateDrawable="@drawable/progress_circle"
+                android:indeterminateDrawable="@drawable/progress_user_bin"
                 android:progress="70"
-                android:progressDrawable="@drawable/progress_circle" />
+                android:progressDrawable="@drawable/progress_user_bin" />
 
             <TextView
                 android:id="@+id/bin_number"
@@ -86,7 +88,9 @@
                 style="@style/Widget.AppCompat.RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/emp_name"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/progress_user"
                 android:numStars="4"
                 android:rating="3.5"

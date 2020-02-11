@@ -27,7 +27,7 @@ public class UserRequestFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_user_reqest, container, false);
 
-        Button btn=rootView.findViewById(R.id.button);
+        Button btn=rootView.findViewById(R.id.button_send);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
