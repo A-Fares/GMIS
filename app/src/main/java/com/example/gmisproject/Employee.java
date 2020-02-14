@@ -1,8 +1,12 @@
 package com.example.gmisproject;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +19,10 @@ public class Employee extends AppCompatActivity {
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     FloatingActionButton floatingActionButton;
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +47,37 @@ public class Employee extends AppCompatActivity {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
+
         openSheet();
 
     }
 
-    protected void openSheet() {
-        floatingActionButton = findViewById(R.id.fab_show_sheet);
+    protected void openSheet(){
+        floatingActionButton=findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openDialogSheet();
+            public void onClick(View view) {
+                showAlertDialog(R.layout.bottomsheet);
             }
         });
     }
 
-    public void openDialogSheet() {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog();
-        bottomSheetDialog.show(getSupportFragmentManager(), "BottomSheetDialog");
+    private void showAlertDialog(int layout){
+        dialogBuilder = new AlertDialog.Builder(Employee.this);
+        View layoutView = getLayoutInflater().inflate(layout, null);
+        Button dialogButton = layoutView.findViewById(R.id.close);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
+
 
 }

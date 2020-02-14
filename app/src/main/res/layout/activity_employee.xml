@@ -19,15 +19,16 @@
         android:textColor="#fff"
         android:textSize="30dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_show_sheet"
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fab"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="450dp"
         android:backgroundTint="#2680EB"
         android:elevation="6dp"
-        android:src="@drawable/ic_message" />
+        android:src="@drawable/ic_message"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
