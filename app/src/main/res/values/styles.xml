@@ -14,10 +14,14 @@
     </style>
 
     <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation" tools:ignore="DuplicateDefinition">@anim/anim_down</item>
-        <item name="android:windowEnterAnimation" tools:ignore="DuplicateDefinition">@anim/anim_up</item>
+        <item name="android:windowEnterAnimation" tools:ignore="DuplicateDefinition">
+            @anim/anim_down
+        </item>
+        <item name="android:windowEnterAnimation" tools:ignore="DuplicateDefinition">@anim/anim_up
+        </item>
 
     </style>
+
     <style name="ButtonSend">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -26,11 +30,28 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:textColor">#fff</item>
-        <item name="android:text">"                 ارسال                "</item>
+        <item name="android:text">" ارسال "</item>
         <item name="android:fontFamily">@font/aniq</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_below">@id/edit_phone_number</item>
+    </style>
+
+    <style name="TextEmployeeName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingLeft">60dp</item>
+        <item name="android:fontFamily">@font/amin</item>
+        <item name="android:text">أسامة امين</item>
+        <item name="android:drawableRight">@drawable/emp_logo</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:background">@drawable/txt_emp_profile</item>
     </style>
 
 </resources>

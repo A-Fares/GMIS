@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F0F5"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_show_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_emp_profile"
-        android:drawableRight="@drawable/emp_logo"
-        android:fontFamily="@font/amin"
-        android:paddingLeft="50dp"
-        android:paddingRight="30dp"
-        android:text="أسامة امين"
-        android:textColor="#fff"
-        android:textSize="30dp" />
+    <TextView
+        android:id="@+id/txtView_emp_name"
+        style="@style/TextEmployeeName" />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fab"
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="450dp"
-        android:backgroundTint="#2680EB"
-        android:elevation="6dp"
-        android:src="@drawable/ic_message"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:scrollbarThumbVertical="@null"
-        android:scrollbars="vertical" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</FrameLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/fab"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#2680EB"
+            android:elevation="6dp"
+            android:src="@drawable/ic_message" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:scrollbarThumbVertical="@null"
+            android:scrollbars="vertical" />
+
+    </FrameLayout>
+</LinearLayout>
