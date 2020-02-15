@@ -31,15 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        final TabLayout.Tab msg=tabLayout.newTab();
-        final TabLayout.Tab trash=tabLayout.newTab();
-        final TabLayout.Tab request=tabLayout.newTab();
-
-        msg.setIcon(R.drawable.msg);
-        trash.setIcon(R.drawable.trash);
-        request.setIcon(R.drawable.req1);
 
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+     //   viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.trash);
+        tabLayout.getTabAt(1).setIcon(R.drawable.req1);
+        tabLayout.getTabAt(2).setIcon(R.drawable.msg);
     }
 }

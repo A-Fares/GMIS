@@ -31,15 +31,5 @@ public class UserFragmentAdapter extends FragmentPagerAdapter {
         }
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
 
-        if (position == 0) {
-            return "Bin";
-        } else if (position == 1) {
-            return "Req";
-        } else {
-            return "Msg";
-        }
-    }
 }
