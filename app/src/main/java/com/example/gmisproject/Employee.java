@@ -31,12 +31,12 @@ public class Employee extends AppCompatActivity {
 
 
         ArrayList<EmpBin> empBins = new ArrayList<EmpBin>();
+        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
+        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
         empBins.add((new EmpBin(EmpBin.PUBLIC_BIN, 80, "10", "تعمل")));
         empBins.add(new EmpBin(EmpBin.PUBLIC_BIN, 60, "15", "لا تعمل"));
-        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
-        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
-        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
-        empBins.add((new EmpBin(EmpBin.PRIVATE_BIN, 90, "10", "لا تعمل", "10 ش النصر", "01061462749")));
+        empBins.add((new EmpBin(EmpBin.PUBLIC_BIN, 80, "10", "تعمل")));
+        empBins.add(new EmpBin(EmpBin.PUBLIC_BIN, 60, "15", "لا تعمل"));
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
