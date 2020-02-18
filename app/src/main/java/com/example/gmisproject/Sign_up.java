@@ -15,21 +15,17 @@ public class Sign_up extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
 
-
-      TextView signIn = findViewById(R.id.text_view_sign_in);
+        TextView signIn = findViewById(R.id.text_view_sign_in);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Sign_up.this,Sign_in.class);
+                Intent intent = new Intent(Sign_up.this, Sign_in.class);
                 startActivity(intent);
 
             }
         });
-
-
-
 
 
     }
