@@ -93,7 +93,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/progress_user"
                 android:numStars="4"
-                android:rating="3.5"
+                android:rating="0"
                 android:stepSize=".5" />
 
 

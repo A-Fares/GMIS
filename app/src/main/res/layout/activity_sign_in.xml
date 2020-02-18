@@ -31,7 +31,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/user"
                     android:fontFamily="@font/monadi"
                     android:hint="@string/username_hint"
                     android:inputType="text" />
@@ -52,7 +51,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/lock"
                     android:fontFamily="@font/monadi"
                     android:hint="@string/password_hint"
                     android:inputType="textPassword" />
