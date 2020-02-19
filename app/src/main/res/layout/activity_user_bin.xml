@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,10 +17,8 @@
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="60dp"
         android:elevation="80dp"
         android:outlineAmbientShadowColor="#000"
         card_view:cardBackgroundColor="#EBE9E9"
@@ -85,7 +89,9 @@
                 android:textSize="17sp" />
 
             <RatingBar
-                style="@style/Widget.AppCompat.RatingBar"
+                android:id="@+id/rating_bar_user_bin"
+                style="@style/RatingBar"
+                android:theme="@style/RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/emp_name"
@@ -94,10 +100,13 @@
                 android:layout_toLeftOf="@+id/progress_user"
                 android:numStars="4"
                 android:rating="0"
-                android:stepSize=".5" />
+                android:stepSize=".5"
+                />
 
 
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>
+
+</ScrollView>

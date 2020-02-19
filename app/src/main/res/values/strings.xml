@@ -8,7 +8,7 @@
     <string name="user_phone">رقم التليفون</string>
     <string name="home_number">رقم الشقة</string>
 
-    <string name="emp_name">أسم العامل: </string>
+    <string name="emp_name">إسم العامل: </string>
     <string name="emp_name_data"> أسامة أمين</string>
     <string name="emp_phone">رقم العامل:  </string>
     <string name="bin_number">رقم السلة: </string>
