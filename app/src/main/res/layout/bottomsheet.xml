@@ -16,12 +16,12 @@
         android:textStyle="bold" />
 
     <RatingBar
+        style="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
         android:rating="3.5"
-        style="@style/RatingBar"
         android:theme="@style/RatingBar"
 
         />

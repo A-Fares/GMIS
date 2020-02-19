@@ -17,12 +17,11 @@ import java.util.ArrayList;
 
 public class Employee extends AppCompatActivity {
 
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     FloatingActionButton floatingActionButton;
     AlertDialog.Builder dialogBuilder;
     AlertDialog alertDialog;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +51,8 @@ public class Employee extends AppCompatActivity {
 
     }
 
-    protected void openSheet(){
-        floatingActionButton=findViewById(R.id.fab);
+    protected void openSheet() {
+        floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +61,7 @@ public class Employee extends AppCompatActivity {
         });
     }
 
-    private void showAlertDialog(int layout){
+    private void showAlertDialog(int layout) {
         dialogBuilder = new AlertDialog.Builder(Employee.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         Button dialogButton = layoutView.findViewById(R.id.close);

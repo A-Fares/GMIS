@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.gmisproject.MainActivity;
 import com.example.gmisproject.R;
 
 /**
@@ -18,7 +16,7 @@ import com.example.gmisproject.R;
  */
 public class UserBinFragment extends Fragment {
 
-    public static float rating_bin ;
+    public static float rating_bin;
 
     public UserBinFragment() {
         // Required empty public constructor
@@ -34,7 +32,7 @@ public class UserBinFragment extends Fragment {
         ratingBarUserBin.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                rating_bin = rating ;
+                rating_bin = rating;
             }
         });
 

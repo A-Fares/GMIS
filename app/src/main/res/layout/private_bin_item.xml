@@ -15,29 +15,33 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp">
-
-        <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/progress_bin"
+        
+        <ProgressBar
+            android:id="@+id/progress_bin_private"
             style="?android:progressBarStyleHorizontal"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
-           android:layout_centerHorizontal="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
-            android:progress="96"
-            android:progressDrawable="@drawable/progress_private_employee_bin" />
+            android:indeterminateDrawable="@drawable/progress_private_employee_bin"
+            android:max="100"
+            android:progress="70"
+            android:progressDrawable="@drawable/progress_private_employee_bin"
+            android:secondaryProgress="100" />
 
         <TextView
             android:id="@+id/client_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/progress_bin"
+            android:layout_below="@+id/progress_bin_private"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/monadi"
             android:text="10ش النصر-فيكتوريا"
             android:textColor="#000"
             android:textSize="10sp" />
+
         <TextView
             android:id="@+id/client_phone"
             android:layout_width="wrap_content"
@@ -48,6 +52,7 @@
             android:text="01061462749"
             android:textColor="#818181"
             android:textSize="10sp" />
+
         <TextView
             android:id="@+id/bin_number_data"
             android:layout_width="wrap_content"
