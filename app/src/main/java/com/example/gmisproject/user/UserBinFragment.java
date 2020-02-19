@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +34,8 @@ public class UserBinFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rating_bin = rating;
+
+                Toast.makeText(getActivity().getApplicationContext(), "Your Rate is " + String.valueOf(rating) + " !",Toast.LENGTH_SHORT).show();
             }
         });
 

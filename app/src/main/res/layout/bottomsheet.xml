@@ -16,14 +16,15 @@
         android:textStyle="bold" />
 
     <RatingBar
+        android:id="@+id/rating_bar_result"
         style="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
-        android:rating="3.5"
         android:theme="@style/RatingBar"
-
+        android:rating="3"
+        android:isIndicator="true"
         />
 
     <Button

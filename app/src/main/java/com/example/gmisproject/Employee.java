@@ -5,12 +5,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gmisproject.user.UserBinFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -57,6 +59,8 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAlertDialog(R.layout.bottomsheet);
+
+
             }
         });
     }
@@ -78,5 +82,11 @@ public class Employee extends AppCompatActivity {
         });
     }
 
+    public void setRating()
+    {
+        RatingBar ratingBar = findViewById(R.id.rating_bar_result);
+        ratingBar.setRating(UserBinFragment.rating_bin);
+
+    }
 
 }
