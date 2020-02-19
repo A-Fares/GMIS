@@ -91,7 +91,7 @@ public class EmpBinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             binNum = itemView.findViewById(R.id.bin_number_data);
             binStatus = itemView.findViewById(R.id.bin_status_data);
-            binPercentage = itemView.findViewById(R.id.progress_bin);
+            binPercentage = itemView.findViewById(R.id.progress_bin_public);
         }
     }
 
@@ -106,7 +106,7 @@ public class EmpBinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             binNum = itemView.findViewById(R.id.bin_number_data);
             binStatus = itemView.findViewById(R.id.bin_status_data);
-            binPercentage = itemView.findViewById(R.id.progress_bin);
+            binPercentage = itemView.findViewById(R.id.progress_bin_private);
             clientAddress = itemView.findViewById(R.id.client_address);
             clientPhone = itemView.findViewById(R.id.client_phone);
         }
