@@ -22,6 +22,7 @@ public class Sign_in extends AppCompatActivity {
     TextView signUp;
     Button buttonSignIn;
     TextInputLayout editTextUsername, editTextPassword;
+    String string;
 
 
     @Override
@@ -63,7 +64,10 @@ public class Sign_in extends AppCompatActivity {
                         if (password.equals(users.getPassword())) {
                             Toast.makeText(Sign_in.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Sign_in.this, MainActivity.class);
+                            string=editTextUsername.getEditText().getText().toString();
+                            intent.putExtra("UserName",string);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(Sign_in.this, "Enter correct password", Toast.LENGTH_SHORT).show();
                         }

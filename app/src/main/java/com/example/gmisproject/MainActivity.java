@@ -1,6 +1,10 @@
 package com.example.gmisproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -11,11 +15,22 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static boolean backPressedTime;
+    TextView textViewUsername;
+    String string;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Set id for Textview
+
+        textViewUsername = findViewById(R.id.text_username);
+
+        string = getIntent().getExtras().getString("UserName");
+        textViewUsername.setText(string);
 
 
         // Find the view pager that will allow the user to swipe between fragments
@@ -37,5 +52,33 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.trash);
         tabLayout.getTabAt(1).setIcon(R.drawable.req1);
         tabLayout.getTabAt(2).setIcon(R.drawable.msg);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (!backPressedTime) {
+            Toast.makeText(this, "press again", Toast.LENGTH_SHORT).show();
+            backPressedTime = true;
+        } else {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+        new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                backPressedTime = false;
+            }
+        }.start();
     }
 }

@@ -18,9 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Sign_up extends AppCompatActivity {
 
-    TextInputLayout editTextUsername,editTextEmail,editTextPassword,editTextConfirmPassword;
+    TextInputLayout editTextUsername, editTextEmail, editTextPassword, editTextConfirmPassword;
     Button buttonSignUp;
     Users users;
+    String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +43,21 @@ public class Sign_up extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Users");
 
-        editTextUsername=findViewById(R.id.edit_text_username_sign_up);
-        editTextEmail=findViewById(R.id.edit_text_email_sign_up);
-        editTextPassword=findViewById(R.id.edit_text_password_sign_up);
-        editTextConfirmPassword=findViewById(R.id.edit_text_confirm_password_sign_up);
-        buttonSignUp=findViewById(R.id.btn_sign_up);
+        editTextUsername = findViewById(R.id.edit_text_username_sign_up);
+        editTextEmail = findViewById(R.id.edit_text_email_sign_up);
+        editTextPassword = findViewById(R.id.edit_text_password_sign_up);
+        editTextConfirmPassword = findViewById(R.id.edit_text_confirm_password_sign_up);
+        buttonSignUp = findViewById(R.id.btn_sign_up);
 
-        users=new Users();
+        users = new Users();
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String username = editTextUsername.getEditText().getText().toString();
-                String email=editTextEmail.getEditText().getText().toString();
-                String password=editTextPassword.getEditText().getText().toString();
+                String email = editTextEmail.getEditText().getText().toString();
+                String password = editTextPassword.getEditText().getText().toString();
 
                 buttonSignUp.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -71,7 +72,10 @@ public class Sign_up extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Sign_up.this, MainActivity.class);
+                                    string = editTextUsername.getEditText().getText().toString();
+                                    intent.putExtra("UserName", string);
                                     startActivity(intent);
+                                    finish();
                                 } else {
                                     Toast.makeText(Sign_up.this, "Failed...", Toast.LENGTH_SHORT).show();
                                 }
