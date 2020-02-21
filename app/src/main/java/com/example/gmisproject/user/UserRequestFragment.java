@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gmisproject.Employee;
 import com.example.gmisproject.R;
+import com.example.gmisproject.UsersRequests;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,10 +35,9 @@ public class UserRequestFragment extends Fragment {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("request");
+        final DatabaseReference myRef = database.getReference("Requests");
 
        // myRef.setValue("Hello, World!");
-
 
         final TextInputLayout fullName = rootView.findViewById(R.id.edit_full_name);
         final TextInputLayout userMail = rootView.findViewById(R.id.edit_user_mail);
@@ -46,6 +46,7 @@ public class UserRequestFragment extends Fragment {
         final TextInputLayout phoneNumber = rootView.findViewById(R.id.edit_phone_number);
 
 
+        final UsersRequests usersRequests = new UsersRequests();
 
         Button btn = rootView.findViewById(R.id.button_send);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +61,20 @@ public class UserRequestFragment extends Fragment {
                 String homenumber = homeNumber.getEditText().getText().toString();
                 String phonenumber = phoneNumber.getEditText().getText().toString();
 
-                myRef.child("Full Name").setValue(fullname);
+                usersRequests.setFull_name(fullname);
+                usersRequests.setEmail(usermail);
+                usersRequests.setAddress(address);
+                usersRequests.setHome_number(homenumber);
+                usersRequests.setPhone_number(phonenumber);
+
+                myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
+
+               /* myRef.child("Full Name").setValue(fullname);
                 myRef.child(("User Mail")).setValue(usermail);
                 myRef.child(("Address")).setValue(address);
                 myRef.child(("Home Number")).setValue(homenumber);
                 myRef.child("Phone Number").setValue(phonenumber);
-
-
+                */
             }
         });
 
