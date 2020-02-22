@@ -7,6 +7,6 @@
     <color name="sign_up_color_white">#ffffff</color>
     <color name="sign_up_color_blue">#0D47A1</color>
 
-    <color name="NormalRate">#FDD835</color>
-    <color name="ActivatedRate">#FFC922</color>
+    <color name="NormalRate">#073861</color>
+    <color name="ActivatedRate">#0064A8</color>
 </resources>
