@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +24,15 @@ public class Sign_up extends AppCompatActivity {
     Button buttonSignUp;
     Users users;
     String string;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        radioGroup = findViewById(R.id.radio_group_user_type);
 
         TextView signIn = findViewById(R.id.text_view_sign_in);
 
@@ -86,6 +91,10 @@ public class Sign_up extends AppCompatActivity {
             }
         });
 
-
+    }
+    public void checkButton (View view){
+        int radioId=radioGroup.getCheckedRadioButtonId();
+        radioButton=findViewById(radioId);
+        Toast.makeText(this,"نوع الحساب: "+radioButton.getText(),Toast.LENGTH_SHORT).show();
     }
 }
