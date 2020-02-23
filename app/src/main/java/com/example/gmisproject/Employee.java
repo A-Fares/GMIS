@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gmisproject.user.UserBinFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -24,9 +23,11 @@ public class Employee extends AppCompatActivity {
     AlertDialog alertDialog;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private float ratingCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ratingCount = 2f;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
@@ -59,8 +60,6 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAlertDialog(R.layout.bottomsheet);
-
-
             }
         });
     }
@@ -80,13 +79,11 @@ public class Employee extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+        // Get the rating bar object from the LinearLayout, and set its rating to the stored value.
+        RatingBar ratingBar = layoutView.findViewById(R.id.rating_bar_result);
+        ratingBar.setRating(ratingCount);
     }
 
-    public void setRating()
-    {
-        RatingBar ratingBar = findViewById(R.id.rating_bar_result);
-        ratingBar.setRating(UserBinFragment.rating_bin);
-
-    }
-
+ 
 }

@@ -46,7 +46,6 @@ public class UserBinFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Your Rate is " + String.valueOf(rating) + " !",Toast.LENGTH_SHORT).show();
             }
         });
-
         return rootView;
     }
 
