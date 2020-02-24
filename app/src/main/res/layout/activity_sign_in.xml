@@ -26,14 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textDirection="rtl"
-                app:counterEnabled="true"
-                app:counterMaxLength="10">
+                app:counterMaxLength="10"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/monadi"
-                    android:hint="@string/username_hint"
+                    android:hint="@string/e_mail_hint"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>

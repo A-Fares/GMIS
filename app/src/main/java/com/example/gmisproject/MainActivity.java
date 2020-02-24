@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.trash);
         tabLayout.getTabAt(1).setIcon(R.drawable.req1);
         tabLayout.getTabAt(2).setIcon(R.drawable.msg);
+        onBackPressed();
 
     }
 

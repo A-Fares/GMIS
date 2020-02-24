@@ -10,7 +10,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,8 +25,9 @@ public class Sign_in extends AppCompatActivity {
 
     TextView signUp;
     Button buttonSignIn;
-    TextInputLayout editTextUsername, editTextPassword;
-    String string;
+    TextInputLayout editTextEmail, editTextPassword;
+    FirebaseAuth firebaseAuth;
+
 
 
     @Override
@@ -30,56 +35,56 @@ public class Sign_in extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        editTextUsername = findViewById(R.id.edit_text_username_sign_in);
+        editTextEmail = findViewById(R.id.edit_text_username_sign_in);
         editTextPassword = findViewById(R.id.edit_text_password_sign_in);
         buttonSignIn = findViewById(R.id.btn_sign_in);
         signUp = findViewById(R.id.text_view_sign_up);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Users");
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Sign_in.this, MainActivity.class);
+                Intent intent = new Intent(Sign_in.this, Sign_up.class);
                 startActivity(intent);
             }
         });
 
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            String password;
+        firebaseAuth=FirebaseAuth.getInstance();
 
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = editTextUsername.getEditText().getText().toString();
-                password = editTextPassword.getEditText().getText().toString();
+                String email=editTextEmail.getEditText().getText().toString().trim();
+                String password=editTextPassword.getEditText().getText().toString().trim();
 
+                if (email.isEmpty()){
+                    editTextEmail.setError("Enter your email");
+                    editTextEmail.requestFocus();
+                    return;
+                }
+                if (password.isEmpty()){
+                    editTextPassword.setError("Enter your password");
+                    editTextPassword.requestFocus();
+                    return;
+                }
 
-                myRef.child(username).addValueEventListener(new ValueEventListener() {
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        Users users = dataSnapshot.getValue(Users.class);
-                        if (password.equals(users.getPassword())) {
-                            Toast.makeText(Sign_in.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Sign_in.this, MainActivity.class);
-                            string=editTextUsername.getEditText().getText().toString();
-                            intent.putExtra("UserName",string);
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(Sign_in.this,Employee.class);
                             startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(Sign_in.this, "Enter correct password", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        else {
+                            Toast.makeText(getApplicationContext(), "Login Unsuccess", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
             }
-
         });
+
+
     }
 }

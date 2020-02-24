@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,10 +24,17 @@ public class Sign_up extends AppCompatActivity {
 
     TextInputLayout editTextUsername, editTextEmail, editTextPassword, editTextConfirmPassword;
     Button buttonSignUp;
-    Users users;
-    String string;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    FirebaseAuth firebaseAuth;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (firebaseAuth.getCurrentUser() != null) {
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,8 @@ public class Sign_up extends AppCompatActivity {
 
             }
         });
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Users");
 
@@ -54,47 +65,74 @@ public class Sign_up extends AppCompatActivity {
         editTextConfirmPassword = findViewById(R.id.edit_text_confirm_password_sign_up);
         buttonSignUp = findViewById(R.id.btn_sign_up);
 
-        users = new Users();
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String username = editTextUsername.getEditText().getText().toString();
-                String email = editTextEmail.getEditText().getText().toString();
-                String password = editTextPassword.getEditText().getText().toString();
+                final String username = editTextUsername.getEditText().getText().toString();
+                final String email = editTextEmail.getEditText().getText().toString();
+                final String password = editTextPassword.getEditText().getText().toString();
+                final String confirmPassword = editTextConfirmPassword.getEditText().getText().toString();
 
-                buttonSignUp.setOnClickListener(new View.OnClickListener() {
+
+                if (username.isEmpty()) {
+                    editTextUsername.setError("name required");
+                    editTextUsername.requestFocus();
+                    return;
+                }
+                if (email.isEmpty()) {
+                    editTextEmail.setError("email required");
+                    editTextEmail.requestFocus();
+                    return;
+                }
+                if (password.isEmpty()) {
+                    editTextPassword.setError("password required");
+                    editTextPassword.requestFocus();
+                    return;
+                }
+                if (!(confirmPassword.equals(password))){
+                    editTextConfirmPassword.setError("password not match");
+                    editTextConfirmPassword.requestFocus();
+                    return;
+                }
+
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onClick(View v) {
-                        users.setUsername(editTextUsername.getEditText().getText().toString());
-                        users.setEmail(editTextEmail.getEditText().getText().toString());
-                        users.setPassword(editTextPassword.getEditText().getText().toString());
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Users users = new Users(username, email, password);
 
-                        myRef.child(users.getUsername()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Sign_up.this, MainActivity.class);
-                                    string = editTextUsername.getEditText().getText().toString();
-                                    intent.putExtra("UserName", string);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(Sign_up.this, "Failed...", Toast.LENGTH_SHORT).show();
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
+                                    } else {
+
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                            Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Sign_up.this, Employee.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(Sign_up.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
         });
 
     }
-    public void checkButton (View view){
-        int radioId=radioGroup.getCheckedRadioButtonId();
-        radioButton=findViewById(radioId);
-        Toast.makeText(this,"نوع الحساب: "+radioButton.getText(),Toast.LENGTH_SHORT).show();
+
+    public void checkButton(View view) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        Toast.makeText(this, "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 }

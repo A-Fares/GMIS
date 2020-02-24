@@ -17,10 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/aniq"
         android:text="@string/sign_up"
         android:textColor="@color/sign_up_color_white"
         android:textSize="25dp"
-        android:fontFamily="@font/aniq"
         android:textStyle="bold" />
 
 
@@ -121,8 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_text_confirm_password_sign_up"
-                android:orientation="horizontal"
                 android:layout_marginTop="15dp"
+                android:orientation="horizontal"
                 android:paddingHorizontal="50dp">
 
                 <RadioButton
@@ -131,8 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="عامل"
-                    android:onClick="checkButton"/>
+                    android:onClick="checkButton"
+                    android:text="عامل" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_user"
@@ -140,9 +140,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:text="عميل"
                     android:checked="true"
-                    android:onClick="checkButton"/>
+                    android:onClick="checkButton"
+                    android:text="عميل" />
 
 
             </RadioGroup>
