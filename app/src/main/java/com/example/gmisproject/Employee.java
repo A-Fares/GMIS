@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,13 +68,13 @@ public class Employee extends AppCompatActivity {
     private void showAlertDialog(int layout) {
         dialogBuilder = new AlertDialog.Builder(Employee.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
-        Button dialogButton = layoutView.findViewById(R.id.close);
+        CardView dialogClose = layoutView.findViewById(R.id.close);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        dialogClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
