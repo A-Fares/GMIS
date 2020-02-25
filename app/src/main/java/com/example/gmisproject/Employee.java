@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -68,7 +69,7 @@ public class Employee extends AppCompatActivity {
     private void showAlertDialog(int layout) {
         dialogBuilder = new AlertDialog.Builder(Employee.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
-        CardView dialogClose = layoutView.findViewById(R.id.close);
+        ImageView dialogClose = layoutView.findViewById(R.id.close);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;

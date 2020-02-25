@@ -60,5 +60,10 @@
         <item name="colorControlActivated">@color/ActivatedRate</item>
     </style>
 
+    <style name="RatingBarEmployee" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/NormalRate</item>
+        <item name="colorControlActivated">@color/ActivatedRateEmployee</item>
+    </style>
+
 
 </resources>
