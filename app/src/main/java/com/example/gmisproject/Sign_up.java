@@ -118,8 +118,11 @@ public class Sign_up extends AppCompatActivity {
                             });
 
                             Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Sign_up.this, Employee.class);
+                            Intent intent = new Intent(Sign_up.this, MainActivity.class);
+                            String string = email.substring(0,email.indexOf("@"));
+                            intent.putExtra("UserName", string);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(Sign_up.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

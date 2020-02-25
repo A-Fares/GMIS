@@ -54,7 +54,7 @@ public class Sign_in extends AppCompatActivity {
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=editTextEmail.getEditText().getText().toString().trim();
+                final String email=editTextEmail.getEditText().getText().toString().trim();
                 String password=editTextPassword.getEditText().getText().toString().trim();
 
                 if (email.isEmpty()){
@@ -72,12 +72,15 @@ public class Sign_in extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(Sign_in.this,Employee.class);
+                            Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(Sign_in.this,MainActivity.class);
+                            String string = email.substring(0,email.indexOf("@"));
+                            intent.putExtra("UserName", string);
                             startActivity(intent);
+                            finish();
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Login Unsuccess", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "UnSuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
