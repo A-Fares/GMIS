@@ -49,7 +49,7 @@ public class Sign_up extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Sign_up.this, Sign_in.class);
+                Intent intent = new Intent(Sign_up.this, Registeration.class);
                 startActivity(intent);
 
             }
