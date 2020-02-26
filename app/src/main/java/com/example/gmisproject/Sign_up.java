@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Sign_up extends AppCompatActivity {
 
     TextInputLayout editTextUsername, editTextEmail, editTextPassword, editTextConfirmPassword;
-    Button buttonSignUp;
+    Button buttonSignUp,buttonSignIn;
     RadioGroup radioGroup;
     RadioButton radioButton;
     FirebaseAuth firebaseAuth;
@@ -43,9 +43,9 @@ public class Sign_up extends AppCompatActivity {
 
         radioGroup = findViewById(R.id.radio_group_user_type);
 
-        TextView signIn = findViewById(R.id.text_view_sign_in);
+        buttonSignIn = findViewById(R.id.btn_sign_in);
 
-        signIn.setOnClickListener(new View.OnClickListener() {
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -59,10 +59,10 @@ public class Sign_up extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Users");
 
-        editTextUsername = findViewById(R.id.edit_text_username_sign_up);
-        editTextEmail = findViewById(R.id.edit_text_email_sign_up);
-        editTextPassword = findViewById(R.id.edit_text_password_sign_up);
-        editTextConfirmPassword = findViewById(R.id.edit_text_confirm_password_sign_up);
+        editTextUsername = findViewById(R.id.inputLayout_username);
+        editTextEmail = findViewById(R.id.inputLayout_email);
+        editTextPassword = findViewById(R.id.inputLayout_password);
+        editTextConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
 
         firebaseAuth = FirebaseAuth.getInstance();

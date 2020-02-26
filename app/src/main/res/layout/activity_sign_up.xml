@@ -1,182 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/signup_bg"
-    android:fitsSystemWindows="true"
-    android:scrollbarThumbVertical="@null">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:padding="26dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/aniq"
+        android:text=" GMIS "
+        android:textColor="#041A88"
+        android:textSize="38sp"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/sign_up_logo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/aniq"
-            android:text="@string/sign_up"
-            android:textColor="@color/sign_up_color_white"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView_title">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:paddingHorizontal="26dp"
-            android:layout_marginTop="70dp">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_username_sign_up"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textDirection="rtl"
-                app:counterEnabled="true"
-                app:counterMaxLength="10">
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="15dp"
+                app:contentPadding="18dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/monadi"
-                    android:hint="@string/username_hint"
-                    android:inputType="text"
-                    android:paddingRight="20dp" />
+                    android:orientation="vertical"
+                    android:paddingBottom="50dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayout_username"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textDirection="rtl"
+                        app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_email_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_text_username_sign_up"
-                android:textDirection="rtl"
-                app:counterMaxLength="10"
-                app:errorEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/monadi"
+                            android:hint="اسم المستخدم"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/monadi"
-                    android:hint="@string/e_mail_hint"
-                    android:inputType="textEmailAddress"
-                    android:paddingRight="20dp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayout_email"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textDirection="rtl"
+                        app:errorEnabled="true">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/monadi"
+                            android:hint="البريد الاإلكتروني"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_password_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_text_email_sign_up"
-                android:layoutDirection="rtl"
-                android:textDirection="rtl"
-                app:counterMaxLength="10"
-                app:errorEnabled="true"
-                app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayout_password"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="rtl"
+                        android:textDirection="rtl"
+                        app:counterMaxLength="10"
+                        app:errorEnabled="true"
+                        app:passwordToggleEnabled="true">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/monadi"
-                    android:hint="@string/password_hint"
-                    android:inputType="textPassword"
-                    android:paddingRight="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/monadi"
+                            android:hint="كلمة السر"
+                            android:inputType="textPassword"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="20dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_confirm_password_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_text_password_sign_up"
-                android:layoutDirection="rtl"
-                android:textDirection="rtl"
-                app:counterMaxLength="10"
-                app:errorEnabled="true"
-                app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayout_confirmPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="rtl"
+                        android:textDirection="rtl"
+                        app:counterMaxLength="10"
+                        app:errorEnabled="true"
+                        app:passwordToggleEnabled="true">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/monadi"
-                    android:hint="@string/confirm_password_hint"
-                    android:inputType="textPassword"
-                    android:paddingRight="20dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <RadioGroup
-                android:id="@+id/radio_group_user_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_text_confirm_password_sign_up"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="50dp">
-
-                <RadioButton
-                    android:id="@+id/radio_btn_worker"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:onClick="checkButton"
-                    android:text="عامل" />
-
-                <RadioButton
-                    android:id="@+id/radio_btn_user"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:onClick="checkButton"
-                    android:text="عميل" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/monadi"
+                            android:hint="تأكيد كلمة السر"
+                            android:inputType="textPassword"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="20dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-            </RadioGroup>
+                    <RadioGroup
+                        android:id="@+id/radio_group_user_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="50dp">
 
-            <Button
-                android:id="@+id/btn_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/radio_group_user_type"
-                android:layout_marginHorizontal="56sp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/sign_up_button"
-                android:fontFamily="@font/aniq"
-                android:text="@string/sign_up_button"
-                android:textColor="@color/sign_up_color_white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                        <RadioButton
+                            android:id="@+id/radio_btn_worker"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:onClick="checkButton"
+                            android:text="عامل" />
 
-            <TextView
-                android:id="@+id/text_view_sign_in"
+                        <RadioButton
+                            android:id="@+id/radio_btn_user"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:onClick="checkButton"
+                            android:text="عميل" />
+
+                    </RadioGroup>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_sign_up"
+                android:layout_below="@+id/card_view"
+                android:layout_alignStart="@+id/card_view"
+                android:layout_alignRight="@+id/card_view"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginRight="35dp"
+                android:elevation="10dp">
+
+                <Button
+                    android:id="@+id/btn_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_login_background"
+                    android:fontFamily="@font/aniq"
+                    android:text="تسجيل"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_view"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/monadi"
+                android:text="أو"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/login_icons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_or"
+                android:paddingHorizontal="20dp">
+
+                <ImageView
+                    android:id="@+id/facebook_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_facebook" />
+
+                <ImageView
+                    android:id="@+id/gmail_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_google" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_icons"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_signup_bottomsheet"
                 android:fontFamily="@font/aniq"
-                android:text="@string/sign_in"
-                android:textColor="@color/sign_up_color_blue"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="تسجيل دخول"
+                android:textColor="#043488"
+                android:textSize="20sp" />
 
         </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>
