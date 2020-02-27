@@ -2,6 +2,7 @@ package com.example.gmisproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -22,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Sign_up extends AppCompatActivity {
 
-    TextInputLayout editTextUsername, editTextEmail, editTextPassword, editTextConfirmPassword;
+    TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
     Button buttonSignUp,buttonSignIn;
     RadioGroup radioGroup;
     RadioButton radioButton;
@@ -42,16 +43,13 @@ public class Sign_up extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         radioGroup = findViewById(R.id.radio_group_user_type);
-
         buttonSignIn = findViewById(R.id.btn_sign_in);
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Sign_up.this, Registeration.class);
                 startActivity(intent);
-
             }
         });
 
@@ -59,10 +57,10 @@ public class Sign_up extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Users");
 
-        editTextUsername = findViewById(R.id.inputLayout_username);
-        editTextEmail = findViewById(R.id.inputLayout_email);
-        editTextPassword = findViewById(R.id.inputLayout_password);
-        editTextConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
+        inputLayoutUsername = findViewById(R.id.inputLayout_username);
+        inputLayoutEmail = findViewById(R.id.inputLayout_email);
+        inputLayoutPassword = findViewById(R.id.inputLayout_password);
+        inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -72,30 +70,35 @@ public class Sign_up extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String username = editTextUsername.getEditText().getText().toString();
-                final String email = editTextEmail.getEditText().getText().toString();
-                final String password = editTextPassword.getEditText().getText().toString();
-                final String confirmPassword = editTextConfirmPassword.getEditText().getText().toString();
+                final String username = inputLayoutUsername.getEditText().getText().toString();
+                final String email = inputLayoutEmail.getEditText().getText().toString();
+                final String password = inputLayoutPassword.getEditText().getText().toString();
+                final String confirmPassword = inputLayoutConfirmPassword.getEditText().getText().toString();
 
 
                 if (username.isEmpty()) {
-                    editTextUsername.setError("name required");
-                    editTextUsername.requestFocus();
+                    inputLayoutUsername.setError("برجاء ادخال اسم المستخدم");
+                    inputLayoutUsername.requestFocus();
                     return;
                 }
                 if (email.isEmpty()) {
-                    editTextEmail.setError("email required");
-                    editTextEmail.requestFocus();
+                    inputLayoutEmail.setError("برجاء ادخال البريد الإلكتروني");
+                    inputLayoutEmail.requestFocus();
+                    return;
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    inputLayoutEmail.setError("ادخل بريد إلكتروني صحيح");
+                    inputLayoutEmail.requestFocus();
                     return;
                 }
                 if (password.isEmpty()) {
-                    editTextPassword.setError("password required");
-                    editTextPassword.requestFocus();
+                    inputLayoutPassword.setError("برجاء ادخال كلمة السر");
+                    inputLayoutPassword.requestFocus();
                     return;
                 }
                 if (!(confirmPassword.equals(password))){
-                    editTextConfirmPassword.setError("password not match");
-                    editTextConfirmPassword.requestFocus();
+                    inputLayoutConfirmPassword.setError("كلمة السر غير متطابقة");
+                    inputLayoutConfirmPassword.requestFocus();
                     return;
                 }
 
@@ -111,8 +114,6 @@ public class Sign_up extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Sign_up.this, "User created...", Toast.LENGTH_SHORT).show();
-                                    } else {
-
                                     }
                                 }
                             });
