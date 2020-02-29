@@ -39,11 +39,11 @@ public class UserRequestFragment extends Fragment {
 
        // myRef.setValue("Hello, World!");
 
-        final TextInputLayout fullName = rootView.findViewById(R.id.edit_full_name);
-        final TextInputLayout userMail = rootView.findViewById(R.id.edit_user_mail);
-        final TextInputLayout  Address = rootView.findViewById(R.id.edit_address);
-        final TextInputLayout homeNumber = rootView.findViewById(R.id.edit_home_number);
-        final TextInputLayout phoneNumber = rootView.findViewById(R.id.edit_phone_number);
+        final TextInputLayout fullName = rootView.findViewById(R.id.textinput_use_fullName);
+        final TextInputLayout userMail = rootView.findViewById(R.id.textinput_user_email);
+        final TextInputLayout  Address = rootView.findViewById(R.id.textinput_user_address);
+        final TextInputLayout binNumber = rootView.findViewById(R.id.textinput_user_binNumber);
+        final TextInputLayout phoneNumber = rootView.findViewById(R.id.textinput_user_phone);
 
 
         final UsersRequests usersRequests = new UsersRequests();
@@ -58,13 +58,13 @@ public class UserRequestFragment extends Fragment {
                 String fullname = fullName.getEditText().getText().toString();
                 String usermail = userMail.getEditText().getText().toString();
                 String address = Address.getEditText().getText().toString();
-                String homenumber = homeNumber.getEditText().getText().toString();
+                String binNumbers = binNumber.getEditText().getText().toString();
                 String phonenumber = phoneNumber.getEditText().getText().toString();
 
                 usersRequests.setFull_name(fullname);
                 usersRequests.setEmail(usermail);
                 usersRequests.setAddress(address);
-                usersRequests.setHome_number(homenumber);
+                usersRequests.setHome_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
 
                 myRef.child(usersRequests.getFull_name()).setValue(usersRequests);

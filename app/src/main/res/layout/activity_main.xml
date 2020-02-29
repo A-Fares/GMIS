@@ -40,23 +40,23 @@
         android:layout_below="@+id/textView_userName"
         android:layout_gravity="center_horizontal"
         android:layout_margin="25dp"
-        app:tabIndicatorColor="#FFFFFF"
+        app:tabIndicatorColor="#04305D"
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="رسائل" />
+            android:icon="@drawable/msg" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="طلب" />
+            android:icon="@drawable/request" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="سلة" />
+            android:icon="@drawable/bin"  />
 
     </com.google.android.material.tabs.TabLayout>
 

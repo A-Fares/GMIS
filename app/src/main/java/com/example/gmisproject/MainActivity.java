@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         //   viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.trash);
-        tabLayout.getTabAt(1).setIcon(R.drawable.req1);
+        tabLayout.getTabAt(0).setIcon(R.drawable.bin);
+        tabLayout.getTabAt(1).setIcon(R.drawable.request);
         tabLayout.getTabAt(2).setIcon(R.drawable.msg);
         onBackPressed();
 
