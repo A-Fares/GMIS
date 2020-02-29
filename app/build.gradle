@@ -69,4 +69,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
         //Google Authenticate with Firebase
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
 }

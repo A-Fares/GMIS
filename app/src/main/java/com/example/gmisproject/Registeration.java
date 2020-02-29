@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -19,11 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Registeration extends AppCompatActivity {
     Button buttonSignUp, buttonSignIn;
-
+    static final int GOOGLE_SIGN_IN = 123;
+    private static final String TAG = "GoogleActivity";
     TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
     ImageView facebookLogin, gmailLogin;
     BottomSheetDialog bottomSheetDialog;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +55,14 @@ public class Registeration extends AppCompatActivity {
                 facebookLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(Registeration.this,Sign_up.class);
+                        Intent intent=new Intent(Registeration.this, SignUp.class);
                         startActivity(intent);
                     }
                 });
                 buttonSignUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Registeration.this,Sign_up.class);
+                        Intent intent = new Intent(Registeration.this, SignUp.class);
                         startActivity(intent);
                     }
                 });

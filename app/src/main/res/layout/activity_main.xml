@@ -1,63 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/user_background"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:background="#FFF"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/user_icon3" />
-
+        android:background="@drawable/toolbar_user" />
 
     <TextView
-        android:id="@+id/text_username"
+        android:id="@+id/textView_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/amin"
         android:text="@string/clint_name"
-        android:textColor="#fff"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/user_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="30dp"
+        android:src="@drawable/user_logo" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="180dp"
         android:layout_height="60dp"
+        android:layout_below="@+id/textView_userName"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/tab_shape"
+        android:layout_margin="25dp"
+        app:tabIndicatorColor="#FFFFFF"
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/trash" />
+            android:text="رسائل" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/req1" />
+            android:text="طلب" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/msg" />
+            android:text="سلة" />
 
     </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@+id/header" />
 
-</LinearLayout>
+
+</RelativeLayout>
