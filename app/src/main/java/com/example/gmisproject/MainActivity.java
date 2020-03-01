@@ -3,6 +3,9 @@ package com.example.gmisproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private static boolean backPressedTime;
     TextView textViewUsername;
     String string;
-
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,4 +86,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
     }
+
+
 }

@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRequestFragment extends Fragment {
 
-
+    RadioGroup radioGroup;
+    RadioButton radioButton;
+    View rootView;
     public UserRequestFragment() {
         // Required empty public constructor
     }
@@ -31,7 +36,7 @@ public class UserRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_user_reqest, container, false);
+        rootView = inflater.inflate(R.layout.activity_user_reqest, container, false);
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,9 +80,19 @@ public class UserRequestFragment extends Fragment {
                 myRef.child(("Home Number")).setValue(homenumber);
                 myRef.child("Phone Number").setValue(phonenumber);
                 */
+
             }
         });
 
+        final RadioGroup radioGroup =rootView.findViewById(R.id.radio_group_cost_type);
+        radioGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int radioId = radioGroup.getCheckedRadioButtonId();
+                radioButton = rootView.findViewById(radioId);
+              //  Toast.makeText(UserRequestFragment.this.getActivity().getApplicationContext(), "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootView;
     }
 

@@ -21,6 +21,14 @@
         android:textSize="38sp"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progress_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="30dp" />
+
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -37,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp"
-                app:cardElevation="4dp"
                 app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
                 app:contentPadding="18dp">
 
                 <LinearLayout

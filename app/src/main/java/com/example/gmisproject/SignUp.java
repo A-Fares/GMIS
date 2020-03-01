@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class SignUp extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ImageView googleSignUp;
     GoogleSignInClient mGoogleSignInClient;
+    ProgressBar progressBarLoading;
 
     @Override
     protected void onStart() {
@@ -62,6 +64,7 @@ public class SignUp extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.inputLayout_password);
         inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
+        progressBarLoading = findViewById(R.id.progress_loading);
 
 
         //get instance from firebase
@@ -162,7 +165,8 @@ public class SignUp extends AppCompatActivity {
         Toast.makeText(this, "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
-    private void SignInGoogle() {
+    void SignInGoogle() {
+        progressBarLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
@@ -194,12 +198,14 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    progressBarLoading.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "Firebase Success", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     Intent intent = new Intent(SignUp.this, MainActivity.class);
                     startActivity(intent);
                     updateUI(user);
                 } else {
+                    progressBarLoading.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "Firebase Failed", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
