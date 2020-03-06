@@ -5,66 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    card_view:cardBackgroundColor="#F4F6F6"
+    card_view:cardBackgroundColor="#FCFFFF"
     card_view:cardCornerRadius="30dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp">
 
         <ProgressBar
-            android:id="@+id/progress_bin_public"
+            android:id="@+id/progress_bin"
             style="?android:progressBarStyleHorizontal"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:indeterminateDrawable="@drawable/progress_public_employee_bin"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:indeterminateDrawable="@drawable/progress_employee_bin"
             android:max="100"
             android:progress="70"
-            android:progressDrawable="@drawable/progress_public_employee_bin"
+            android:progressDrawable="@drawable/progress_employee_bin"
             android:secondaryProgress="100" />
 
+
         <TextView
-            android:id="@+id/bin_number_data"
+            android:id="@+id/bin_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/progress_bin_public"
+            android:layout_below="@+id/progress_bin"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/monadi"
             android:text="15"
             android:textColor="#000"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
+
 
         <TextView
-            android:id="@+id/bin_status_data"
+            android:id="@+id/client_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bin_number_data"
+            android:layout_below="@+id/bin_id"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/monadi"
-            android:text="لا تعمل"
+            android:text="كومباوند التجمع الخامس"
             android:textColor="#000"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/button_clean"
+            android:id="@+id/bin_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bin_status_data"
+            android:layout_below="@+id/client_address"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="@font/amin"
-            android:text="تفريغ"
+            android:text="تعمل"
             android:textColor="#E60039"
-            android:textSize="11sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

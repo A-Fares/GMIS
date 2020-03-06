@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GMIS </string>
 
-    <string name="clint_name">أحمد فارس</string>
+    <string name="clint_name">Ahmed Fares</string>
     <string name="full_name">الاسم بالكامل</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="address">العنوان</string>
