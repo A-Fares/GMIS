@@ -41,6 +41,16 @@ public class EmpBinAdapter extends RecyclerView.Adapter<EmpBinAdapter.EmpBinHold
         return empBins.size();
     }
 
+    private OnItemClickListener mlistener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mlistener = listener;
+    }
+
     public class EmpBinHolder extends RecyclerView.ViewHolder {
         public ProgressBar binPercentage;
         public TextView binId;
@@ -53,6 +63,18 @@ public class EmpBinAdapter extends RecyclerView.Adapter<EmpBinAdapter.EmpBinHold
             binStatus = itemView.findViewById(R.id.bin_status);
             binPercentage = itemView.findViewById(R.id.progress_bin);
             clientAddress = itemView.findViewById(R.id.client_address);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mlistener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            mlistener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
