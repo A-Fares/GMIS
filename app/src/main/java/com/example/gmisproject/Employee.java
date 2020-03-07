@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,8 +80,8 @@ public class Employee extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new EmpBinAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //  Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Employee.this,MapActivity.class);
+              //  Toast.makeText(Employee.this, "hello b", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Employee.this , MapActivity.class);
                 startActivity(intent);
             }
         });
