@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_trash_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".explicit_star_activity"></activity>
         <activity
             android:name=".Registeration"
             android:theme="@style/AppTheme.FullScreen">
@@ -26,9 +27,7 @@
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".SignUp"
-            android:screenOrientation="fullSensor">
-
-        </activity>
+            android:screenOrientation="fullSensor"></activity>
     </application>
 
 </manifest>

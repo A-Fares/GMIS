@@ -20,17 +20,30 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/amin"
-        android:text="@string/clint_name"
+        android:text="احمد فارس"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/image_view_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_alignParentEnd="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/golden_star" />
 
     <ImageView
         android:id="@+id/user_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/user_logo" />
 
     <com.google.android.material.tabs.TabLayout
@@ -65,6 +78,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_exit_to_app_black_24dp"
+        app:fabSize="normal"
+        android:backgroundTint="@color/sign_up_color_blue"
+        android:elevation="6dp"
+
+
+        />
+
 
 
 </RelativeLayout>

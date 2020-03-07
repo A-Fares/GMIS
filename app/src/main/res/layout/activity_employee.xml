@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_margin="15dp"
+        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/sign_out" />
 
     <ImageView

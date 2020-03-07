@@ -1,9 +1,12 @@
 package com.example.gmisproject;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.gmisproject.user.UserFragmentAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +34,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Set id for Textview
+        ImageView imageView = findViewById(R.id.image_view_star);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,explicit_star_activity.class);
+                startActivity(intent);
+
+            }
+        });
+        FloatingActionButton floatingbutton = findViewById(R.id.floating_button);
+        floatingbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog =new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialogalert);
+                dialog.setCancelable(false);
+                dialog.show();
+                Button btn_yes = dialog.findViewById(R.id.btn_yes);
+                Button btn_no = dialog.findViewById(R.id.btn_no);
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+
+                    }
+                });
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
 
         textViewUsername = findViewById(R.id.textView_userName);
 

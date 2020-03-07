@@ -1,6 +1,10 @@
 package com.example.gmisproject;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +28,32 @@ public class Employee extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
+        ImageView signout = findViewById(R.id.sign_out);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog =new Dialog(Employee.this);
+                dialog.setContentView(R.layout.dialogalert);
+                dialog.setCancelable(false);
+                dialog.show();
+                Button btn_yes = dialog.findViewById(R.id.btn_yes);
+                Button btn_no = dialog.findViewById(R.id.btn_no);
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+
+                    }
+                });
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
 
 
         ArrayList<EmpBin> empBins = new ArrayList<EmpBin>();
