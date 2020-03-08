@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".explicit_star_activity"></activity>
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapActivity"
+            android:parentActivityName=".Employee"
+            ></activity>
         <activity
             android:name=".Registeration"
             android:theme="@style/AppTheme.FullScreen">
