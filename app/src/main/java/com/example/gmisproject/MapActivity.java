@@ -19,7 +19,7 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               startActivity(getParentActivityIntent());
-              
+
             }
         });
     }

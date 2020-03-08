@@ -70,7 +70,7 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setFull_name(fullname);
                 usersRequests.setEmail(usermail);
                 usersRequests.setAddress(address);
-                usersRequests.setHome_number(binNumbers);
+                usersRequests.setBin_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
 
              //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
@@ -84,12 +84,12 @@ public class UserRequestFragment extends Fragment {
 
 
 
-               /* myRef.child("Full Name").setValue(fullname);
-                myRef.child(("User Mail")).setValue(usermail);
-                myRef.child(("Address")).setValue(address);
-                myRef.child(("Home Number")).setValue(homenumber);
-                myRef.child("Phone Number").setValue(phonenumber);
-                */
+
+
+
+
+
+
 
             }
         });

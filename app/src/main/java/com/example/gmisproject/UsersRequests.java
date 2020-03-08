@@ -5,17 +5,17 @@ public class UsersRequests {
     private String full_name ;
     private String email ;
     private String address ;
-    private String home_number ;
+    private String bin_number ;
     private String phone_number ;
 
     public UsersRequests() {
     }
 
-    public UsersRequests(String full_name, String email, String address, String home_number, String phone_number) {
+    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number) {
         this.full_name = full_name;
         this.email = email;
         this.address = address;
-        this.home_number = home_number;
+        this.bin_number = bin_number;
         this.phone_number = phone_number;
     }
 
@@ -31,8 +31,8 @@ public class UsersRequests {
         this.address = address;
     }
 
-    public void setHome_number(String home_number) {
-        this.home_number = home_number;
+    public void setBin_number(String bin_number) {
+        this.bin_number = bin_number;
     }
 
     public void setPhone_number(String phone_number) {
@@ -51,8 +51,8 @@ public class UsersRequests {
         return address;
     }
 
-    public String getHome_number() {
-        return home_number;
+    public String getBin_number() {
+        return bin_number;
     }
 
     public String getPhone_number() {
