@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean backPressedTime;
     TextView textViewUsername;
-    String string;
+    static String string;
     RadioGroup radioGroup;
     RadioButton radioButton;
 
