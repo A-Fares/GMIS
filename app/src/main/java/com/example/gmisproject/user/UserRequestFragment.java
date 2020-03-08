@@ -19,6 +19,7 @@ import com.example.gmisproject.Employee;
 import com.example.gmisproject.R;
 import com.example.gmisproject.UsersRequests;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -72,7 +73,16 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setHome_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
 
-                myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
+             //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
+
+                FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .setValue(usersRequests);
+
+
+
+
+
+
 
                /* myRef.child("Full Name").setValue(fullname);
                 myRef.child(("User Mail")).setValue(usermail);
