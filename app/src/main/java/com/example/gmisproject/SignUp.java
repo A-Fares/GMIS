@@ -42,6 +42,7 @@ public class SignUp extends AppCompatActivity {
     ImageView googleSignUp;
     GoogleSignInClient mGoogleSignInClient;
     ProgressBar progressBarLoading;
+    String type;
 
     @Override
     protected void onStart() {
@@ -65,6 +66,22 @@ public class SignUp extends AppCompatActivity {
         inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
         progressBarLoading = findViewById(R.id.progress_loading);
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = radioGroup.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.radio_btn_user:
+                        type = radioButton.getText().toString();
+                        break;
+                    case R.id.radio_btn_worker:
+                        type = radioButton.getText().toString();
+                        break;
+                }
+            }
+        });
 
 
         //get instance from firebase
@@ -125,7 +142,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Users users = new Users(username, email, password);
+                            Users users = new Users(username, email, type);
 
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,20 +153,16 @@ public class SignUp extends AppCompatActivity {
                                     }
                                 }
                             });
-
-                            Toast.makeText(SignUp.this, "User created...", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUp.this, MainActivity.class);
-                            String string = email.substring(0, email.indexOf("@"));
-                            intent.putExtra("UserName", string);
-                            startActivity(intent);
-                            finish();
+                            check();
                         } else {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }
         });
+
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +170,23 @@ public class SignUp extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    public void check() {
+        final String email = inputLayoutEmail.getEditText().getText().toString();
+        if (type.equals("عميل")) {
+            Toast.makeText(getApplicationContext(), "User Created...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SignUp.this, MainActivity.class);
+            String string = email.substring(0, email.indexOf("@"));
+            intent.putExtra("UserName", string);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SignUp.this, Employee.class);
+            startActivity(intent);
+        }
     }
 
     public void checkButton(View view) {

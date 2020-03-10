@@ -17,6 +17,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Registeration extends AppCompatActivity {
     Button buttonSignUp, buttonSignIn;
@@ -27,6 +32,8 @@ public class Registeration extends AppCompatActivity {
     ImageView facebookLogin, gmailLogin;
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
+    String type;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +62,11 @@ public class Registeration extends AppCompatActivity {
                 facebookLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(Registeration.this, SignUp.class);
+                        Intent intent = new Intent(Registeration.this, SignUp.class);
                         startActivity(intent);
                     }
                 });
+
                 buttonSignUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -73,6 +81,7 @@ public class Registeration extends AppCompatActivity {
                         final String email = editTextEmail.getEditText().getText().toString().trim();
                         String password = editTextPassword.getEditText().getText().toString().trim();
 
+
                         if (email.isEmpty()) {
                             editTextEmail.setError("Enter your email");
                             editTextEmail.requestFocus();
@@ -85,17 +94,13 @@ public class Registeration extends AppCompatActivity {
                         }
 
                         //get instance from firebase
+
                         firebaseAuth = FirebaseAuth.getInstance();
                         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                                    String string = email.substring(0, email.indexOf("@"));
-                                    intent.putExtra("UserName", string);
-                                    startActivity(intent);
-                                    finish();
+                                    check();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "UnSuccessful", Toast.LENGTH_SHORT).show();
                                 }
@@ -106,10 +111,45 @@ public class Registeration extends AppCompatActivity {
                     }
                 });
 
-
             }
         });
     }
+
+    public void check() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                type = dataSnapshot.getValue().toString().trim();
+                String email = editTextEmail.getEditText().getText().toString();
+                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
+                if (type.equals("عميل")) {
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    String string = email.substring(0, email.indexOf("@"));
+                    intent.putExtra("UserName", string);
+                    startActivity(intent);
+                    finish();
+                } else if (type.equals("عامل")) {
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Registeration.this, Employee.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 }
 
 

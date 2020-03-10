@@ -6,25 +6,26 @@ public class UsersRequests {
     private String email ;
     private String address ;
     private String bin_number ;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     private String phone_number ;
-    private String type;
+    private String payment;
 
-    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number, String type) {
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String type) {
+        this.payment = type;
+    }
+
+
+
+    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number, String payment) {
         this.full_name = full_name;
         this.email = email;
         this.address = address;
         this.bin_number = bin_number;
         this.phone_number = phone_number;
-        this.type = type;
+        this.payment = payment;
     }
 
 

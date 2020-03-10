@@ -26,7 +26,7 @@ public class UserRequestFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
     View rootView;
-    String type;
+    String payment;
 
     public UserRequestFragment() {
         // Required empty public constructor
@@ -61,10 +61,10 @@ public class UserRequestFragment extends Fragment {
                 radioButton = radioGroup.findViewById(checkedId);
                 switch (checkedId) {
                     case R.id.radio_btn_monthly:
-                        type = radioButton.getText().toString();
+                        payment = radioButton.getText().toString();
                         break;
                     case R.id.radio_btn_yearly:
-                        type = radioButton.getText().toString();
+                        payment = radioButton.getText().toString();
                         break;
                 }
             }
@@ -92,7 +92,7 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setPhone_number(phonenumber);
 
             */
-                UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, type);
+                UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, payment);
 
                 //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
 
