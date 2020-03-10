@@ -6,7 +6,27 @@ public class UsersRequests {
     private String email ;
     private String address ;
     private String bin_number ;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private String phone_number ;
+    private String type;
+
+    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number, String type) {
+        this.full_name = full_name;
+        this.email = email;
+        this.address = address;
+        this.bin_number = bin_number;
+        this.phone_number = phone_number;
+        this.type = type;
+    }
+
 
     public UsersRequests() {
     }

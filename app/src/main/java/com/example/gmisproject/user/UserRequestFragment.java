@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +26,8 @@ public class UserRequestFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
     View rootView;
+    String type;
+
     public UserRequestFragment() {
         // Required empty public constructor
     }
@@ -43,13 +42,33 @@ public class UserRequestFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Requests");
 
-       // myRef.setValue("Hello, World!");
+        // myRef.setValue("Hello, World!");
+
 
         final TextInputLayout fullName = rootView.findViewById(R.id.textinput_use_fullName);
         final TextInputLayout userMail = rootView.findViewById(R.id.textinput_user_email);
-        final TextInputLayout  Address = rootView.findViewById(R.id.textinput_user_address);
+        final TextInputLayout Address = rootView.findViewById(R.id.textinput_user_address);
         final TextInputLayout binNumber = rootView.findViewById(R.id.textinput_user_binNumber);
         final TextInputLayout phoneNumber = rootView.findViewById(R.id.textinput_user_phone);
+        radioGroup = rootView.findViewById(R.id.radio_group_cost_type);
+        radioButton = rootView.findViewById(R.id.radio_btn_monthly);
+        radioButton = rootView.findViewById(R.id.radio_btn_yearly);
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = radioGroup.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.radio_btn_monthly:
+                        type = radioButton.getText().toString();
+                        break;
+                    case R.id.radio_btn_yearly:
+                        type = radioButton.getText().toString();
+                        break;
+                }
+            }
+        });
 
 
         final UsersRequests usersRequests = new UsersRequests();
@@ -58,8 +77,7 @@ public class UserRequestFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Employee.class);
-                startActivity(intent);
+
 
                 String fullname = fullName.getEditText().getText().toString();
                 String usermail = userMail.getEditText().getText().toString();
@@ -67,40 +85,34 @@ public class UserRequestFragment extends Fragment {
                 String binNumbers = binNumber.getEditText().getText().toString();
                 String phonenumber = phoneNumber.getEditText().getText().toString();
 
-                usersRequests.setFull_name(fullname);
+           /*     usersRequests.setFull_name(fullname);
                 usersRequests.setEmail(usermail);
                 usersRequests.setAddress(address);
                 usersRequests.setBin_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
 
-             //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
+            */
+                UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, type);
+
+                //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
 
                 FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .setValue(usersRequests);
 
-
-
-
-
-
-
-
-
-
-
-
+                Intent intent = new Intent(getActivity(), Employee.class);
+                startActivity(intent);
 
 
             }
         });
 
-        final RadioGroup radioGroup =rootView.findViewById(R.id.radio_group_cost_type);
+        final RadioGroup radioGroup = rootView.findViewById(R.id.radio_group_cost_type);
         radioGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int radioId = radioGroup.getCheckedRadioButtonId();
                 radioButton = rootView.findViewById(radioId);
-              //  Toast.makeText(UserRequestFragment.this.getActivity().getApplicationContext(), "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(UserRequestFragment.this.getActivity().getApplicationContext(), "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;
