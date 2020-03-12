@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         textViewUsername = findViewById(R.id.textView_userName);
 
-        string = getIntent().getExtras().getString("UserName");
+     /*   string = getIntent().getExtras().getString("UserName");
         textViewUsername.setText(string);
-
+*/
 
         // Find the view pager that will allow the user to swipe between fragments
         ViewPager viewPager = findViewById(R.id.viewpager);

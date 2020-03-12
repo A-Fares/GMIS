@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_trash_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".explicit_star_activity"></activity>
-        <activity android:name=".MapActivity"
-            android:parentActivityName=".Employee"
-            ></activity>
+        <activity android:name=".User_or_Worker"></activity>
+        <activity android:name=".explicit_star_activity" />
+        <activity
+            android:name=".MapActivity"
+            android:parentActivityName=".Employee" />
         <activity
             android:name=".Registeration"
             android:theme="@style/AppTheme.FullScreen">
@@ -30,7 +31,7 @@
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".SignUp"
-            android:screenOrientation="fullSensor"></activity>
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

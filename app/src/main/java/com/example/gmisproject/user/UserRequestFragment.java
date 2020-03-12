@@ -23,10 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRequestFragment extends Fragment {
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    View rootView;
-    String payment;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private View rootView;
+    private String payment;
 
     public UserRequestFragment() {
         // Required empty public constructor
@@ -90,7 +90,6 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setAddress(address);
                 usersRequests.setBin_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
-
             */
                 UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, payment);
 

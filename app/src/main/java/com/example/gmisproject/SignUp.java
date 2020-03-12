@@ -221,7 +221,6 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -247,13 +246,14 @@ public class SignUp extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (account != null) {
             String personName = account.getDisplayName();
-            sendUserToWelcomeActivity(personName);
+            String personEmail=account.getEmail();
+            sendUserToWelcomeActivity(personName,personEmail);
         }
     }
 
-    private void sendUserToWelcomeActivity(String personName) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class)
-                .putExtra("UserName", personName));
+    private void sendUserToWelcomeActivity(String personName,String personEmail) {
+        startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
+                .putExtra("username", personName).putExtra("email",personEmail));
         this.finish();
     }
 }

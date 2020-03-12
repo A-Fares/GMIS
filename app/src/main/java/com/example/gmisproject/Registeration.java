@@ -24,9 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Registeration extends AppCompatActivity {
-    Button buttonSignUp, buttonSignIn;
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
+    Button buttonSignUp, buttonSignIn;
     TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
     ImageView facebookLogin, gmailLogin;
@@ -151,63 +151,3 @@ public class Registeration extends AppCompatActivity {
 
 
 }
-
-
-
-  /*  private void showButtomSheet(int layout) {
-        //define the items on bottom sheet layout
-        View layoutView = getLayoutInflater().inflate(layout, null);
-        editTextEmail = layoutView.findViewById(R.id.inputLayout_email);
-        editTextPassword = layoutView.findViewById(R.id.inputLayout_password);
-        buttonSignIn = layoutView.findViewById(R.id.btn_sign_in);
-        buttonSignUp = layoutView.findViewById(R.id.btn_signup);
-        facebookLogin=layoutView.findViewById(R.id.facebook_login);
-        gmailLogin=layoutView.findViewById(R.id.gmail_login);
-
-
-        //setting and inflating the bottom sheet
-        bottomSheetDialog = new BottomSheetDialog(Registeration.this);
-        bottomSheetDialog.setContentView(R.layout.bottomsheet_login);
-        bottomSheetDialog.setCanceledOnTouchOutside(false);
-        bottomSheetDialog.show();
-
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String email=editTextEmail.getEditText().getText().toString().trim();
-                String password=editTextPassword.getEditText().getText().toString().trim();
-
-                if (email.isEmpty()){
-                    editTextEmail.setError("Enter your email");
-                    editTextEmail.requestFocus();
-                    return;
-                }
-                if (password.isEmpty()){
-                    editTextPassword.setError("Enter your password");
-                    editTextPassword.requestFocus();
-                    return;
-                }
-
-                //get instance from firebase
-                firebaseAuth=FirebaseAuth.getInstance();
-                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(Registeration.this,MainActivity.class);
-                            String string = email.substring(0,email.indexOf("@"));
-                            intent.putExtra("UserName", string);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "UnSuccessful", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            }
-        });
-
-    }*/
