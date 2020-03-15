@@ -34,11 +34,27 @@ public class Registeration extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     String type;
     DatabaseReference ref;
+    SharedPreferencesConfig preferencesConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registeration);
+
+        // Reading Shared Preference User && Worker Login Status
+
+        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+
+        if (preferencesConfig.readUserLoginStatus()) {
+            Intent intent = new Intent(Registeration.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        if (preferencesConfig.readWorkerLoginStatus()) {
+            Intent intent = new Intent(Registeration.this, Employee.class);
+            startActivity(intent);
+            finish();
+        }
 
 
         buttonSignIn = findViewById(R.id.btn_sign_in_bottom);
@@ -103,11 +119,11 @@ public class Registeration extends AppCompatActivity {
                                     check();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "UnSuccessful", Toast.LENGTH_SHORT).show();
+                                    editTextEmail.getEditText().setText("");
+                                    editTextPassword.getEditText().setText("");
                                 }
                             }
                         });
-
-
                     }
                 });
 
@@ -129,11 +145,16 @@ public class Registeration extends AppCompatActivity {
                     String string = email.substring(0, email.indexOf("@"));
                     intent.putExtra("UserName", string);
                     startActivity(intent);
+                    // Writing Shared Preference User Login Status
+                    preferencesConfig.writeUserLoginStatus(true);
                     finish();
                 } else if (type.equals("عامل")) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Registeration.this, Employee.class);
                     startActivity(intent);
+                    // Writing Shared Preference Worker Login Status
+                    preferencesConfig.writeWorkerLoginStatus(true);
+                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Registeration.this, MainActivity.class);

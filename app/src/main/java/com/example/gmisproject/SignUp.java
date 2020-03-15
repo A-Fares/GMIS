@@ -43,6 +43,8 @@ public class SignUp extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     ProgressBar progressBarLoading;
     String type;
+    SharedPreferencesConfig preferencesConfig;
+
 
     @Override
     protected void onStart() {
@@ -67,6 +69,20 @@ public class SignUp extends AppCompatActivity {
         buttonSignUp = findViewById(R.id.btn_sign_up);
         progressBarLoading = findViewById(R.id.progress_loading);
 
+        // Reading Shared Preference User && Worker Login Status
+
+        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+
+        if (preferencesConfig.readUserLoginStatus()) {
+            Intent intent = new Intent(SignUp.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        if (preferencesConfig.readWorkerLoginStatus()) {
+            Intent intent = new Intent(SignUp.this, Employee.class);
+            startActivity(intent);
+            finish();
+        }
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -181,11 +197,16 @@ public class SignUp extends AppCompatActivity {
             String string = email.substring(0, email.indexOf("@"));
             intent.putExtra("UserName", string);
             startActivity(intent);
+            // Writing Shared Preference User Login Status
+            preferencesConfig.writeUserLoginStatus(true);
             finish();
         } else {
             Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, Employee.class);
             startActivity(intent);
+            // Writing Shared Preference Worker Login Status
+            preferencesConfig.writeWorkerLoginStatus(true);
+            finish();
         }
     }
 
@@ -246,14 +267,14 @@ public class SignUp extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (account != null) {
             String personName = account.getDisplayName();
-            String personEmail=account.getEmail();
-            sendUserToWelcomeActivity(personName,personEmail);
+            String personEmail = account.getEmail();
+            sendUserToWelcomeActivity(personName, personEmail);
         }
     }
 
-    private void sendUserToWelcomeActivity(String personName,String personEmail) {
+    private void sendUserToWelcomeActivity(String personName, String personEmail) {
         startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
-                .putExtra("username", personName).putExtra("email",personEmail));
+                .putExtra("username", personName).putExtra("email", personEmail));
         this.finish();
     }
 }

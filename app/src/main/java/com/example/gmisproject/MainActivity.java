@@ -1,5 +1,6 @@
 package com.example.gmisproject;
 
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,18 +28,21 @@ public class MainActivity extends AppCompatActivity {
     static String string;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    SharedPreferencesConfig preferencesConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+
         //Set id for Textview
         ImageView imageView = findViewById(R.id.image_view_star);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,explicit_star_activity.class);
+                Intent intent = new Intent(MainActivity.this, explicit_star_activity.class);
                 startActivity(intent);
 
             }
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         floatingbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog =new Dialog(MainActivity.this);
+                final Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setContentView(R.layout.dialogalert);
                 dialog.setCancelable(false);
                 dialog.show();
@@ -56,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 btn_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+
+                        //Shared Preference User Logout
+
+                        preferencesConfig.writeUserLoginStatus(false);
+                        Intent intent = new Intent(MainActivity.this, Registeration.class);
+                        startActivity(intent);
                         finish();
 
                     }

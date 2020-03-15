@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +23,7 @@ public class Employee extends AppCompatActivity {
     AlertDialog alertDialog;
     private EmpBinAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    SharedPreferencesConfig preferencesConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,12 @@ public class Employee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         ImageView signout = findViewById(R.id.sign_out);
+
+        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog =new Dialog(Employee.this);
+                final Dialog dialog = new Dialog(Employee.this);
                 dialog.setContentView(R.layout.dialogalert);
                 dialog.setCancelable(false);
                 dialog.show();
@@ -43,7 +45,14 @@ public class Employee extends AppCompatActivity {
                 btn_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        //Shared Preference Worker Logout
+
+                        preferencesConfig.writeWorkerLoginStatus(false);
+                        Intent intent = new Intent(Employee.this, Registeration.class);
+                        startActivity(intent);
                         finish();
+
 
                     }
                 });
@@ -80,8 +89,8 @@ public class Employee extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new EmpBinAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-              //  Toast.makeText(Employee.this, "hello b", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Employee.this , MapActivity.class);
+                //  Toast.makeText(Employee.this, "hello b", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Employee.this, MapActivity.class);
                 startActivity(intent);
             }
         });
