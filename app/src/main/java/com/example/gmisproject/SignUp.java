@@ -42,9 +42,8 @@ public class SignUp extends AppCompatActivity {
     ImageView googleSignUp;
     GoogleSignInClient mGoogleSignInClient;
     ProgressBar progressBarLoading;
-    String type;
+    String type,userName;
     SharedPreferencesConfig preferencesConfig;
-
 
     @Override
     protected void onStart() {
@@ -158,10 +157,10 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Users users = new Users(username, email, type);
+                            UsersModel usersModel = new UsersModel(username, email, type);
 
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(usersModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -194,8 +193,8 @@ public class SignUp extends AppCompatActivity {
         if (type.equals("عميل")) {
             Toast.makeText(getApplicationContext(), "User Created...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, MainActivity.class);
-            String string = email.substring(0, email.indexOf("@"));
-            intent.putExtra("UserName", string);
+            userName = email.substring(0, email.indexOf("@"));
+            intent.putExtra("UserName", userName);
             startActivity(intent);
             // Writing Shared Preference User Login Status
             preferencesConfig.writeUserLoginStatus(true);
@@ -203,6 +202,8 @@ public class SignUp extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, Employee.class);
+            userName= email.substring(0, email.indexOf("@"));
+            intent.putExtra("UserName", userName);
             startActivity(intent);
             // Writing Shared Preference Worker Login Status
             preferencesConfig.writeWorkerLoginStatus(true);

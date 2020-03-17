@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
@@ -32,33 +31,24 @@
                     android:id="@+id/emp_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/monadi"
-                    android:text="@string/bin_number"
-                    android:textColor="#000"
+                    android:text="@string/msg_response"
+                    android:textColor="#00058B"
                     android:textSize="17sp" />
 
-                <TextView
-                    android:id="@+id/emp_name_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/emp_name"
-                    android:fontFamily="@font/monadi"
-                    android:text="احمد فارس "
-                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/emp_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/emp_name"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/monadi"
-                    android:text="@string/emp_phone"
+                    android:text="@string/company_phone"
                     android:textColor="#000"
                     android:textSize="17sp" />
 
@@ -66,44 +56,22 @@
                     android:id="@+id/emp_phone_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/emp_name_data"
+                    android:layout_below="@+id/emp_name"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="9dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/emp_phone"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/emp_phone"
                     android:fontFamily="@font/monadi"
                     android:text="01061462749"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/bin_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/emp_phone"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/monadi"
-                    android:text="@string/bin_number"
-                    android:textColor="#000"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/bin_number_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/emp_phone_data"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/bin_number"
-                    android:fontFamily="@font/monadi"
-                    android:text="9"
-                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/cost_monthly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bin_number"
-                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/emp_phone"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/monadi"
                     android:text="@string/cost"
@@ -114,10 +82,10 @@
                     android:id="@+id/cost_monthly_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bin_number_data"
+                    android:layout_below="@+id/emp_phone_data"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/cost_monthly"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/cost_monthly"
                     android:fontFamily="@font/monadi"
                     android:text="50 جنية"
                     android:textSize="15sp" />

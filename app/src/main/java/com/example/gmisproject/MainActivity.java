@@ -1,6 +1,5 @@
 package com.example.gmisproject;
 
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton;
     SharedPreferencesConfig preferencesConfig;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -91,6 +91,7 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setBin_number(binNumbers);
                 usersRequests.setPhone_number(phonenumber);
             */
+
                 UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, payment);
 
                 //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
@@ -98,9 +99,9 @@ public class UserRequestFragment extends Fragment {
                 FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .setValue(usersRequests);
 
-                Intent intent = new Intent(getActivity(), Employee.class);
+     /*           Intent intent = new Intent(getActivity(), Employee.class);
                 startActivity(intent);
-
+*/
 
             }
         });

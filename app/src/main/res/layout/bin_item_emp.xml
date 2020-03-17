@@ -39,7 +39,7 @@
             android:layout_below="@+id/progress_bin"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/monadi"
-            android:text="15"
+            android:text="0"
             android:textColor="#000"
             android:textSize="13sp" />
 

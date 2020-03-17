@@ -20,7 +20,6 @@ public class User_or_Worker extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     Task<Void> databaseReference;
     String email, username, type;
-    //   SharedPreferencesConfig preferencesConfig;
 
 
     @Override
@@ -57,14 +56,7 @@ public class User_or_Worker extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
                 startActivity(intentUser);
-                /*
-                 // Writing Shared Preference User Login Status
-                    preferencesConfig.writeUserLoginStatus(true);
-                   finish();
-
-                 */
-
-                Users user = new Users(email, username, type = "عميل");
+                UsersModel user = new UsersModel(email, username, type = "عميل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -88,7 +80,7 @@ public class User_or_Worker extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Users user = new Users(email, username, type = "عامل");
+                UsersModel user = new UsersModel(email, username, type = "عامل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -98,14 +90,6 @@ public class User_or_Worker extends AppCompatActivity {
                                         Toast.makeText(User_or_Worker.this, "Employee created...", Toast.LENGTH_SHORT).show();
                                         Intent intentWorker = new Intent(User_or_Worker.this, Employee.class);
                                         startActivity(intentWorker);
-                                      /*
-                                        // Writing Shared Preference Worker Login Status
-                                        preferencesConfig.writeWorkerLoginStatus(true);
-                                        finish();
-
-
-                                       */
-
                                     } else {
                                         Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
                                     }

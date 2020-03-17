@@ -57,7 +57,7 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
         public UserBinHolder(@NonNull View itemView) {
             super(itemView);
             trash = itemView.findViewById(R.id.trash);
-            binId = itemView.findViewById(R.id.bin_id);
+            binId = itemView.findViewById(R.id.binId);
             userAddress = itemView.findViewById(R.id.user_address);
             binStatus = itemView.findViewById(R.id.bin_status);
             binPercentage = itemView.findViewById(R.id.bin_percentage);

@@ -32,7 +32,7 @@ public class Registeration extends AppCompatActivity {
     ImageView facebookLogin, gmailLogin;
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
-    String type;
+    String type, userName;
     DatabaseReference ref;
     SharedPreferencesConfig preferencesConfig;
 
@@ -124,6 +124,7 @@ public class Registeration extends AppCompatActivity {
                                 }
                             }
                         });
+
                     }
                 });
 
@@ -142,8 +143,8 @@ public class Registeration extends AppCompatActivity {
                 if (type.equals("عميل")) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    String string = email.substring(0, email.indexOf("@"));
-                    intent.putExtra("UserName", string);
+                    userName = email.substring(0, email.indexOf("@"));
+                    intent.putExtra("UserName", userName);
                     startActivity(intent);
                     // Writing Shared Preference User Login Status
                     preferencesConfig.writeUserLoginStatus(true);
@@ -151,6 +152,8 @@ public class Registeration extends AppCompatActivity {
                 } else if (type.equals("عامل")) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Registeration.this, Employee.class);
+                    userName = email.substring(0, email.indexOf("@"));
+                    intent.putExtra("UserName", userName);
                     startActivity(intent);
                     // Writing Shared Preference Worker Login Status
                     preferencesConfig.writeWorkerLoginStatus(true);

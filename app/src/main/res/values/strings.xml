@@ -10,10 +10,11 @@
 
     <string name="emp_name">إسم العامل: </string>
     <string name="emp_name_data"> أسامة أمين</string>
-    <string name="emp_phone">رقم العامل:  </string>
+    <string name="company_phone">تليفون:  </string>
     <string name="bin_id">رقم السلة: </string>
-    <string name="cost">المصاريف الشهرية: </string>
+    <string name="cost">المصاريف: </string>
     <string name="bin_status">الحالة: </string>
+    <string name="msg_response">تم إضافة السلات المرغوب فيها برجاء التوجه لفرع الشركة لتأكيد عملية الدفع و تفعيل السلات</string>
 
     <string name="point_num">عدد النقاط: </string>
     <string name="point_num_data">50 </string>

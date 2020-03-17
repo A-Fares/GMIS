@@ -11,44 +11,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class EmpBinAdapter extends RecyclerView.Adapter<EmpBinAdapter.EmpBinHolder> {
+public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> {
 
-    private ArrayList<EmpBin> empBins;
+    private ArrayList<BinsModel> binsModels;
+    private OnItemClickListener mlistener;
 
-    public EmpBinAdapter(ArrayList<EmpBin> empBinsList) {
-        this.empBins = empBinsList;
+    public BinsAdapter(ArrayList<BinsModel> empBinsList) {
+        this.binsModels = empBinsList;
     }
 
     @NonNull
     @Override
     public EmpBinHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bin_item_emp, parent, false);
-        EmpBinAdapter.EmpBinHolder viewHolder = new EmpBinAdapter.EmpBinHolder(v);
+        BinsAdapter.EmpBinHolder viewHolder = new BinsAdapter.EmpBinHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull EmpBinHolder holder, int position) {
-        EmpBin currentBin = empBins.get(position);
-        holder.clientAddress.setText(currentBin.getClientAddress());
-        holder.binId.setText(currentBin.getBinID());
-        holder.binPercentage.setProgress(currentBin.getBinPercentage());
-        holder.binStatus.setText(currentBin.getBinStatus());
+        BinsModel currentBin = binsModels.get(position);
+        holder.clientAddress.setText(currentBin.getAddress());
+        holder.binId.setText(String.valueOf(currentBin.getBinId()));
+        holder.binStatus.setText(currentBin.getStatus());
+        holder.binPercentage.setProgress(currentBin.getPercentage());
     }
 
     @Override
     public int getItemCount() {
-        return empBins.size();
+        return binsModels.size();
     }
 
-    private OnItemClickListener mlistener;
-
-    public interface OnItemClickListener{
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mlistener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
     public class EmpBinHolder extends RecyclerView.ViewHolder {
@@ -67,9 +66,9 @@ public class EmpBinAdapter extends RecyclerView.Adapter<EmpBinAdapter.EmpBinHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mlistener != null){
+                    if (mlistener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             mlistener.onItemClick(position);
                         }
                     }
