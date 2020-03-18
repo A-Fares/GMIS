@@ -52,17 +52,16 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(Employee.this);
-                dialog.setContentView(R.layout.dialogalert);
+                dialog.setContentView(R.layout.alertdialogsignoutemp);
                 dialog.setCancelable(false);
                 dialog.show();
-                Button btn_yes = dialog.findViewById(R.id.btn_yes);
-                Button btn_no = dialog.findViewById(R.id.btn_no);
-                btn_yes.setOnClickListener(new View.OnClickListener() {
+                TextView textviewsignoutyes = dialog.findViewById(R.id.text_view_yesfor_signout);
+                TextView textviewsignoutno = dialog.findViewById(R.id.text_view_no_for_signout);
+                textviewsignoutyes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         //Shared Preference Worker Logout
-
                         preferencesConfig.writeWorkerLoginStatus(false);
                         Intent intent = new Intent(Employee.this, Registeration.class);
                         startActivity(intent);
@@ -71,7 +70,7 @@ public class Employee extends AppCompatActivity {
 
                     }
                 });
-                btn_no.setOnClickListener(new View.OnClickListener() {
+                textviewsignoutno.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
@@ -80,6 +79,8 @@ public class Employee extends AppCompatActivity {
 
             }
         });
+
+
 
         final ArrayList<BinsModel> binsModels = new ArrayList<BinsModel>();
         recyclerView = findViewById(R.id.recyclerView);
@@ -120,7 +121,7 @@ public class Employee extends AppCompatActivity {
             }
         });
 
-        // searching for the data of bin that user have 
+        // searching for the data of bin that user have
         referenceBinData = FirebaseDatabase.getInstance().getReference().child("Bins");
         referenceBinData.addValueEventListener(new ValueEventListener() {
             @Override

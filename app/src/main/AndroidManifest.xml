@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".User_or_Worker"></activity>
+        <activity android:name=".tips"></activity>
         <activity android:name=".explicit_star_activity" />
+
         <activity
             android:name=".MapActivity"
             android:parentActivityName=".Employee" />

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_slide"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:padding="32dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/tip_msg" />
+
+    <TextView
+        android:textColor="@color/colortransportwhite"
+        android:id="@+id/textview_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/amin"
+        android:gravity="center"
+        android:text="الرسائل"
+        android:textSize="30sp" />
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textview_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/amin"
+        android:padding="8dp"
+        android:text="يمكنك متابعه طلبك و معرفه التكاليف والتواصل مع فروع الشركه "
+        android:textSize="20sp" />
+</LinearLayout>

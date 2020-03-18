@@ -2,6 +2,7 @@ package com.example.gmisproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -90,6 +91,22 @@ public class SignUp extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_btn_user:
                         type = radioButton.getText().toString();
+                        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Runnable runnable = new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Intent intenttips = new Intent(SignUp.this,tips.class);
+                                        startActivity(intenttips);
+
+                                    }
+                                };
+                                Handler handler = new Handler();
+                                handler.postDelayed(runnable , 1600);
+                            }
+                        });
                         break;
                     case R.id.radio_btn_worker:
                         type = radioButton.getText().toString();

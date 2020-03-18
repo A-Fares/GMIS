@@ -10,4 +10,6 @@
     <color name="NormalRate">#073861</color>
     <color name="ActivatedRate">#0064A8</color>
     <color name="ActivatedRateEmployee">#fff</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colortransportwhite">#CCCCCC</color>
 </resources>

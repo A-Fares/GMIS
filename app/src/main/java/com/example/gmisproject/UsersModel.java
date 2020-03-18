@@ -4,13 +4,55 @@ import java.util.ArrayList;
 
 public class UsersModel {
 
-    private String username, email, type;
+    private String username, email, type,rate,report;
+
+
     private ArrayList<Integer> Bins;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
 
     public UsersModel() {
     }
 
-
+    public UsersModel(String username, String email, String type, String rate, String report) {
+        this.username = username;
+        this.email = email;
+        this.type = type;
+        this.rate = rate;
+        this.report = report;
+    }
+    public UsersModel(String username, String email, String rate, String report) {
+        this.username = username;
+        this.email = email;
+        this.rate= rate;
+        this.report = report;
+    }
     public UsersModel(String email, String username, String type) {
         this.username = username;
         this.email = email;
