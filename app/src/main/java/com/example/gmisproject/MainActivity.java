@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private static boolean backPressedTime;
     TextView textViewUsername;
     static String string;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
     SharedPreferencesConfig preferencesConfig;
 
 
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
-
+        viewPager.setCurrentItem(1);
         // Find the tab layout that shows the tabs
         TabLayout tabLayout = findViewById(R.id.tabs);
 

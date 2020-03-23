@@ -29,7 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
@@ -43,7 +42,7 @@ public class SignUp extends AppCompatActivity {
     ImageView googleSignUp;
     GoogleSignInClient mGoogleSignInClient;
     ProgressBar progressBarLoading;
-    String type,userName;
+    String type, userName;
     SharedPreferencesConfig preferencesConfig;
 
     @Override
@@ -98,13 +97,13 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        Intent intenttips = new Intent(SignUp.this,tips.class);
+                                        Intent intenttips = new Intent(SignUp.this, tips.class);
                                         startActivity(intenttips);
 
                                     }
                                 };
                                 Handler handler = new Handler();
-                                handler.postDelayed(runnable , 1600);
+                                handler.postDelayed(runnable, 1600);
                             }
                         });
                         break;
@@ -132,9 +131,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Users");
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +170,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            UsersModel usersModel = new UsersModel(username, email, type);
+                            UsersModel usersModel = new UsersModel(email,username,type);
 
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(usersModel).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -206,11 +202,10 @@ public class SignUp extends AppCompatActivity {
 
 
     public void check() {
-        final String email = inputLayoutEmail.getEditText().getText().toString();
         if (type.equals("عميل")) {
             Toast.makeText(getApplicationContext(), "User Created...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, MainActivity.class);
-            userName = email.substring(0, email.indexOf("@"));
+            userName = inputLayoutUsername.getEditText().getText().toString();
             intent.putExtra("UserName", userName);
             startActivity(intent);
             // Writing Shared Preference User Login Status
@@ -219,7 +214,7 @@ public class SignUp extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, Employee.class);
-            userName= email.substring(0, email.indexOf("@"));
+            userName = inputLayoutUsername.getEditText().getText().toString();
             intent.putExtra("UserName", userName);
             startActivity(intent);
             // Writing Shared Preference Worker Login Status
@@ -286,11 +281,11 @@ public class SignUp extends AppCompatActivity {
         if (account != null) {
             String personName = account.getDisplayName();
             String personEmail = account.getEmail();
-            sendUserToWelcomeActivity(personName, personEmail);
+            userInformationToMainActivity(personName, personEmail);
         }
     }
 
-    private void sendUserToWelcomeActivity(String personName, String personEmail) {
+    private void userInformationToMainActivity(String personName, String personEmail) {
         startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
                 .putExtra("username", personName).putExtra("email", personEmail));
         this.finish();

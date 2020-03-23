@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class UsersModel {
 
     private String username, email, type,rate,report;
-
-
     private ArrayList<Integer> Bins;
 
     public void setUsername(String username) {

@@ -1,13 +1,13 @@
 package com.example.gmisproject.user;
 
-public class UserBin {
+public class UserBinModel {
     private String binId;
     private String userAddress;
     private String binStatus;
     private int binPercentage;
     private int binImageId;
 
-    public UserBin(String binId, String userAddress, String binStatus, int binPercentage, int binImageId) {
+    public UserBinModel(String binId, String userAddress, String binStatus, int binPercentage, int binImageId) {
         this.binId = binId;
         this.userAddress = userAddress;
         this.binStatus = binStatus;

@@ -1,7 +1,6 @@
 package com.example.gmisproject.user;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,8 @@ import android.widget.RadioGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.gmisproject.Employee;
 import com.example.gmisproject.R;
-import com.example.gmisproject.UsersRequests;
+import com.example.gmisproject.UsersRequestsModel;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -71,7 +69,7 @@ public class UserRequestFragment extends Fragment {
         });
 
 
-        final UsersRequests usersRequests = new UsersRequests();
+        final UsersRequestsModel usersRequestsModel = new UsersRequestsModel();
 
         Button btn = rootView.findViewById(R.id.button_send);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +90,12 @@ public class UserRequestFragment extends Fragment {
                 usersRequests.setPhone_number(phonenumber);
             */
 
-                UsersRequests usersRequests = new UsersRequests(fullname, usermail, address, binNumbers, phonenumber, payment);
+                UsersRequestsModel usersRequestsModel = new UsersRequestsModel(fullname, usermail, address, binNumbers, phonenumber, payment);
 
                 //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
 
                 FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(usersRequests);
+                        .setValue(usersRequestsModel);
 
      /*           Intent intent = new Intent(getActivity(), Employee.class);
                 startActivity(intent);

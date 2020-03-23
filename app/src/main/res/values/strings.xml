@@ -8,6 +8,9 @@
     <string name="user_phone">رقم التليفون</string>
     <string name="bin_number">عدد السلات</string>
 
+    <string name="bin_alert">سيتم تفعيل السلات الخاصة بك عند استكمال الرد على الطلب و دفع المصاريف</string>
+    <string name="bin_alert_employee">سيتم تفعيل السلات الخاصة بك عند استكمال الرد على الطلب</string>
+
     <string name="emp_name">إسم العامل: </string>
     <string name="emp_name_data"> أسامة أمين</string>
     <string name="company_phone">تليفون:  </string>

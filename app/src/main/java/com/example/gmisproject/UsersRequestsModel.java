@@ -1,6 +1,6 @@
 package com.example.gmisproject;
 
-public class UsersRequests {
+public class UsersRequestsModel {
 
     private String full_name;
     private String email;
@@ -9,7 +9,7 @@ public class UsersRequests {
     private String phone_number;
     private String payment;
 
-    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number, String payment) {
+    public UsersRequestsModel(String full_name, String email, String address, String bin_number, String phone_number, String payment) {
         this.full_name = full_name;
         this.email = email;
         this.address = address;
@@ -18,11 +18,11 @@ public class UsersRequests {
         this.payment = payment;
     }
 
-    public UsersRequests() {
+    public UsersRequestsModel() {
     }
 
 
-    public UsersRequests(String full_name, String email, String address, String bin_number, String phone_number) {
+    public UsersRequestsModel(String full_name, String email, String address, String bin_number, String phone_number) {
         this.full_name = full_name;
         this.email = email;
         this.address = address;

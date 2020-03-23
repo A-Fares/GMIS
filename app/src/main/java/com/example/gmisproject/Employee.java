@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,16 +28,21 @@ public class Employee extends AppCompatActivity {
     private static boolean backPressedTime;
     DatabaseReference referenceBins, referenceBinData;
     RecyclerView recyclerView;
-    FirebaseAuth firebaseAuth;
     ArrayList<Integer> BinsData;
     UsersModel usersModel;
     BinsModel binsModel;
     String userName;
     ImageView signOut;
     TextView textViewUsername;
+    View binAlertLayout;
     SharedPreferencesConfig preferencesConfig;
+    ArrayList<BinsModel> binsModels;
     private BinsAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Bundle savedInstanceState;
+
+    public Employee() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class Employee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         signOut = findViewById(R.id.sign_out);
+        textViewUsername = findViewById(R.id.textView_userName);
         preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -80,21 +85,36 @@ public class Employee extends AppCompatActivity {
             }
         });
 
-
-
-        final ArrayList<BinsModel> binsModels = new ArrayList<BinsModel>();
+        binAlertLayout = findViewById(R.id.alert_bin_layout);
+        binsModels = new ArrayList<BinsModel>();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
 
+        getUserBins();
+        getBinsData();
+
+        /*mAdapter.setOnItemClickListener(new EmpBinAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(Employee.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });*/
+
+        getUserName();
+    }
+
+    private void getUserBins() {
         //reading the Bin id that user have
         referenceBins = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         referenceBins.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersModel = dataSnapshot.getValue(UsersModel.class);
+                assert usersModel != null;
                 BinsData = usersModel.getBins();
                 Log.v("Binns", "bins == " + BinsData);
         /*        empBins.clear();
@@ -120,7 +140,9 @@ public class Employee extends AppCompatActivity {
                 Toast.makeText(Employee.this, "something went wrong ..", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void getBinsData() {
         // searching for the data of bin that user have
         referenceBinData = FirebaseDatabase.getInstance().getReference().child("Bins");
         referenceBinData.addValueEventListener(new ValueEventListener() {
@@ -129,8 +151,9 @@ public class Employee extends AppCompatActivity {
                 binsModels.clear();
                 for (DataSnapshot binSnapshot : dataSnapshot.getChildren()) {
                     binsModel = binSnapshot.getValue(BinsModel.class);
-                    if (usersModel.getBins() != null) {
-                        for (int i = 0; i < usersModel.getBins().size(); i++) {
+                    if (usersModel != null) {
+                        BinsData = usersModel.getBins();
+                        for (int i = 0; i < BinsData.size(); i++) {
                             assert binsModel != null;
                             int binID = binsModel.getBinId();
                             int userBinID = usersModel.getBins().get(i);
@@ -138,6 +161,9 @@ public class Employee extends AppCompatActivity {
                                 binsModels.add(binsModel);
                             }
                         }
+                    } else {
+                        binAlertLayout.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.INVISIBLE);
                     }
                 }
                 mAdapter = new BinsAdapter(binsModels);
@@ -157,16 +183,9 @@ public class Employee extends AppCompatActivity {
 
             }
         });
+    }
 
-        /*mAdapter.setOnItemClickListener(new EmpBinAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(Employee.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });*/
-        textViewUsername = findViewById(R.id.textView_userName);
-
+    private void getUserName() {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -179,7 +198,6 @@ public class Employee extends AppCompatActivity {
         }
         textViewUsername.setText(userName);
     }
-
 
     @Override
     public void onBackPressed() {

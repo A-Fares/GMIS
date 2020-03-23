@@ -26,14 +26,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Employee"
-            android:screenOrientation="fullSensor" />
+            android:name=".Employee" />
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="fullSensor" />
+            android:name=".MainActivity" />
         <activity
-            android:name=".SignUp"
-            android:screenOrientation="fullSensor" />
+            android:name=".SignUp" />
     </application>
 
 </manifest>

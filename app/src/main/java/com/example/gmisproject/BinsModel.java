@@ -1,15 +1,12 @@
 package com.example.gmisproject;
 
-import java.util.ArrayList;
-
 public class BinsModel {
 
     private String status, address, location;
-    private int percentage,binId;
+    private int percentage, binId, binImageId;
 
     public BinsModel() {
     }
-
 
     public BinsModel(String status, String address, String location, int percentage, int binId) {
         this.status = status;
@@ -17,6 +14,14 @@ public class BinsModel {
         this.location = location;
         this.percentage = percentage;
         this.binId = binId;
+    }
+
+    public BinsModel(String status, String address, int percentage, int binId, int binImageId) {
+        this.status = status;
+        this.address = address;
+        this.percentage = percentage;
+        this.binId = binId;
+        this.binImageId = binImageId;
     }
 
 
@@ -38,5 +43,9 @@ public class BinsModel {
 
     public int getBinId() {
         return binId;
+    }
+
+    public int getBinImageId() {
+        return binImageId;
     }
 }
