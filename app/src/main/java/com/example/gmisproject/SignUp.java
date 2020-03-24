@@ -29,7 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
@@ -170,17 +169,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            UsersModel usersModel = new UsersModel(email,username,type);
-
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(usersModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this, "User created...", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                            UsersModel usersModel = new UsersModel(email, username, type);
                             check();
                         } else {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -203,7 +192,6 @@ public class SignUp extends AppCompatActivity {
 
     public void check() {
         if (type.equals("عميل")) {
-            Toast.makeText(getApplicationContext(), "User Created...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, MainActivity.class);
             userName = inputLayoutUsername.getEditText().getText().toString();
             intent.putExtra("UserName", userName);
@@ -212,7 +200,6 @@ public class SignUp extends AppCompatActivity {
             preferencesConfig.writeUserLoginStatus(true);
             finish();
         } else {
-            Toast.makeText(getApplicationContext(), "User Created", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, Employee.class);
             userName = inputLayoutUsername.getEditText().getText().toString();
             intent.putExtra("UserName", userName);
@@ -226,7 +213,6 @@ public class SignUp extends AppCompatActivity {
     public void checkButton(View view) {
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
-        Toast.makeText(this, "نوع الحساب: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
     void SignInGoogle() {
@@ -262,14 +248,12 @@ public class SignUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), "Firebase Success", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     Intent intent = new Intent(SignUp.this, MainActivity.class);
                     startActivity(intent);
                     updateUI(user);
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), "Firebase Failed", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }

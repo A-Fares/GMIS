@@ -54,7 +54,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayout_email"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -65,12 +65,12 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/monadi"
                             android:hint="البريد الإلكتروني"
-                            android:inputType="text" />
+                            android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayout_password"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textDirection="rtl">

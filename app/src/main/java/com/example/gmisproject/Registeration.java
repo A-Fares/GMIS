@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +40,7 @@ public class Registeration extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
     String type, userName;
+    UsersModel usersModel;
     ProgressBar progressBarLoading;
     SharedPreferencesConfig preferencesConfig;
 
@@ -116,14 +116,15 @@ public class Registeration extends AppCompatActivity {
                             editTextPassword.requestFocus();
                             return;
                         }
-
+                        progressBarLoading.setVisibility(View.VISIBLE);
                         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    progressBarLoading.setVisibility(View.INVISIBLE);
                                     check();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "UnSuccessful", Toast.LENGTH_SHORT).show();
+                                    progressBarLoading.setVisibility(View.INVISIBLE);
                                     editTextEmail.getEditText().setText("");
                                     editTextPassword.getEditText().setText("");
                                 }
@@ -151,79 +152,75 @@ public class Registeration extends AppCompatActivity {
     }
 
     public void check() {
-        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                type = dataSnapshot.getValue().toString().trim();
-                String email = editTextEmail.getEditText().getText().toString();
-                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
-                if (type.equals("عميل")) {
-                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    userName = email.substring(0, email.indexOf("@"));
-                    intent.putExtra("UserName", userName);
-                    startActivity(intent);
-                    // Writing Shared Preference User Login Status
-                    preferencesConfig.writeUserLoginStatus(true);
-                    finish();
-                } else if (type.equals("عامل")) {
-                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, Employee.class);
-                    userName = email.substring(0, email.indexOf("@"));
-                    intent.putExtra("UserName", userName);
-                    startActivity(intent);
-                    // Writing Shared Preference Worker Login Status
-                    preferencesConfig.writeWorkerLoginStatus(true);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot userNameSnapshot : dataSnapshot.getChildren()) {
+                            usersModel = userNameSnapshot.getValue(UsersModel.class);
+                            if (usersModel != null) {
+                                userName = usersModel.getUsername();
+                                type = usersModel.getType();
+                            }
+                        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                        if (type.equals("عميل")) {
+                            Intent intent = new Intent(Registeration.this, MainActivity.class);
+                            intent.putExtra("UserName", userName);
+                            startActivity(intent);
+                            // Writing Shared Preference User Login Status
+                            preferencesConfig.writeUserLoginStatus(true);
+                            finish();
+                        } else if (type.equals("عامل")) {
+                            Intent intent = new Intent(Registeration.this, Employee.class);
+                            intent.putExtra("UserName", userName);
+                            startActivity(intent);
+                            // Writing Shared Preference Worker Login Status
+                            preferencesConfig.writeWorkerLoginStatus(true);
+                            finish();
+                        }
+                    }
 
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
     }
 
     public void checkGoogleLogin() {
-        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                type = dataSnapshot.getValue().toString().trim();
-                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
-                if (type.equals("عميل")) {
-                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    startActivity(intent);
-                    // Writing Shared Preference User Login Status
-                    preferencesConfig.writeUserLoginStatus(true);
-                    finish();
-                } else if (type.equals("عامل")) {
-                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, Employee.class);
-                    startActivity(intent);
-                    // Writing Shared Preference Worker Login Status
-                    preferencesConfig.writeWorkerLoginStatus(true);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot userNameSnapshot : dataSnapshot.getChildren()) {
+                            usersModel = userNameSnapshot.getValue(UsersModel.class);
+                            if (usersModel != null) {
+                                userName = usersModel.getUsername();
+                                type = usersModel.getType();
+                            }
+                        }
+                        if (type.equals("عميل")) {
+                            Intent intent = new Intent(Registeration.this, MainActivity.class);
+                            startActivity(intent);
+                            // Writing Shared Preference User Login Status
+                            preferencesConfig.writeUserLoginStatus(true);
+                            finish();
+                        } else if (type.equals("عامل")) {
+                            Intent intent = new Intent(Registeration.this, Employee.class);
+                            startActivity(intent);
+                            // Writing Shared Preference Worker Login Status
+                            preferencesConfig.writeWorkerLoginStatus(true);
+                            finish();
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
     }
 
@@ -261,14 +258,10 @@ public class Registeration extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     checkGoogleLogin();
-                    Toast.makeText(getApplicationContext(), "Firebase Success", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
-                    Intent intent = new Intent(Registeration.this, MainActivity.class);
-                    startActivity(intent);
                     updateUI(user);
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), "Firebase Failed", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }

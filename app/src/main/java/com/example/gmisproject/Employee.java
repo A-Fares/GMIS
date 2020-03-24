@@ -104,7 +104,19 @@ public class Employee extends AppCompatActivity {
             }
         });*/
 
-        getUserName();
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                userName = null;
+            } else {
+                userName = extras.getString("UserName");
+            }
+        } else {
+            userName = (String) savedInstanceState.getSerializable("UserName");
+        }
+        textViewUsername.setText(userName);
+
+        Log.v("Name", "Name == " + userName);
     }
 
     private void getUserBins() {
@@ -116,23 +128,13 @@ public class Employee extends AppCompatActivity {
                 usersModel = dataSnapshot.getValue(UsersModel.class);
                 assert usersModel != null;
                 BinsData = usersModel.getBins();
-                Log.v("Binns", "bins == " + BinsData);
-        /*        empBins.clear();
-                for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
-                    EmpBin empBin = Snapshot.getValue(EmpBin.class);
-                    empBins.add(empBin);
+                if (BinsData == null) {
+                    recyclerView.setVisibility(View.GONE);
+                    binAlertLayout.setVisibility(View.VISIBLE);
+                } else {
+                    getBinsData();
                 }
-                mAdapter = new EmpBinAdapter(empBins);
-                recyclerView.setAdapter(mAdapter);
-
-                Collections.reverse(empBins);
-                mAdapter.setOnItemClickListener(new EmpBinAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        Intent intent = new Intent(Employee.this, MapActivity.class);
-                        startActivity(intent);
-                    }
-                });*/
+                Log.v("Binns", "bins == " + BinsData);
             }
 
             @Override
@@ -151,7 +153,7 @@ public class Employee extends AppCompatActivity {
                 binsModels.clear();
                 for (DataSnapshot binSnapshot : dataSnapshot.getChildren()) {
                     binsModel = binSnapshot.getValue(BinsModel.class);
-                    if (usersModel != null) {
+                    if (usersModel != null && usersModel.getBins() != null) {
                         BinsData = usersModel.getBins();
                         for (int i = 0; i < BinsData.size(); i++) {
                             assert binsModel != null;
@@ -161,9 +163,6 @@ public class Employee extends AppCompatActivity {
                                 binsModels.add(binsModel);
                             }
                         }
-                    } else {
-                        binAlertLayout.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.INVISIBLE);
                     }
                 }
                 mAdapter = new BinsAdapter(binsModels);
@@ -183,20 +182,6 @@ public class Employee extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void getUserName() {
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                userName = null;
-            } else {
-                userName = extras.getString("UserName");
-            }
-        } else {
-            userName = (String) savedInstanceState.getSerializable("UserName");
-        }
-        textViewUsername.setText(userName);
     }
 
     @Override

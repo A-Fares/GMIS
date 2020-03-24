@@ -7,8 +7,6 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +20,9 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    static String string;
     private static boolean backPressedTime;
     TextView textViewUsername;
-    static String string;
     SharedPreferencesConfig preferencesConfig;
 
 

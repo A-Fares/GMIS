@@ -6,8 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -48,7 +47,7 @@ public class UserBinFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_user_bin, container, false);
 
         binsModels = new ArrayList<BinsModel>();
-        binAlertLayout=rootView.findViewById(R.id.alert_bin_layout);
+        binAlertLayout = rootView.findViewById(R.id.alert_bin_layout);
 
         recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -69,18 +68,18 @@ public class UserBinFragment extends Fragment {
                 usersModel = dataSnapshot.getValue(UsersModel.class);
                 assert usersModel != null;
                 BinsData = usersModel.getBins();
-                if (BinsData == null){
+                if (BinsData == null) {
                     recyclerView.setVisibility(View.GONE);
                     binAlertLayout.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     checkBinsData();
                 }
-                    Log.v("Binns", "bins == " + BinsData);
+                Log.v("Binns", "bins == " + BinsData);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //      Toast.makeText(getActivity().getApplicationContext(), "something went wrong ..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "something went wrong ..", Toast.LENGTH_SHORT).show();
             }
         });
     }
