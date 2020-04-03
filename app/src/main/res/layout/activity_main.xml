@@ -20,7 +20,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/tansik"
-        android:text="Ahmed Fares"
+        android:text="@string/username_hint"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold" />

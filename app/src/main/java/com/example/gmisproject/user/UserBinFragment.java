@@ -103,6 +103,7 @@ public class UserBinFragment extends Fragment {
                                 binsModels.add(binsModel);
                             }
                         }
+                        binAlertLayout.setVisibility(View.GONE);
                     }
                 }
                 mAdapter = new UserBinAdapter(binsModels);

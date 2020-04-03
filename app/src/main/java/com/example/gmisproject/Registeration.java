@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,7 +54,7 @@ public class Registeration extends AppCompatActivity {
 
         preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
 
-        if (preferencesConfig.readUserLoginStatus()) {
+      /*  if (preferencesConfig.readUserLoginStatus()) {
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -63,7 +64,7 @@ public class Registeration extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
+*/
         buttonSignIn = findViewById(R.id.btn_sign_in_bottom);
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,35 +153,27 @@ public class Registeration extends AppCompatActivity {
     }
 
     public void check() {
-        FirebaseDatabase.getInstance().getReference().child("Users")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot userNameSnapshot : dataSnapshot.getChildren()) {
-                            usersModel = userNameSnapshot.getValue(UsersModel.class);
-                            if (usersModel != null) {
-                                userName = usersModel.getUsername();
-                                type = usersModel.getType();
-                            }
-                        }
-
-                        if (type.equals("عميل")) {
-                            Intent intent = new Intent(Registeration.this, MainActivity.class);
-                            intent.putExtra("UserName", userName);
-                            startActivity(intent);
-                            // Writing Shared Preference User Login Status
-                            preferencesConfig.writeUserLoginStatus(true);
-                            finish();
-                        } else if (type.equals("عامل")) {
-                            Intent intent = new Intent(Registeration.this, Employee.class);
-                            intent.putExtra("UserName", userName);
-                            startActivity(intent);
-                            // Writing Shared Preference Worker Login Status
-                            preferencesConfig.writeWorkerLoginStatus(true);
-                            finish();
-                        }
-                    }
-
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                type = dataSnapshot.getValue().toString().trim();
+                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
+                Log.v("tyype","type is "+type);
+                if (type.equals("عميل")) {
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    startActivity(intent);
+                    // Writing Shared Preference User Login Status
+                    preferencesConfig.writeUserLoginStatus(true);
+                    finish();
+                } else if (type.equals("عامل")) {
+                    Intent intent = new Intent(Registeration.this, Employee.class);
+                    startActivity(intent);
+                    // Writing Shared Preference Worker Login Status
+                    preferencesConfig.writeWorkerLoginStatus(true);
+                    finish();
+                }
+            }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -190,17 +183,13 @@ public class Registeration extends AppCompatActivity {
     }
 
     public void checkGoogleLogin() {
-        FirebaseDatabase.getInstance().getReference().child("Users")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot userNameSnapshot : dataSnapshot.getChildren()) {
-                            usersModel = userNameSnapshot.getValue(UsersModel.class);
-                            if (usersModel != null) {
-                                userName = usersModel.getUsername();
-                                type = usersModel.getType();
-                            }
-                        }
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                type = dataSnapshot.getValue().toString().trim();
+                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
+                        Log.v("tyype","type is "+type);
                         if (type.equals("عميل")) {
                             Intent intent = new Intent(Registeration.this, MainActivity.class);
                             startActivity(intent);
