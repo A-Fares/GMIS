@@ -158,7 +158,6 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 type = dataSnapshot.getValue().toString().trim();
-                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
                 Log.v("tyype","type is "+type);
                 if (type.equals("عميل")) {
                     Intent intent = new Intent(Registeration.this, MainActivity.class);
@@ -188,7 +187,6 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 type = dataSnapshot.getValue().toString().trim();
-                Toast.makeText(getApplicationContext(), type, Toast.LENGTH_SHORT).show();
                         Log.v("tyype","type is "+type);
                         if (type.equals("عميل")) {
                             Intent intent = new Intent(Registeration.this, MainActivity.class);
