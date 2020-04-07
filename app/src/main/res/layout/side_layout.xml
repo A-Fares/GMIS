@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/image_view_slide"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:padding="32dp"
@@ -19,10 +19,12 @@
         android:id="@+id/textview_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:fontFamily="@font/amin"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="الرسائل"
-        android:textSize="30sp" />
+        android:textSize="50sp" />
 
     <TextView
         android:textColor="@color/colorWhite"
@@ -30,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amin"
+        android:textAlignment="center"
         android:padding="8dp"
         android:text="يمكنك متابعه طلبك و معرفه التكاليف والتواصل مع فروع الشركه "
-        android:textSize="20sp" />
+        android:textSize="40sp" />
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.gmisproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -15,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,9 +39,14 @@ public class Employee extends AppCompatActivity {
     ImageView signOut;
     TextView textViewUsername;
     View binAlertLayout;
-    SharedPreferencesConfig preferencesConfig;
+    //SharedPreferencesConfig preferencesConfig;
     ArrayList<BinsModel> binsModels;
     private BinsAdapter mAdapter;
+    private SharedPreferences preferencesConfig;
+    private FirebaseAuth firebaseAuth;
+    GoogleSignInClient mGoogleSignInClient;
+
+
     private RecyclerView.LayoutManager mLayoutManager;
     private Bundle savedInstanceState;
 
@@ -51,8 +60,12 @@ public class Employee extends AppCompatActivity {
         setContentView(R.layout.activity_employee);
         signOut = findViewById(R.id.sign_out);
         textViewUsername = findViewById(R.id.textView_userName);
-        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
-
+        //preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+        final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,18 +73,22 @@ public class Employee extends AppCompatActivity {
                 dialog.setContentView(R.layout.alertdialogsignoutemp);
                 dialog.setCancelable(false);
                 dialog.show();
-                TextView textviewsignoutyes = dialog.findViewById(R.id.text_view_yesfor_signout);
-                TextView textviewsignoutno = dialog.findViewById(R.id.text_view_no_for_signout);
+                TextView textviewsignoutyes = dialog.findViewById(R.id.text_view_yesfor_signout_emp);
+                TextView textviewsignoutno = dialog.findViewById(R.id.text_view_no_for_signout_emp);
                 textviewsignoutyes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        firebaseAuth.getInstance().signOut();
 
-                        //Shared Preference Worker Logout
-                        preferencesConfig.writeWorkerLoginStatus(false);
+                        preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user),MODE_PRIVATE);
+                        preferencesConfig.edit().clear().commit();
                         Intent intent = new Intent(Employee.this, Registeration.class);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
-
+                        //Shared Preference Worker Logout
+                        //preferencesConfig.writeWorkerLoginStatus(false);
+                        mGoogleSignInClient.signOut();
 
                     }
                 });

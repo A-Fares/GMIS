@@ -2,6 +2,7 @@ package com.example.gmisproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -54,6 +55,17 @@ public class User_or_Worker extends AppCompatActivity {
         buttonUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                         Runnable runnable = new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                Intent intenttips = new Intent(User_or_Worker.this,tips.class);
+                                                startActivity(intenttips);
+
+                                            }
+                                        };
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(runnable,0);
                 Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
                 startActivity(intentUser);
                 UsersModel user = new UsersModel(email, username, type = "عميل");
@@ -63,6 +75,11 @@ public class User_or_Worker extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        //Intent intenttips = new Intent(User_or_Worker.this,tips.class);
+                                        //startActivity(intenttips);
+                                        /*Intent intenttips = new Intent(User_or_Worker.this,tips.class);
+                                        startActivity(intenttips);*/
+
                                         Toast.makeText(User_or_Worker.this, "User created...", Toast.LENGTH_SHORT).show();
                         /*            Intent intentUser=new Intent(User_or_Worker.this,MainActivity.class);
                                     startActivity(intentUser);*/

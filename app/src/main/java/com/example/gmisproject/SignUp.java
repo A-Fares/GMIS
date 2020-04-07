@@ -90,22 +90,18 @@ public class SignUp extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_btn_user:
                         type = radioButton.getText().toString();
-                        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+                        Runnable runnable = new Runnable() {
                             @Override
-                            public void onClick(View view) {
-                                Runnable runnable = new Runnable() {
-                                    @Override
-                                    public void run() {
+                            public void run() {
 
-                                        Intent intenttips = new Intent(SignUp.this, tips.class);
-                                        startActivity(intenttips);
+                                Intent intenttips = new Intent(SignUp.this,tips.class);
+                                startActivity(intenttips);
 
-                                    }
-                                };
-                                Handler handler = new Handler();
-                                handler.postDelayed(runnable, 1600);
                             }
-                        });
+                        };
+                        Handler handler = new Handler();
+                        handler.postDelayed(runnable , 1400);
+
                         break;
                     case R.id.radio_btn_worker:
                         type = radioButton.getText().toString();
@@ -186,6 +182,19 @@ public class SignUp extends AppCompatActivity {
                         }
                     }
                 });
+                if (type.equals("عميل")) {
+                   /* Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Intent intenttips = new Intent(SignUp.this,tips.class);
+                            startActivity(intenttips);
+
+                        }
+                    };
+                    Handler handler = new Handler();
+                    handler.postDelayed(runnable,1200);*/
+                }
 
             }
         });
@@ -199,7 +208,15 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-
+void signout(){
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Intent intent = new Intent(SignUp.this, Registeration.class);
+                updateUI(null);
+            }
+        });
+}
     public void check() {
         if (type.equals("عميل")) {
             Intent intent = new Intent(SignUp.this, MainActivity.class);
@@ -231,6 +248,7 @@ public class SignUp extends AppCompatActivity {
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -259,9 +277,24 @@ public class SignUp extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                        /*Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Intent intenttips = new Intent(SignUp.this,tips.class);
+                                startActivity(intenttips);
+
+                            }
+                        };
+                        Handler handler = new Handler();
+                        handler.postDelayed(runnable,1200);*/
+
                     Intent intent = new Intent(SignUp.this, MainActivity.class);
                     startActivity(intent);
+
                     updateUI(user);
+
+
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     updateUI(null);
