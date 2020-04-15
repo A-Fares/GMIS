@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="@drawable/bg_tip"
+android:background="@drawable/backgroun_tips"
 
     tools:context=".MainActivity">
 
@@ -36,7 +36,7 @@
         android:padding="8dp"
         android:text="previous"
         android:textColor="@color/colorWhite"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:visibility="invisible" />
 
     <Button
@@ -49,6 +49,6 @@
         android:text="Next"
         android:textColor="@color/colorWhite"
         android:fontFamily="sans-serif-black"
-        android:textSize="10sp" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

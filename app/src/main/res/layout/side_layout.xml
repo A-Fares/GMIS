@@ -24,14 +24,15 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="الرسائل"
-        android:textSize="50sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:textColor="@color/colorWhite"
         android:id="@+id/textview_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/amin"
+        android:fontFamily="@font/tansik"
+        android:textStyle="normal"
         android:textAlignment="center"
         android:padding="8dp"
         android:text="يمكنك متابعه طلبك و معرفه التكاليف والتواصل مع فروع الشركه "

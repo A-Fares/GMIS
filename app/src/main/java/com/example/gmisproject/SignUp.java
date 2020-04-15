@@ -90,7 +90,7 @@ public class SignUp extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_btn_user:
                         type = radioButton.getText().toString();
-                        Runnable runnable = new Runnable() {
+                        /*Runnable runnable = new Runnable() {
                             @Override
                             public void run() {
 
@@ -100,7 +100,7 @@ public class SignUp extends AppCompatActivity {
                             }
                         };
                         Handler handler = new Handler();
-                        handler.postDelayed(runnable , 1400);
+                        handler.postDelayed(runnable , 1400);*/
 
                         break;
                     case R.id.radio_btn_worker:
@@ -177,24 +177,24 @@ public class SignUp extends AppCompatActivity {
                                 }
                             });
                             check();
+                            if (type.equals("عميل")){
+                                Runnable runnable = new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Intent intenttips = new Intent(SignUp.this,tips.class);
+                                        startActivity(intenttips);
+
+                                    }
+                                };
+                                Handler handler = new Handler();
+                                handler.postDelayed(runnable , 0);}
+
                         } else {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-                if (type.equals("عميل")) {
-                   /* Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Intent intenttips = new Intent(SignUp.this,tips.class);
-                            startActivity(intenttips);
-
-                        }
-                    };
-                    Handler handler = new Handler();
-                    handler.postDelayed(runnable,1200);*/
-                }
 
             }
         });
