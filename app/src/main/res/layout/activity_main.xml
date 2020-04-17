@@ -24,12 +24,13 @@
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/image_view_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/golden_star" />
 
@@ -69,7 +70,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/bin"  />
+            android:icon="@drawable/bin" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -85,14 +86,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_exit_to_app_black_24dp"
-        app:fabSize="normal"
         android:backgroundTint="@color/sign_up_color_blue"
         android:elevation="6dp"
+        android:src="@drawable/ic_exit_to_app_black_24dp"
+        app:fabSize="normal"
 
 
         />
-
 
 
 </RelativeLayout>
