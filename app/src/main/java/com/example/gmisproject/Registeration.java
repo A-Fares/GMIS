@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,10 +39,15 @@ public class Registeration extends AppCompatActivity {
     ImageView facebookLogin, googleLogin;
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
-    String type, userName;
-    UsersModel usersModel;
+    String type;
     ProgressBar progressBarLoading;
     SharedPreferencesConfig preferencesConfig;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bottomSheetDialog.dismiss();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class Registeration extends AppCompatActivity {
                 bottomSheetDialog.setContentView(R.layout.bottomsheet_login);
                 bottomSheetDialog.setCanceledOnTouchOutside(false);
                 bottomSheetDialog.show();
+
 
                 editTextEmail = bottomSheetDialog.findViewById(R.id.inputLayout_email);
                 editTextPassword = bottomSheetDialog.findViewById(R.id.inputLayout_password);
@@ -158,7 +163,6 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 type = dataSnapshot.getValue().toString().trim();
-                Log.v("tyype","type is "+type);
                 if (type.equals("عميل")) {
                     Intent intent = new Intent(Registeration.this, MainActivity.class);
                     startActivity(intent);
@@ -173,11 +177,12 @@ public class Registeration extends AppCompatActivity {
                     finish();
                 }
             }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -187,27 +192,26 @@ public class Registeration extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 type = dataSnapshot.getValue().toString().trim();
-                        Log.v("tyype","type is "+type);
-                        if (type.equals("عميل")) {
-                            Intent intent = new Intent(Registeration.this, MainActivity.class);
-                            startActivity(intent);
-                            // Writing Shared Preference User Login Status
-                            preferencesConfig.writeUserLoginStatus(true);
-                            finish();
-                        } else if (type.equals("عامل")) {
-                            Intent intent = new Intent(Registeration.this, Employee.class);
-                            startActivity(intent);
-                            // Writing Shared Preference Worker Login Status
-                            preferencesConfig.writeWorkerLoginStatus(true);
-                            finish();
-                        }
-                    }
+                if (type.equals("عميل")) {
+                    Intent intent = new Intent(Registeration.this, MainActivity.class);
+                    startActivity(intent);
+                    // Writing Shared Preference User Login Status
+                    preferencesConfig.writeUserLoginStatus(true);
+                    finish();
+                } else if (type.equals("عامل")) {
+                    Intent intent = new Intent(Registeration.this, Employee.class);
+                    startActivity(intent);
+                    // Writing Shared Preference Worker Login Status
+                    preferencesConfig.writeWorkerLoginStatus(true);
+                    finish();
+                }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+            }
+        });
 
     }
 
@@ -215,6 +219,7 @@ public class Registeration extends AppCompatActivity {
         progressBarLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
+        bottomSheetDialog.dismiss();
     }
 
     @Override

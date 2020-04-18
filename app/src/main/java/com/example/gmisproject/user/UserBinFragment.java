@@ -2,7 +2,6 @@ package com.example.gmisproject.user;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +73,7 @@ public class UserBinFragment extends Fragment {
                 } else {
                     checkBinsData();
                 }
-                Log.v("Binns", "bins == " + BinsData);
+
             }
 
             @Override
@@ -109,7 +108,6 @@ public class UserBinFragment extends Fragment {
                 mAdapter = new UserBinAdapter(binsModels);
                 recyclerView.setAdapter(mAdapter);
 
-                Log.v("Binnss", "bins sssss");
                 /*mAdapter.setOnItemClickListener(new BinsAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {

@@ -20,11 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class UserRequestFragment extends Fragment {
-
+    DatabaseReference referenceRequest;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private View rootView;
-    private String payment;
+    private String uId,payment;
 
     public UserRequestFragment() {
         // Required empty public constructor
@@ -35,22 +35,16 @@ public class UserRequestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_user_reqest, container, false);
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Requests");
-
-        // myRef.setValue("Hello, World!");
-
-
         final TextInputLayout fullName = rootView.findViewById(R.id.textinput_use_fullName);
-        final TextInputLayout userMail = rootView.findViewById(R.id.textinput_user_email);
         final TextInputLayout Address = rootView.findViewById(R.id.textinput_user_address);
         final TextInputLayout binNumber = rootView.findViewById(R.id.textinput_user_binNumber);
         final TextInputLayout phoneNumber = rootView.findViewById(R.id.textinput_user_phone);
         radioGroup = rootView.findViewById(R.id.radio_group_cost_type);
         radioButton = rootView.findViewById(R.id.radio_btn_monthly);
         radioButton = rootView.findViewById(R.id.radio_btn_yearly);
+
+        referenceRequest = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+         uId=referenceRequest.getKey();
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -78,28 +72,15 @@ public class UserRequestFragment extends Fragment {
 
 
                 String fullname = fullName.getEditText().getText().toString();
-                String usermail = userMail.getEditText().getText().toString();
                 String address = Address.getEditText().getText().toString();
                 String binNumbers = binNumber.getEditText().getText().toString();
                 String phonenumber = phoneNumber.getEditText().getText().toString();
 
-           /*     usersRequests.setFull_name(fullname);
-                usersRequests.setEmail(usermail);
-                usersRequests.setAddress(address);
-                usersRequests.setBin_number(binNumbers);
-                usersRequests.setPhone_number(phonenumber);
-            */
 
-                UsersRequestsModel usersRequestsModel = new UsersRequestsModel(fullname, usermail, address, binNumbers, phonenumber, payment);
-
-                //   myRef.child(usersRequests.getFull_name()).setValue(usersRequests);
+                UsersRequestsModel usersRequestsModel = new UsersRequestsModel(uId,fullname, address, binNumbers, phonenumber, payment);
 
                 FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .setValue(usersRequestsModel);
-
-     /*           Intent intent = new Intent(getActivity(), Employee.class);
-                startActivity(intent);
-*/
 
             }
         });

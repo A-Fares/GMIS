@@ -55,25 +55,6 @@ public class UserMsgFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
-                    UserMsgModel userMsgModel = Snapshot.getValue(UserMsgModel.class);
-
-                    Log.v("kkk", "Costs is: " + userMsgModel.getCosts());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
         return rootView;
     }
 

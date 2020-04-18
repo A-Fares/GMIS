@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!backPressedTime) {
             Toast.makeText(this, "press again", Toast.LENGTH_SHORT).show();
-            backPressedTime = true;
+           // backPressedTime = true;
         } else {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

@@ -2,16 +2,13 @@ package com.example.gmisproject;
 
 public class UsersRequestsModel {
 
-    private String full_name;
-    private String email;
-    private String address;
-    private String bin_number;
-    private String phone_number;
-    private String payment;
+    private String id, full_name,
+            address, bin_number,
+            phone_number, payment;
 
-    public UsersRequestsModel(String full_name, String email, String address, String bin_number, String phone_number, String payment) {
+    public UsersRequestsModel(String id, String full_name, String address, String bin_number, String phone_number, String payment) {
+        this.id = id;
         this.full_name = full_name;
-        this.email = email;
         this.address = address;
         this.bin_number = bin_number;
         this.phone_number = phone_number;
@@ -21,21 +18,12 @@ public class UsersRequestsModel {
     public UsersRequestsModel() {
     }
 
-
-    public UsersRequestsModel(String full_name, String email, String address, String bin_number, String phone_number) {
-        this.full_name = full_name;
-        this.email = email;
-        this.address = address;
-        this.bin_number = bin_number;
-        this.phone_number = phone_number;
+    public String getId() {
+        return id;
     }
 
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String type) {
-        this.payment = type;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFull_name() {
@@ -44,14 +32,6 @@ public class UsersRequestsModel {
 
     public void setFull_name(String full_name) {
         this.full_name = full_name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {
@@ -77,4 +57,14 @@ public class UsersRequestsModel {
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 }
+
+
