@@ -22,9 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.gmisproject.user.UserMsgModel.COMPLAINT_MESSAGE;
-import static com.example.gmisproject.user.UserMsgModel.INFORMATION_MESSAGE;
-import static com.example.gmisproject.user.UserMsgModel.MAINTENANCE_MESSAGE;
+import static com.example.gmisproject.user.UserMsgModel.COMPLAINING_RESPONSE;
+import static com.example.gmisproject.user.UserMsgModel.REQUEST_RESPONSE;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,9 +46,9 @@ public class UserMsgFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
-        msgModelList.add(new UserMsgModel(INFORMATION_MESSAGE, "تم إضافة السلات المرغوب فيها برجاء التوجه لفرع الشركة لتأكيد عملية الدفع و تفعيل السلات", "012245555", " 50 جنيه"));
-        msgModelList.add(new UserMsgModel(COMPLAINT_MESSAGE, "جاري العمل على شكواكم وسيتم ارسال عربة صيانة في موعد أقصاه يومين"));
-        msgModelList.add(new UserMsgModel(MAINTENANCE_MESSAGE, "تم عمل الصيانة وحل جميع مشاكل السلة ", "سعداء بخدمتكم"));
+        msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
+        msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.complaint_response)));
+        msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.message_maintenance_success)));
 
 
         UserMsgAdapter adapter = new UserMsgAdapter(msgModelList);

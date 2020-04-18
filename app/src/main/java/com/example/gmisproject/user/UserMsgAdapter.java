@@ -12,9 +12,9 @@ import com.example.gmisproject.R;
 
 import java.util.List;
 
-import static com.example.gmisproject.user.UserMsgModel.COMPLAINT_MESSAGE;
-import static com.example.gmisproject.user.UserMsgModel.INFORMATION_MESSAGE;
-import static com.example.gmisproject.user.UserMsgModel.MAINTENANCE_MESSAGE;
+import static com.example.gmisproject.user.UserMsgModel.COMPLAINING_RESPONSE;
+import static com.example.gmisproject.user.UserMsgModel.REQUEST_RESPONSE;
+
 
 public class UserMsgAdapter extends RecyclerView.Adapter {
 
@@ -28,11 +28,9 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
        switch (msgModelsList.get(position).getViewType()){
            case 0:
-               return INFORMATION_MESSAGE;
+               return REQUEST_RESPONSE;
            case 1:
-               return COMPLAINT_MESSAGE;
-           case 2:
-               return MAINTENANCE_MESSAGE;
+               return COMPLAINING_RESPONSE;
            default:
                return -1;
        }
@@ -42,15 +40,13 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         switch (viewType){
-            case INFORMATION_MESSAGE:
+            case REQUEST_RESPONSE:
                 View informationMsg= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.information_layout,viewGroup,false);
                 return new InformationLayout(informationMsg);
-            case COMPLAINT_MESSAGE:
+            case COMPLAINING_RESPONSE:
                 View complaintMsg= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.complaint_layout,viewGroup,false);
                 return new ComplaintLayout(complaintMsg);
-            case MAINTENANCE_MESSAGE:
-                View maintenanceMsg= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.maintenace_layout,viewGroup,false);
-                return new MaintenanceLayout(maintenanceMsg);
+
             default:
                 return null;
         }
@@ -60,22 +56,16 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (msgModelsList.get(position).getViewType()){
-            case INFORMATION_MESSAGE:
+            case REQUEST_RESPONSE:
                 String empInfo=msgModelsList.get(position).getMsg();
                 String empPhone=msgModelsList.get(position).getPhone();
                 String empCost=msgModelsList.get(position).getCosts();
                 ((InformationLayout)holder).setDataInfo(empInfo,empPhone,empCost);
 
                 break;
-            case COMPLAINT_MESSAGE:
+            case COMPLAINING_RESPONSE:
                 String complaintMsg=msgModelsList.get(position).getComplaintMsg();
                 ((ComplaintLayout)holder).setComplaintMessage(complaintMsg);
-
-                break;
-            case MAINTENANCE_MESSAGE:
-                String maintenanceMsg=msgModelsList.get(position).getMaintenanceMsg();
-                String maintenanceMsgThank=msgModelsList.get(position).getMaintenanceMsgThank();
-                ((MaintenanceLayout)holder).setMaintenanceMessage(maintenanceMsg,maintenanceMsgThank);
 
                 break;
             default:
@@ -115,21 +105,6 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
         }
         private void setComplaintMessage(String complaintMsg){
             complaintMessage.setText(complaintMsg);
-        }
-    }
-    class MaintenanceLayout extends RecyclerView.ViewHolder{
-
-        private TextView maintenanceMessage;
-        private TextView maintenanceMessageThank;
-
-        public MaintenanceLayout(@NonNull View itemView) {
-            super(itemView);
-            maintenanceMessage=itemView.findViewById(R.id.maintenance);
-            maintenanceMessageThank=itemView.findViewById(R.id.maintenance_thank);
-        }
-        private void setMaintenanceMessage(String maintenanceMsg,String maintenanceMsgThank){
-            maintenanceMessage.setText(maintenanceMsg);
-            maintenanceMessageThank.setText(maintenanceMsgThank);
         }
     }
 }

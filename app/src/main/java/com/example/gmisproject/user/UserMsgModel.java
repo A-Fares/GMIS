@@ -2,11 +2,11 @@ package com.example.gmisproject.user;
 
 public class UserMsgModel {
 
-    public static final int INFORMATION_MESSAGE=0;
-    public static final int COMPLAINT_MESSAGE=1;
-    public static final int MAINTENANCE_MESSAGE=2;
+    public static final int REQUEST_RESPONSE=0;
+    public static final int COMPLAINING_RESPONSE=1;
 
-    private String msg, phone, costs, complaintMsg,maintenanceMsg,maintenanceMsgThank;
+
+    private String msg, phone, costs, complaintMsg;
     private int viewType;
 
     public UserMsgModel(int viewType,String msg, String phone, String costs) {
@@ -20,11 +20,6 @@ public class UserMsgModel {
         this.viewType=viewType;
     }
 
-    public UserMsgModel(int viewType,String maintenanceMsg, String maintenanceMsgThank) {
-        this.maintenanceMsg = maintenanceMsg;
-        this.maintenanceMsgThank = maintenanceMsgThank;
-        this.viewType=viewType;
-    }
 
     public UserMsgModel() {
     }
@@ -59,22 +54,6 @@ public class UserMsgModel {
 
     public void setComplaintMsg(String complaintMsg) {
         this.complaintMsg = complaintMsg;
-    }
-
-    public String getMaintenanceMsg() {
-        return maintenanceMsg;
-    }
-
-    public void setMaintenanceMsg(String maintenanceMsg) {
-        this.maintenanceMsg = maintenanceMsg;
-    }
-
-    public String getMaintenanceMsgThank() {
-        return maintenanceMsgThank;
-    }
-
-    public void setMaintenanceMsgThank(String maintenanceMsgThank) {
-        this.maintenanceMsgThank = maintenanceMsgThank;
     }
 
     public int getViewType() {

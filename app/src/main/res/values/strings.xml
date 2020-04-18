@@ -18,9 +18,9 @@
     <string name="cost">المصاريف: </string>
     <string name="bin_status">الحالة: </string>
     <string name="msg_response">تم إضافة السلات المرغوب فيها برجاء التوجه لفرع الشركة لتأكيد عملية الدفع و تفعيل السلات</string>
-    <string name="message_complaint">جاري العمل على شكواكم وسيتم ارسال عربة صيانة في موعد أقصاه يومين</string>
-    <string name="message_maintenance">تم عمل الصيانة وحل جميع مشاكل السلة </string>
-    <string name="message_maintenance_thank">سعداء بخدمتكم</string>
+    <string name="complaint_response">جاري العمل على شكواكم وسيتم ارسال عربة صيانة في موعد أقصاه يومين</string>
+    <string name="message_maintenance_success">تم عمل الصيانة وحل جميع مشاكل السلة سعداء بخدمتكم</string>
+
 
     <string name="point_num">عدد النقاط: </string>
     <string name="point_num_data">50 </string>
