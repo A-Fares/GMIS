@@ -42,7 +42,7 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
         switch (viewType){
             case REQUEST_RESPONSE:
                 View informationMsg= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.information_layout,viewGroup,false);
-                return new InformationLayout(informationMsg);
+                return new RequestResponse(informationMsg);
             case COMPLAINING_RESPONSE:
                 View complaintMsg= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.complaint_layout,viewGroup,false);
                 return new ComplaintLayout(complaintMsg);
@@ -57,10 +57,10 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (msgModelsList.get(position).getViewType()){
             case REQUEST_RESPONSE:
-                String empInfo=msgModelsList.get(position).getMsg();
-                String empPhone=msgModelsList.get(position).getPhone();
-                String empCost=msgModelsList.get(position).getCosts();
-                ((InformationLayout)holder).setDataInfo(empInfo,empPhone,empCost);
+                String msgContent=msgModelsList.get(position).getMsg();
+                String phone=msgModelsList.get(position).getPhone();
+                String cost=msgModelsList.get(position).getCosts();
+                ((RequestResponse)holder).setDataInfo(msgContent,phone,cost);
 
                 break;
             case COMPLAINING_RESPONSE:
@@ -79,21 +79,21 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
         return msgModelsList.size();
     }
 
-    class InformationLayout extends RecyclerView.ViewHolder{
-        private TextView empInfo;
-        private TextView empPhone;
-        private TextView empCost;
+    class RequestResponse extends RecyclerView.ViewHolder{
+        private TextView msgContent;
+        private TextView mPhone;
+        private TextView mCost;
 
-        public InformationLayout(@NonNull View itemView) {
+        public RequestResponse(@NonNull View itemView) {
             super(itemView);
-            empInfo=itemView.findViewById(R.id.emp_name);
-            empPhone=itemView.findViewById(R.id.emp_phone_data);
-            empCost=itemView.findViewById(R.id.cost_monthly_data);
+            msgContent=itemView.findViewById(R.id.msg_Content);
+            mPhone=itemView.findViewById(R.id.phone_data);
+            mCost=itemView.findViewById(R.id.cost_monthly_data);
         }
         private void setDataInfo(String msg,String phone,String cost){
-            empInfo.setText(msg);
-            empPhone.setText(phone);
-            empCost.setText(cost);
+            msgContent.setText(msg);
+            mPhone.setText(phone);
+            mCost.setText(cost);
         }
     }
     class ComplaintLayout extends RecyclerView.ViewHolder{

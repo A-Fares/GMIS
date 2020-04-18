@@ -11,7 +11,10 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         app:cardElevation="4dp"
         app:ignore="NamespaceTypo"
         card_view:cardCornerRadius="15dp"
@@ -20,7 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="40dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/complaint_message"
