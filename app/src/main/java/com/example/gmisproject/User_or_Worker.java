@@ -75,14 +75,7 @@ public class User_or_Worker extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        //Intent intenttips = new Intent(User_or_Worker.this,tips.class);
-                                        //startActivity(intenttips);
-                                        /*Intent intenttips = new Intent(User_or_Worker.this,tips.class);
-                                        startActivity(intenttips);*/
-
                                         Toast.makeText(User_or_Worker.this, "User created...", Toast.LENGTH_SHORT).show();
-                        /*            Intent intentUser=new Intent(User_or_Worker.this,MainActivity.class);
-                                    startActivity(intentUser);*/
                                     } else {
                                         Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
                                     }

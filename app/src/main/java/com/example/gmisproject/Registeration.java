@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -220,7 +219,7 @@ public class Registeration extends AppCompatActivity {
 
     }
 
-    public void checkGoogleLogin() {
+    public void checkGoogleAndFacebookLogin() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -277,6 +276,7 @@ public class Registeration extends AppCompatActivity {
         }
     }
 
+    //Google Authentication
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -284,7 +284,7 @@ public class Registeration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    checkGoogleLogin();
+                    checkGoogleAndFacebookLogin();
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
@@ -303,23 +303,15 @@ public class Registeration extends AppCompatActivity {
         }
     }
 
+    // send account information to check them and retrieve from database
     private void userInformationToMainActivity(String personName, String personEmail) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class)
                 .putExtra("username", personName).putExtra("email", personEmail));
         this.finish();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //  user = firebaseAuth.getCurrentUser();
-        //updateUI(user);
-    }
-
+    // Facebook Authentication
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG2, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -327,7 +319,7 @@ public class Registeration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBarLoading.setVisibility(View.INVISIBLE);
-                            checkGoogleLogin();
+                            checkGoogleAndFacebookLogin();
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {

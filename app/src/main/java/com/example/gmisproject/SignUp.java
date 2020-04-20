@@ -201,7 +201,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
         mCallbackManager = CallbackManager.Factory.create();
-
         facebookSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,6 +289,7 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
+    //Google Authentication
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -315,15 +315,15 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
+    // send account information to check them and saving to database
     private void userInformationToMainActivity(String personName, String personEmail) {
         startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
                 .putExtra("username", personName).putExtra("email", personEmail));
         this.finish();
     }
 
+    // Facebook Authentication
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG2, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
