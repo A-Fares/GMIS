@@ -47,6 +47,10 @@
     <string name="password_hint">كلمة السر</string>
     <string name="confirm_password_hint">تأكيد كلمة السر</string>
 
+    //facebook id
+    <string name="facebook_app_id">908722636207521</string>
+    <string name="fb_login_protocol_scheme">fb908722636207521</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

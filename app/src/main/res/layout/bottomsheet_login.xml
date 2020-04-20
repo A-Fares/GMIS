@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/btnsheet_login"
-    android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/header"
@@ -22,9 +22,9 @@
         android:layout_marginTop="22dp"
         android:fontFamily="@font/aniq"
         android:text="GMIS"
-        android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
 
     <ScrollView

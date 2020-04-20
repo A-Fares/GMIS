@@ -16,6 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,20 +32,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Arrays;
+
 public class SignUp extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
+    private static final String TAG2 = "FacebookActivity";
+    CallbackManager mCallbackManager;
+    FirebaseUser user;
     TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
     Button buttonSignUp, buttonSignIn;
     RadioGroup radioGroup;
     RadioButton radioButton;
     FirebaseAuth firebaseAuth;
-    ImageView googleSignUp;
+    ImageView googleSignUp, facebookSignUp;
     GoogleSignInClient mGoogleSignInClient;
     ProgressBar progressBarLoading;
     String type, userName;
@@ -61,6 +73,7 @@ public class SignUp extends AppCompatActivity {
         radioGroup = findViewById(R.id.radio_group_user_type);
         buttonSignIn = findViewById(R.id.btn_sign_in);
         googleSignUp = findViewById(R.id.gmail_login);
+        facebookSignUp = findViewById(R.id.facebook_login);
         inputLayoutUsername = findViewById(R.id.inputLayout_username);
         inputLayoutEmail = findViewById(R.id.inputLayout_email);
         inputLayoutPassword = findViewById(R.id.inputLayout_password);
@@ -90,18 +103,6 @@ public class SignUp extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_btn_user:
                         type = radioButton.getText().toString();
-                        /*Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-
-                                Intent intenttips = new Intent(SignUp.this,tips.class);
-                                startActivity(intenttips);
-
-                            }
-                        };
-                        Handler handler = new Handler();
-                        handler.postDelayed(runnable , 1400);*/
-
                         break;
                     case R.id.radio_btn_worker:
                         type = radioButton.getText().toString();
@@ -177,18 +178,19 @@ public class SignUp extends AppCompatActivity {
                                 }
                             });
                             check();
-                            if (type.equals("عميل")){
+                            if (type.equals("عميل")) {
                                 Runnable runnable = new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        Intent intenttips = new Intent(SignUp.this,tips.class);
+                                        Intent intenttips = new Intent(SignUp.this, tips.class);
                                         startActivity(intenttips);
 
                                     }
                                 };
                                 Handler handler = new Handler();
-                                handler.postDelayed(runnable , 0);}
+                                handler.postDelayed(runnable, 0);
+                            }
 
                         } else {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -196,6 +198,33 @@ public class SignUp extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+        mCallbackManager = CallbackManager.Factory.create();
+
+        facebookSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(SignUp.this, Arrays.asList("email", "public_profile"));
+                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG2, "facebook:onCancel");
+                        // ...
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG2, "facebook:onError", error);
+                        // ...
+                    }
+                });
             }
         });
 
@@ -208,15 +237,6 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-void signout(){
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(SignUp.this, Registeration.class);
-                updateUI(null);
-            }
-        });
-}
     public void check() {
         if (type.equals("عميل")) {
             Intent intent = new Intent(SignUp.this, MainActivity.class);
@@ -252,7 +272,6 @@ void signout(){
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (resultCode != RESULT_CANCELED) {
             if (requestCode == GOOGLE_SIGN_IN) {
@@ -265,6 +284,8 @@ void signout(){
                     // Google Sign In failed, update UI appropriately
                     Log.w(TAG, "Google sign in failed", e);
                 }
+            } else {
+                mCallbackManager.onActivityResult(requestCode, resultCode, data);
             }
         }
     }
@@ -276,25 +297,8 @@ void signout(){
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                        /*Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-
-                                Intent intenttips = new Intent(SignUp.this,tips.class);
-                                startActivity(intenttips);
-
-                            }
-                        };
-                        Handler handler = new Handler();
-                        handler.postDelayed(runnable,1200);*/
-
-                    Intent intent = new Intent(SignUp.this, MainActivity.class);
-                    startActivity(intent);
-
+                    user = firebaseAuth.getCurrentUser();
                     updateUI(user);
-
-
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     updateUI(null);
@@ -304,10 +308,9 @@ void signout(){
     }
 
     private void updateUI(FirebaseUser user) {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if (account != null) {
-            String personName = account.getDisplayName();
-            String personEmail = account.getEmail();
+        if (user != null) {
+            String personName = user.getDisplayName();
+            String personEmail = user.getEmail();
             userInformationToMainActivity(personName, personEmail);
         }
     }
@@ -316,5 +319,31 @@ void signout(){
         startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
                 .putExtra("username", personName).putExtra("email", personEmail));
         this.finish();
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG2, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG2, "signInWithCredential:success");
+                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            user = firebaseAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG2, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(SignUp.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            updateUI(null);
+                        }
+                    }
+                });
     }
 }

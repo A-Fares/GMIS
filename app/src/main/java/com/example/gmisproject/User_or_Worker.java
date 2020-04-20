@@ -55,17 +55,17 @@ public class User_or_Worker extends AppCompatActivity {
         buttonUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                         Runnable runnable = new Runnable() {
-                                            @Override
-                                            public void run() {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
 
-                                                Intent intenttips = new Intent(User_or_Worker.this,tips.class);
-                                                startActivity(intenttips);
+                        Intent intenttips = new Intent(User_or_Worker.this, tips.class);
+                        startActivity(intenttips);
 
-                                            }
-                                        };
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(runnable,0);
+                    }
+                };
+                Handler handler = new Handler();
+                handler.postDelayed(runnable, 0);
                 Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
                 startActivity(intentUser);
                 UsersModel user = new UsersModel(email, username, type = "عميل");
