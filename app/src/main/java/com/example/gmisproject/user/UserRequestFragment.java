@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.gmisproject.R;
+import com.example.gmisproject.SignUp;
 import com.example.gmisproject.UsersRequestsModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -76,11 +81,43 @@ public class UserRequestFragment extends Fragment {
                 String binNumbers = binNumber.getEditText().getText().toString();
                 String phonenumber = phoneNumber.getEditText().getText().toString();
 
+                if (fullname.isEmpty()) {
+                    fullName.setError("برجاء ادخال الاسم");
+                    fullName.requestFocus();
+                    return;
+                }
+                if (address.isEmpty()) {
+                    Address.setError("برجاء ادخال العنوان");
+                    Address.requestFocus();
+                    return;
+                }
+                if(binNumbers.isEmpty()){
+                    binNumber.setError("برجاء ادخال عدد السلات");
+                    binNumber.requestFocus();
+                    return;
+                }
+                if(phonenumber.isEmpty()){
+                    phoneNumber.setError("برجاء ادخال عدد السلات");
+                    phoneNumber.requestFocus();
+                    return;
+                }
 
                 UsersRequestsModel usersRequestsModel = new UsersRequestsModel(uId,fullname, address, binNumbers, phonenumber, payment);
 
                 FirebaseDatabase.getInstance().getReference("Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(usersRequestsModel);
+                        .setValue(usersRequestsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "تم ارسال طلبك", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                fullName.getEditText().setText("");
+                Address.getEditText().setText("");
+                binNumber.getEditText().setText("");
+                phoneNumber.getEditText().setText("");
 
             }
         });
