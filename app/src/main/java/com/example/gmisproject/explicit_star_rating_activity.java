@@ -2,7 +2,10 @@ package com.example.gmisproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +20,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class explicit_star_rating_activity extends AppCompatActivity {
     private float rating_bin;
     private FirebaseAuth mAuth;
+
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.starforrating_activity);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         //FirebaseDatabase database = FirebaseDatabase.getInstance();
         ImageView imageviewbackfromratingpage = findViewById(R.id.image_view_backfrom_ratingpage);
         imageviewbackfromratingpage.setOnClickListener(new View.OnClickListener() {

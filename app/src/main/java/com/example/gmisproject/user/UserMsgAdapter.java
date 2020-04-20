@@ -57,9 +57,9 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (msgModelsList.get(position).getViewType()){
             case REQUEST_RESPONSE:
-                String msgContent=msgModelsList.get(position).getMsg();
-                String phone=msgModelsList.get(position).getPhone();
-                String cost=msgModelsList.get(position).getCosts();
+                String msgContent=msgModelsList.get(position).getMessage();
+                String phone=msgModelsList.get(position).getTel();
+                String cost=msgModelsList.get(position).getCost();
                 ((RequestResponse)holder).setDataInfo(msgContent,phone,cost);
 
                 break;
