@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 
@@ -56,6 +57,7 @@ public class SignUp extends AppCompatActivity {
     ProgressBar progressBarLoading;
     String type, userName;
     SharedPreferencesConfig preferencesConfig;
+    ImageView imageViewUserPhotoProfile;
 
     @Override
     protected void onStart() {
@@ -80,6 +82,7 @@ public class SignUp extends AppCompatActivity {
         inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
         progressBarLoading = findViewById(R.id.progress_loading);
+        imageViewUserPhotoProfile=findViewById(R.id.user_logo);
 
         // Reading Shared Preference User && Worker Login Status
 
@@ -311,6 +314,17 @@ public class SignUp extends AppCompatActivity {
         if (user != null) {
             String personName = user.getDisplayName();
             String personEmail = user.getEmail();
+            //set image profile
+            if (user.getPhotoUrl() !=null){
+                String personPhotoUrl=user.getPhotoUrl().toString();
+                personPhotoUrl=personPhotoUrl+ "?type=large";
+                Picasso.get().load(personPhotoUrl).into(imageViewUserPhotoProfile);
+            }
+            else {
+                imageViewUserPhotoProfile.setImageResource(R.drawable.user_logo);
+            }
+
+
             userInformationToMainActivity(personName, personEmail);
         }
     }

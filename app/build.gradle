@@ -81,4 +81,5 @@ dependencies {
 dependencies {
     implementation 'androidx.appcompat:appcompat:+'
     implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

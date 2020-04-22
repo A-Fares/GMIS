@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -22,6 +23,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
@@ -32,12 +39,42 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferencesConfig;
     private FirebaseAuth firebaseAuth;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+
+    //get username from firebase in user profile
+    @Override
+    protected void onStart() {
+        super.onStart();
+        textViewUsername=findViewById(R.id.textView_userName);
+        user=FirebaseAuth.getInstance().getCurrentUser();
+        String userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference=FirebaseDatabase.getInstance().getReference("Users")
+                .child(userId);
+        databaseReference.keepSynced(true);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String username=dataSnapshot.child("username").getValue().toString();
+                textViewUsername.setText(username);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        preferencesConfig= new SharedPreferencesConfig(getApplicationContext());
 
-        //preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+      //  preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
         final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()

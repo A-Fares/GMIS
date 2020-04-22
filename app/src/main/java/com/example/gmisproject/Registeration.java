@@ -56,12 +56,16 @@ public class Registeration extends AppCompatActivity {
     ProgressBar progressBarLoading;
     SharedPreferencesConfig preferencesConfig;
 
+    //delete this method
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
         bottomSheetDialog.dismiss();
     }
 
+
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +75,7 @@ public class Registeration extends AppCompatActivity {
 
         preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
 
-      /*  if (preferencesConfig.readUserLoginStatus()) {
+       if (preferencesConfig.readUserLoginStatus()) {
             Intent intent = new Intent(Registeration.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -81,7 +85,7 @@ public class Registeration extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-*/
+
         buttonSignIn = findViewById(R.id.btn_sign_in_bottom);
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
