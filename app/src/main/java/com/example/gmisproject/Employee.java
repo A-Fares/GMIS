@@ -30,7 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Employee extends AppCompatActivity {
-    private static boolean backPressedTime;
+    private long backPressedTime;
+    private Toast backToast;
     DatabaseReference referenceBins, referenceBinData;
     RecyclerView recyclerView;
     ArrayList<Integer> BinsData;
@@ -231,6 +232,14 @@ public class Employee extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (backPressedTime+2000>System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        }
+        else {
+            backToast=Toast.makeText(getBaseContext(),"Please Press Again",Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime=System.currentTimeMillis();
     }
 }

@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     static String string;
-    private static boolean backPressedTime;
+    private long backPressedTime;
+    private Toast backToast;
     TextView textViewUsername;
     private SharedPreferences preferencesConfig;
     private FirebaseAuth firebaseAuth;
@@ -155,6 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (backPressedTime+2000>System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        }
+        else {
+            backToast=Toast.makeText(getBaseContext(),"Please Press Again",Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime=System.currentTimeMillis();
     }
 }
