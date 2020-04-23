@@ -6,7 +6,7 @@ public class UserMsgModel {
     public static final int COMPLAINING_RESPONSE=1;
 
 
-    private String Message, Tel, Cost, ComplaintMsg,address, contact_number;
+    private String Message, Tel, Cost, ComplaintMsg,address, contact_number ,id;
     private int viewType;
 
     public UserMsgModel(int viewType,String Message, String Tel, String Cost) {
@@ -42,7 +42,13 @@ public class UserMsgModel {
 
     public UserMsgModel() {
     }
+    public String getId() {
+        return id;
+    }
 
+    public void setId (String usename) {
+        this.id = usename;
+    }
     public String getAddress() {
         return address;
     }

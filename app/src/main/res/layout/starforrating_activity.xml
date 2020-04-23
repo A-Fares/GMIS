@@ -78,9 +78,10 @@
                     android:text="يهمنا راحه عملائنا"
                     android:textStyle="bold"
                     android:textColor="#000000"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/aniq"
+                    android:fontFamily="@font/amin"
+
                     />
                 <TextView
                     android:padding="12dp"
@@ -88,9 +89,9 @@
                     android:layout_height="wrap_content"
                     android:text="بتقيمك يمكننا تحسين خدماتنا وتطويرهاا"
                     android:textColor="#000000"
-                    android:textSize="15sp"
+                    android:textSize="25sp"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/amin" />
+                    android:fontFamily="@font/tansik" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -112,20 +113,22 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_margin="20dp"
+        android:gravity="center"
         android:textDirection="rtl"
+        app1:boxStrokeColor="@color/sign_up_color_blue"
         app1:errorEnabled="true">
 
 
         <EditText
 
-            android:background="@color/colorWhite"
             android:id="@+id/edittext_view_addnotes"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:background="@color/colorWhite"
             android:fontFamily="@font/tansik"
             android:gravity="top"
             android:hint="اضف ملاحظات"
@@ -133,32 +136,22 @@
             android:textSize="20sp" />
 
 
-    <!--<com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:textDirection="rtl"
-        app:errorEnabled="true"
-        android:gravity="start"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_margin="16dp"
-        android:background="#FFFFFF">-->
 
 
-    <!--</com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
-</com.google.android.material.textfield.TextInputLayout>
     <Button
 
         android:id="@+id/button_send_complaints"
-        android:layout_width="wrap_content"
+        android:layout_width="238dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_login_background"
         android:fontFamily="@font/aniq"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="20dp"
         android:padding="8dp"
-        android:textSize="20sp"
-        android:text="ارسال "/>
+        android:text="ارسال "
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp" />
 
 </LinearLayout>

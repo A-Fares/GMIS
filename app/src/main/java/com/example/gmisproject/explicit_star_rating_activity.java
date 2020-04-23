@@ -48,9 +48,11 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 String username = email.substring(0, email.indexOf("@"));
                 Toast.makeText(explicit_star_rating_activity.this, "your rate is " + String.valueOf(rate), Toast.LENGTH_LONG).show();
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("uid");
+
 
             }
         });
@@ -58,15 +60,16 @@ public class explicit_star_rating_activity extends AppCompatActivity {
         buttonsendcompliants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String userfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // if (firebaseAuth.getCurrentUser() != null) {
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 String username = email.substring(0, email.indexOf("@"));
                 final EditText edittextinputcompliants = findViewById(R.id.edittext_view_addnotes);
                 String report = edittextinputcompliants.getText().toString();
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").setValue(report );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").setValue(report );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userfirebase);
 
             }
         });

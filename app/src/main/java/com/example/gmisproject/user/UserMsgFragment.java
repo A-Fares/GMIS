@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gmisproject.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +46,7 @@ public class UserMsgFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         userMsgModel = new UserMsgModel();
         DatabaseReference myRef = database.getReference("Responses");
+        final String currentuserfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewMessages);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -52,20 +54,25 @@ public class UserMsgFragment extends Fragment {
         final List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
         msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
        // msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.complaint_response)));
-        msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.message_maintenance_success)));
+        //msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.message_maintenance_success)));
  myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
             UserMsgModel userMsgModel = postSnapshot.getValue(UserMsgModel.class);
-            msgModelList.add(userMsgModel);
+            if (userMsgModel.getId().equals(currentuserfirebase)){
 
-            //Toast.makeText(getActivity(), msgModelList.get(0).getAddress() , Toast.LENGTH_LONG).show();
+
+                msgModelList.add(userMsgModel);
+
+            }
+
+
         }
         UserMsgAdapter adapter = new UserMsgAdapter(msgModelList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        //Toast.makeText(getActivity(),String.valueOf(msgModelList.get(3).getViewType()), Toast.LENGTH_LONG).show();
+
     }
 
     @Override
