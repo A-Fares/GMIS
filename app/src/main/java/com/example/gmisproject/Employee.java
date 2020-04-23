@@ -115,11 +115,7 @@ public class Employee extends AppCompatActivity {
                         preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user),MODE_PRIVATE);
                         preferencesConfig.edit().clear().commit();
                         Intent intent = new Intent(Employee.this, Registeration.class);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        //Shared Preference Worker Logout
-                        //preferencesConfig.writeWorkerLoginStatus(false);
                         mGoogleSignInClient.signOut();
 
                     }
@@ -235,27 +231,6 @@ public class Employee extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        if (!backPressedTime) {
-            Toast.makeText(this, "press again", Toast.LENGTH_SHORT).show();
-            backPressedTime = true;
-        } else {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-
-        new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                backPressedTime = false;
-            }
-        }.start();
+        super.onBackPressed();
     }
-
 }

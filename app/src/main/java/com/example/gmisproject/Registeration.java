@@ -56,7 +56,7 @@ public class Registeration extends AppCompatActivity {
     ProgressBar progressBarLoading;
     SharedPreferencesConfig preferencesConfig;
 
-    //delete this method
+
 /*
     @Override
     protected void onDestroy() {

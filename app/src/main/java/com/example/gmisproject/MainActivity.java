@@ -109,18 +109,9 @@ public class MainActivity extends AppCompatActivity {
                         preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user),MODE_PRIVATE);
                         preferencesConfig.edit().clear().commit();
                         Intent intent = new Intent(MainActivity.this, Registeration.class);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                         startActivity(intent);
 
-
-                        //preferencesConfig.writeUserLoginStatus(false);
-
-
-                        //finish();
-                        //Shared Preference User Logout
-
-                        //preferencesConfig.writeUserLoginStatus(false);
 
 
                     }
@@ -135,11 +126,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        textViewUsername = findViewById(R.id.textView_userName);
 
-     /*   string = getIntent().getExtras().getString("UserName");
-        textViewUsername.setText(string);
-*/
+
 
         // Find the view pager that will allow the user to swipe between fragments
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -160,36 +148,13 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.bin);
         tabLayout.getTabAt(1).setIcon(R.drawable.request);
         tabLayout.getTabAt(2).setIcon(R.drawable.msg);
-        onBackPressed();
+
 
     }
+
 
     @Override
     public void onBackPressed() {
-
-        if (!backPressedTime) {
-            Toast.makeText(this, "press again", Toast.LENGTH_SHORT).show();
-           // backPressedTime = true;
-        } else {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-
-        new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-                backPressedTime = false;
-            }
-        }.start();
+        super.onBackPressed();
     }
-
-
 }
