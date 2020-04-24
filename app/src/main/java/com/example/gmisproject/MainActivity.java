@@ -4,9 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,37 +28,51 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     static String string;
-    private long backPressedTime;
-    private Toast backToast;
     TextView textViewUsername;
-    private SharedPreferences preferencesConfig;
-    private FirebaseAuth firebaseAuth;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseUser user;
+    String profilePicture;
+    CircleImageView imageViewProfilePicture;
+    private long backPressedTime;
+    private Toast backToast;
+    private SharedPreferences preferencesConfig;
+    private FirebaseAuth firebaseAuth;
 
-    //get username from firebase in user profile
+
     @Override
     protected void onStart() {
         super.onStart();
-        textViewUsername=findViewById(R.id.textView_userName);
-        user=FirebaseAuth.getInstance().getCurrentUser();
-        String userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference=FirebaseDatabase.getInstance().getReference("Users")
+        textViewUsername = findViewById(R.id.textView_userName);
+        imageViewProfilePicture = findViewById(R.id.user_logo);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        //set image profile
+        if (user.getPhotoUrl() != null) {
+            profilePicture = user.getPhotoUrl().toString();
+            profilePicture += "?type=large";
+            Log.v("gggg", "url is " + profilePicture);
+            Picasso.get().load(profilePicture).fit().placeholder(R.drawable.user_logo).into(imageViewProfilePicture);
+        }
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
                 .child(userId);
         databaseReference.keepSynced(true);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String username=dataSnapshot.child("username").getValue().toString();
+                String username = dataSnapshot.child("username").getValue().toString();
                 textViewUsername.setText(username);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -73,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        preferencesConfig= new SharedPreferencesConfig(getApplicationContext());
 
-      //  preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
         final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -107,12 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
                         firebaseAuth.getInstance().signOut();
                         mGoogleSignInClient.signOut();
-                        preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user),MODE_PRIVATE);
+                        preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user), MODE_PRIVATE);
                         preferencesConfig.edit().clear().commit();
                         Intent intent = new Intent(MainActivity.this, Registeration.class);
 
                         startActivity(intent);
-
 
 
                     }
@@ -126,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
         // Find the view pager that will allow the user to swipe between fragments
@@ -156,14 +165,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (backPressedTime+2000>System.currentTimeMillis()) {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
             return;
-        }
-        else {
-            backToast=Toast.makeText(getBaseContext(),"Please Press Again",Toast.LENGTH_SHORT);
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Please Press Again", Toast.LENGTH_SHORT);
             backToast.show();
         }
-        backPressedTime=System.currentTimeMillis();
+        backPressedTime = System.currentTimeMillis();
     }
 }

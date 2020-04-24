@@ -143,15 +143,6 @@
     <Button
 
         android:id="@+id/button_send_complaints"
-        android:layout_width="238dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_login_background"
-        android:fontFamily="@font/aniq"
-        android:padding="8dp"
-        android:text="ارسال "
-        android:textColor="@color/colorWhite"
-        android:textSize="25sp" />
+        style="@style/ButtonSend" />
 
 </LinearLayout>
