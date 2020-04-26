@@ -121,27 +121,19 @@
         android:textDirection="rtl"
         app1:boxStrokeColor="@color/sign_up_color_blue"
         app1:errorEnabled="true">
-
-
         <EditText
-
             android:id="@+id/edittext_view_addnotes"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:background="@color/colorWhite"
             android:fontFamily="@font/tansik"
             android:gravity="top"
-            android:hint="اضف ملاحظات"
+            android:hint="اضف ملاحظات . . . "
             android:inputType="text"
             android:textSize="20sp" />
-
-
-
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-
         android:id="@+id/button_send_complaints"
         style="@style/ButtonSend" />
 

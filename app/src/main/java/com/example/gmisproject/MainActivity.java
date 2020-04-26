@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         // Create an adapter that knows which fragment should be shown on each page
         UserFragmentAdapter adapter = new UserFragmentAdapter(this, getSupportFragmentManager());
 
+        viewPager.setPageTransformer(true, new ZoomAnimation());
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
