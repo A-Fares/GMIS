@@ -25,7 +25,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/text_view_yesfor_signout_emp"
+            android:id="@+id/text_view_no_for_signout_emp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -35,7 +35,7 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/text_view_no_for_signout_emp"
+            android:id="@+id/text_view_yesfor_signout_emp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

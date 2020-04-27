@@ -15,9 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".User_or_Worker" />
         <activity android:name=".tips" />
-        <activity android:name=".explicit_star_rating_activity"
-
-            />
+        <activity android:name=".explicit_star_rating_activity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -39,7 +37,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".MapActivity"
