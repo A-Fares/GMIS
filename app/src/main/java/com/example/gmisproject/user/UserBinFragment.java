@@ -1,6 +1,8 @@
 package com.example.gmisproject.user;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,8 @@ public class UserBinFragment extends Fragment {
     private View binAlertLayout;
     private ArrayList<BinsModel> binsModels;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private UserBinAdapter mAdapter;
+    String final_location2;
 
     public UserBinFragment() {
         // Required empty public constructor
@@ -107,6 +110,35 @@ public class UserBinFragment extends Fragment {
                 }
                 mAdapter = new UserBinAdapter(binsModels);
                 recyclerView.setAdapter(mAdapter);
+
+
+                mAdapter.SetOnItemClickListener(new UserBinAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        String position1 = String.valueOf(position+1);
+                        DatabaseReference  reference_location = FirebaseDatabase.getInstance().getReference("Bins");
+                        DatabaseReference reference_location1 = reference_location.child(position1);
+                        DatabaseReference final_ref_location = reference_location1.child("location");
+
+                        final_ref_location.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                final_location2 = String.valueOf(dataSnapshot.getValue());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        Intent intent = new Intent();
+
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("google.navigation:q="+final_location2));
+                        startActivity(intent);
+
+                    }
+                });
 
                 /*mAdapter.setOnItemClickListener(new BinsAdapter.OnItemClickListener() {
                     @Override

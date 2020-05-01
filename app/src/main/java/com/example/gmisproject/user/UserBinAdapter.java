@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinHolder> {
 
     private ArrayList<BinsModel> binsModels;
+    private OnItemClickListener mlistener;
 
     public UserBinAdapter(ArrayList<BinsModel> binsModels) {
         this.binsModels = binsModels;
@@ -27,7 +28,7 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
     @Override
     public UserBinHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_bin_item, parent, false);
-        UserBinHolder viewHolder = new UserBinHolder(v);
+        UserBinHolder viewHolder = new UserBinHolder(v , mlistener);
         return viewHolder;
     }
 
@@ -47,6 +48,12 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
         return binsModels.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    public void SetOnItemClickListener(OnItemClickListener listener){
+        mlistener = listener;
+    }
 
     public static class UserBinHolder extends RecyclerView.ViewHolder {
         public ImageView trash;
@@ -55,13 +62,27 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
         public TextView binStatus;
         public ProgressBar binPercentage;
 
-        public UserBinHolder(@NonNull View itemView) {
+        public UserBinHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             trash = itemView.findViewById(R.id.trash);
             binId = itemView.findViewById(R.id.binId);
             clientAddress = itemView.findViewById(R.id.user_address);
             binStatus = itemView.findViewById(R.id.bin_status);
             binPercentage = itemView.findViewById(R.id.bin_percentage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+
+                    }
+
+                }
+            });
         }
     }
 }
