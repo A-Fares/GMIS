@@ -39,7 +39,7 @@ public class Employee extends AppCompatActivity {
     ArrayList<Integer> BinsData;
     UsersModel usersModel;
     BinsModel binsModel;
-    String userName;
+    String userName ,final_location;
     ImageView signOut;
     TextView textViewUsername;
     View binAlertLayout;
@@ -230,7 +230,26 @@ public class Employee extends AppCompatActivity {
                 mAdapter.setOnItemClickListener(new BinsAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        Intent intent = new Intent(Employee.this, MapActivity.class);
+                        String position1 = String.valueOf(position+1);
+                        DatabaseReference  reference_location = FirebaseDatabase.getInstance().getReference("Bins");
+                        DatabaseReference reference_location1 = reference_location.child(position1);
+                        DatabaseReference final_ref_location = reference_location1.child("location");
+
+                        final_ref_location.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                final_location = String.valueOf(dataSnapshot.getValue());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        Intent intent = new Intent();
+
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("google.navigation:q="+final_location));
                         startActivity(intent);
                     }
                 });
