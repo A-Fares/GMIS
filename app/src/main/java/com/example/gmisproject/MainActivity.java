@@ -2,7 +2,6 @@ package com.example.gmisproject;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,20 +32,16 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-    static final int GOOGLE_SIGN_IN = 123;
-    private static final String TAG = "GoogleActivity";
     static String string;
     TextView textViewUsername;
     GoogleSignInClient mGoogleSignInClient;
-    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseUser user;
     String profilePicture;
     CircleImageView imageViewProfilePicture;
     private long backPressedTime;
     private Toast backToast;
-    private SharedPreferences preferencesConfig;
-    private FirebaseAuth firebaseAuth;
+
 
 
     @Override
@@ -59,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         if (user.getPhotoUrl() != null) {
             profilePicture = user.getPhotoUrl().toString();
             profilePicture += "?type=large";
-            Log.v("gggg", "url is " + profilePicture);
             Picasso.get().load(profilePicture).fit().placeholder(R.drawable.user_logo).into(imageViewProfilePicture);
         }
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -87,56 +81,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferencesConfig = new SharedPreferencesConfig(getApplicationContext());
-        final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        //Set id for Textview
-        ImageView imageView = findViewById(R.id.image_view_star);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);
-                startActivity(intent);
+        configGoogleSignIn();
 
-            }
-        });
-        FloatingActionButton floatingbuttonsignout = findViewById(R.id.floating_button_signout);
-        floatingbuttonsignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setContentView(R.layout.alertdialogsignoutuser);
-                dialog.setCancelable(false);
-                dialog.show();
-                TextView textviewsignoutyesuser = dialog.findViewById(R.id.text_view_yesfor_signout_user);
-                TextView textviewsignoutnouser = dialog.findViewById(R.id.text_view_no_for_signout_user);
-                textviewsignoutyesuser.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        ////////////////////////////////////////////////Bshaaaaayr Code/////////////////////////////////
+                                        //Set id for Textview
+                                        ImageView imageView = findViewById(R.id.image_view_star);
+                                        imageView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                        FloatingActionButton floatingbuttonsignout = findViewById(R.id.floating_button_signout);
+                                        floatingbuttonsignout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                final Dialog dialog = new Dialog(MainActivity.this);
+                                                dialog.setContentView(R.layout.alertdialogsignoutuser);
+                                                dialog.setCancelable(false);
+                                                dialog.show();
+                                                TextView textviewsignoutyesuser = dialog.findViewById(R.id.text_view_yesfor_signout_user);
+                                                TextView textviewsignoutnouser = dialog.findViewById(R.id.text_view_no_for_signout_user);
+                                                textviewsignoutyesuser.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        FirebaseAuth.getInstance().signOut();
+                                                        startActivity(new Intent(MainActivity.this,Registration.class));
+                                                    }
+                                                });
+                                                textviewsignoutnouser.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
 
-                        firebaseAuth.getInstance().signOut();
-                        mGoogleSignInClient.signOut();
-                        preferencesConfig = getSharedPreferences(getResources().getString(R.string.login_preferences_user), MODE_PRIVATE);
-                        preferencesConfig.edit().clear().commit();
-                        Intent intent = new Intent(MainActivity.this, Registeration.class);
-
-                        startActivity(intent);
-
-
-                    }
-                });
-                textviewsignoutnouser.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-            }
-        });
+                                            }
+                                        });
+                ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // Find the view pager that will allow the user to swipe between fragments
@@ -163,7 +146,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    private void configGoogleSignIn() {
+        // Configure Google Sign In
+        final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
     @Override
     public void onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {

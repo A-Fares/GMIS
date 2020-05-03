@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="50dp">
+                    android:paddingBottom="40dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayout_username"
@@ -131,33 +131,6 @@
                             android:paddingEnd="20dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <RadioGroup
-                        android:id="@+id/radio_group_user_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="50dp">
-
-                        <RadioButton
-                            android:id="@+id/radio_btn_worker"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:onClick="checkButton"
-                            android:text="عامل" />
-
-                        <RadioButton
-                            android:id="@+id/radio_btn_user"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:onClick="checkButton"
-                            android:text="عميل" />
-
-                    </RadioGroup>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -226,7 +199,7 @@
                 android:layout_below="@+id/login_icons"
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/btn_signup_bottomsheet"
                 android:fontFamily="@font/aniq"
                 android:text="تسجيل دخول"

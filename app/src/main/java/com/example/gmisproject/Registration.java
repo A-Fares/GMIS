@@ -3,12 +3,10 @@ package com.example.gmisproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -33,79 +32,109 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
-public class SignUp extends AppCompatActivity {
+public class Registration extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
     FirebaseUser user;
-    TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
     Button buttonSignUp, buttonSignIn;
+    TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
-    ImageView googleSignUp, facebookSignUp;
+    FirebaseAuth.AuthStateListener authStateListener;
+    ImageView facebookLogin, googleLogin;
+    BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
+    String type;
     ProgressBar progressBarLoading;
-    String userName, userEmail;
-    ImageView imageViewUserPhotoProfile;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        //  Views
-        buttonSignIn = findViewById(R.id.btn_sign_in);
-        googleSignUp = findViewById(R.id.gmail_login);
-        facebookSignUp = findViewById(R.id.facebook_login);
-        inputLayoutUsername = findViewById(R.id.inputLayout_username);
-        inputLayoutEmail = findViewById(R.id.inputLayout_email);
-        inputLayoutPassword = findViewById(R.id.inputLayout_password);
-        inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
-        buttonSignUp = findViewById(R.id.btn_sign_up);
-        progressBarLoading = findViewById(R.id.progress_loading);
-        imageViewUserPhotoProfile = findViewById(R.id.user_logo);
+        setContentView(R.layout.activity_registeration);
 
+        // VIEWS
+        buttonSignIn = findViewById(R.id.btn_sign_in_bottom);
 
-        //get instance from firebase
+        //get instance from firebase authentication
         firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null)
+                    checkUserType();
+            }
+        };
         configGoogleSignIn();
-        //on Click the logo of G-mail
-        googleSignUp.setOnClickListener(new View.OnClickListener() {
+
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showButtonSheet();
+            }
+        });
+    }
+
+    private void showButtonSheet() {
+        bottomSheetDialog = new BottomSheetDialog(Registration.this);
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_login);
+        bottomSheetDialog.setCanceledOnTouchOutside(false);
+        bottomSheetDialog.show();
+        //VIEWS
+        editTextEmail = bottomSheetDialog.findViewById(R.id.inputLayout_email);
+        editTextPassword = bottomSheetDialog.findViewById(R.id.inputLayout_password);
+        buttonSignIn = bottomSheetDialog.findViewById(R.id.btn_sign_in);
+        buttonSignUp = bottomSheetDialog.findViewById(R.id.btn_signup);
+        facebookLogin = bottomSheetDialog.findViewById(R.id.facebook_login);
+        googleLogin = bottomSheetDialog.findViewById(R.id.gmail_login);
+        progressBarLoading = findViewById(R.id.progress_loading);
+        //Go to SignUP Activity
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registration.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+        //Login button
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSignIn();
+            }
+        });
+        //Facebook Login
+        mCallbackManager = CallbackManager.Factory.create();
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                facebookLogin(mCallbackManager);
+            }
+        });
+        //Google Login
+        googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SignInGoogle();
             }
         });
-        //on Click the Sign Up Button
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startSignUP();
-            }
-        });
-        //on Click the logo of Facebook
-        mCallbackManager = CallbackManager.Factory.create();
-        facebookSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                facebookSignUp(mCallbackManager);
-            }
-        });
-        //Go to SignIn Activity
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUp.this, Registration.class);
-                startActivity(intent);
-            }
-        });
     }
 
-    private void facebookSignUp(CallbackManager mCallbackManager) {
-        LoginManager.getInstance().logInWithReadPermissions(SignUp.this, Arrays.asList("email", "public_profile"));
+    private void facebookLogin(CallbackManager mCallbackManager) {
+        LoginManager.getInstance().logInWithReadPermissions(Registration.this, Arrays.asList("email", "public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -116,13 +145,41 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG2, "facebook:onCancel");
-                // ...
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG2, "facebook:onError", error);
-                // ...
+            }
+        });
+    }
+
+    private void startSignIn() {
+        final String email = editTextEmail.getEditText().getText().toString().trim();
+        String password = editTextPassword.getEditText().getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError("Enter your email");
+            editTextEmail.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            editTextPassword.setError("Enter your password");
+            editTextPassword.requestFocus();
+            return;
+        }
+        progressBarLoading.setVisibility(View.VISIBLE);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    checkUserType();
+                } else {
+                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    editTextEmail.getEditText().setText("");
+                    editTextPassword.getEditText().setText("");
+                }
             }
         });
     }
@@ -136,58 +193,36 @@ public class SignUp extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    private void startSignUP() {
-        final String username = inputLayoutUsername.getEditText().getText().toString();
-        final String email = inputLayoutEmail.getEditText().getText().toString();
-        final String password = inputLayoutPassword.getEditText().getText().toString();
-        final String confirmPassword = inputLayoutConfirmPassword.getEditText().getText().toString();
-        if (username.isEmpty()) {
-            inputLayoutUsername.setError("برجاء ادخال اسم المستخدم");
-            inputLayoutUsername.requestFocus();
-            return;
-        }
-        if (email.isEmpty()) {
-            inputLayoutEmail.setError("برجاء ادخال البريد الإلكتروني");
-            inputLayoutEmail.requestFocus();
-            return;
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            inputLayoutEmail.setError("ادخل بريد إلكتروني صحيح");
-            inputLayoutEmail.requestFocus();
-            return;
-        }
-        if (password.isEmpty()) {
-            inputLayoutPassword.setError("برجاء ادخال كلمة السر");
-            inputLayoutPassword.requestFocus();
-            return;
-        }
-        if (!(confirmPassword.equals(password))) {
-            inputLayoutConfirmPassword.setError("كلمة السر غير متطابقة");
-            inputLayoutConfirmPassword.requestFocus();
-            return;
-        }
-        progressBarLoading.setVisibility(View.VISIBLE);
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void checkUserType() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
-                    user = firebaseAuth.getCurrentUser();
-                    updateUI(user);
-                } else {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
-                    updateUI(null);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                type = dataSnapshot.getValue().toString().trim();
+                if (type.equals("عميل")) {
+                    startActivity( new Intent(Registration.this, MainActivity.class));
+                    finish();
+                } else if (type.equals("عامل")) {
+                    startActivity(  new Intent(Registration.this, Employee.class));
+                    finish();
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
+
     }
+
 
     void SignInGoogle() {
         progressBarLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
+        bottomSheetDialog.dismiss();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -218,6 +253,7 @@ public class SignUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
+                    checkUserType();
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
@@ -230,19 +266,17 @@ public class SignUp extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            userName = user.getDisplayName();
-            if (user.getDisplayName() == null) {
-                userName = inputLayoutUsername.getEditText().getText().toString();
-            }
-            userEmail = user.getEmail();
-            userInformationToMainActivity(userName, userEmail);
+            String personName = user.getDisplayName();
+            String personEmail = user.getEmail();
+            userInformationToMainActivity(personName, personEmail);
         }
     }
 
-    // send account information to check them and saving to database
+    // send account information to check them and retrieve from database
     private void userInformationToMainActivity(String personName, String personEmail) {
-        startActivity(new Intent(getApplicationContext(), User_or_Worker.class)
+        startActivity(new Intent(getApplicationContext(), MainActivity.class)
                 .putExtra("username", personName).putExtra("email", personEmail));
+        this.finish();
     }
 
     // Facebook Authentication
@@ -253,16 +287,11 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG2, "signInWithCredential:success");
                             progressBarLoading.setVisibility(View.INVISIBLE);
+                            checkUserType();
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG2, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignUp.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                             progressBarLoading.setVisibility(View.INVISIBLE);
                             updateUI(null);
                         }

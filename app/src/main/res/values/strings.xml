@@ -3,7 +3,6 @@
 
     <string name="clint_name">Ahmed Fares</string>
     <string name="full_name">الاسم بالكامل</string>
-    <string name="email">البريد الإلكتروني</string>
     <string name="address">العنوان</string>
     <string name="user_phone">رقم التليفون</string>
     <string name="bin_number">عدد السلات</string>
@@ -11,55 +10,26 @@
     <string name="bin_alert">سيتم تفعيل السلات الخاصة بك عند استكمال الرد على الطلب و دفع المصاريف</string>
     <string name="bin_alert_employee">سيتم تفعيل السلات الخاصة بك عند استكمال الرد على الطلب</string>
 
-    <string name="emp_name">إسم العامل: </string>
-    <string name="emp_name_data"> أسامة أمين</string>
     <string name="company_phone">تليفون:  </string>
-    <string name="bin_id">رقم السلة: </string>
     <string name="cost">المصاريف: </string>
-    <string name="bin_status">الحالة: </string>
     <string name="msg_response">تم إضافة السلات المرغوب فيها برجاء التوجه لفرع
         <br>\n</br><br>\n</br>
         الشركة لتأكيد عملية الدفع و تفعيل السلات</string>
-    <string name="complaint_response">جاري العمل على شكواكم وسيتم ارسال عربة
-        <br>\n</br><br>\n</br>
-          صيانة في موعد أقصاه يومين</string>
-    <string name="message_maintenance_success">
-        <br>
-        تم عمل الصيانة وحل جميع مشاكل السلة
-       \n </br>
-        <br>\n</br>
-        سعداء بخدمتكم
-    </string>
-
-
-    <string name="point_num">عدد النقاط: </string>
-    <string name="point_num_data">50 </string>
-
-
-    <string name="sign_up">تسجيل حساب</string>
-    <string name="sign_in">تسجيل دخول</string>
-    <string name="sign_up_button">تسجيل</string>
-    <string name="sign_in_button">دخول</string>
 
 
     <string name="username_hint">إسم المُستخدم</string>
-    <string name="e_mail_hint">البريد الإلكتروني</string>
-    <string name="password_hint">كلمة السر</string>
-    <string name="confirm_password_hint">تأكيد كلمة السر</string>
 
     //facebook id
     <string name="facebook_app_id">908722636207521</string>
     <string name="fb_login_protocol_scheme">fb908722636207521</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SharedPreference User -->
     <string name="login_preferences_user">com.example.gmisproject_login_preferences_user</string>
     <string name="login_preferences_status_user">com.example.gmisproject_login_preferences_status_user</string>
 
     <!-- SharedPreference Worker -->
-    <string name="login_preferences_worker">com.example.gmisproject_login_preferences_worker</string>
     <string name="login_preferences_status_worker">com.example.gmisproject_login_preferences_status_worker</string>
 
 </resources>
