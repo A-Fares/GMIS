@@ -74,8 +74,10 @@ public class Registration extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            /*    if (firebaseAuth.getCurrentUser() != null)
-                    checkUserType();*/
+                if (firebaseAuth.getCurrentUser() != null) {
+                    //  startActivity(new Intent(Registration.this, MainActivity.class));
+                    checkUserType();
+                }
             }
         };
         configGoogleSignIn();
@@ -174,7 +176,7 @@ public class Registration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    checkUserType();
+                    //     checkUserType();
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     editTextEmail.getEditText().setText("");
@@ -195,16 +197,19 @@ public class Registration extends AppCompatActivity {
 
     public void checkUserType() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                .child("type").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                type = dataSnapshot.getValue().toString().trim();
-                if (type.equals("عميل")) {
-                    startActivity( new Intent(Registration.this, MainActivity.class));
-                    finish();
-                } else if (type.equals("عامل")) {
-                    startActivity(  new Intent(Registration.this, Employee.class));
-                    finish();
+                assert type != null;
+                type = dataSnapshot.getValue(String.class);
+                if (type != null) {
+                    if (type.equals("عميل")) {
+                        startActivity(new Intent(Registration.this, MainActivity.class));
+                        finish();
+                    } else if (type.equals("عامل")) {
+                        startActivity(new Intent(Registration.this, Employee.class));
+                        finish();
+                    }
                 }
             }
 
@@ -253,7 +258,7 @@ public class Registration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    checkUserType();
+                    //     checkUserType();
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                 }
@@ -270,7 +275,7 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBarLoading.setVisibility(View.INVISIBLE);
-                           checkUserType();
+                            //            checkUserType();
                         } else {
                             progressBarLoading.setVisibility(View.INVISIBLE);
                         }

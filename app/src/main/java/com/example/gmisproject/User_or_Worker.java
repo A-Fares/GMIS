@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class User_or_Worker extends AppCompatActivity {
 
     Button buttonUser, buttonWorker;
-    FirebaseAuth firebaseAuth;
     Task<Void> databaseReference;
     String email, username, type;
 
@@ -27,24 +26,6 @@ public class User_or_Worker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_or__worker);
-
-/*
-        // Reading Shared Preference User && Worker Login Status
-
-        preferencesConfig=new SharedPreferencesConfig(getApplicationContext());
-
-        if (preferencesConfig.readUserLoginStatus()){
-            Intent intent=new Intent(User_or_Worker.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        if (preferencesConfig.readWorkerLoginStatus()){
-            Intent intent=new Intent(User_or_Worker.this,Employee.class);
-            startActivity(intent);
-            finish();
-        }
-
- */
 
         buttonUser = findViewById(R.id.btn_user);
         buttonWorker = findViewById(R.id.btn_worker);
@@ -108,7 +89,6 @@ public class User_or_Worker extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 }

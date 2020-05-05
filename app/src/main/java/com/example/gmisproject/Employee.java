@@ -60,6 +60,7 @@ public class Employee extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
         textViewUsername = findViewById(R.id.textView_userName);
         imageViewProfilePicture = findViewById(R.id.user_logo);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,7 +99,7 @@ public class Employee extends AppCompatActivity {
 
         signOut = findViewById(R.id.sign_out);
         textViewUsername = findViewById(R.id.textView_userName);
-
+        firebaseAuth=FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -123,7 +124,7 @@ public class Employee extends AppCompatActivity {
                                     public void onClick(View view) {
 
                                         FirebaseAuth.getInstance().signOut();
-                                        startActivity(new Intent(Employee.this, Registration.class));
+                                  //      startActivity(new Intent(Employee.this, Registration.class));
                                     }
                                 });
                                 textviewsignoutno.setOnClickListener(new View.OnClickListener() {

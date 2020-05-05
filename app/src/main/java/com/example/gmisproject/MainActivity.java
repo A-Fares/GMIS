@@ -41,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView imageViewProfilePicture;
     private long backPressedTime;
     private Toast backToast;
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
 
 
 
     @Override
     protected void onStart() {
         super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
         textViewUsername = findViewById(R.id.textView_userName);
         imageViewProfilePicture = findViewById(R.id.user_logo);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -80,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseAuth=FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    startActivity(new Intent(MainActivity.this, Registration.class));
+                }
+            }
+        };
 
         configGoogleSignIn();
 
@@ -107,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onClick(View view) {
                                                         FirebaseAuth.getInstance().signOut();
-                                                        startActivity(new Intent(MainActivity.this,Registration.class));
+                                            //            startActivity(new Intent(MainActivity.this,Registration.class));
                                                     }
                                                 });
                                                 textviewsignoutnouser.setOnClickListener(new View.OnClickListener() {
