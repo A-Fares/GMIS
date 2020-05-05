@@ -74,8 +74,8 @@ public class Registration extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null)
-                    checkUserType();
+            /*    if (firebaseAuth.getCurrentUser() != null)
+                    checkUserType();*/
             }
         };
         configGoogleSignIn();
@@ -254,29 +254,11 @@ public class Registration extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressBarLoading.setVisibility(View.INVISIBLE);
                     checkUserType();
-                    user = firebaseAuth.getCurrentUser();
-                    updateUI(user);
                 } else {
                     progressBarLoading.setVisibility(View.INVISIBLE);
-                    updateUI(null);
                 }
             }
         });
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            String personName = user.getDisplayName();
-            String personEmail = user.getEmail();
-            userInformationToMainActivity(personName, personEmail);
-        }
-    }
-
-    // send account information to check them and retrieve from database
-    private void userInformationToMainActivity(String personName, String personEmail) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class)
-                .putExtra("username", personName).putExtra("email", personEmail));
-        this.finish();
     }
 
     // Facebook Authentication
@@ -288,12 +270,9 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBarLoading.setVisibility(View.INVISIBLE);
-                            checkUserType();
-                            user = firebaseAuth.getCurrentUser();
-                            updateUI(user);
+                           checkUserType();
                         } else {
                             progressBarLoading.setVisibility(View.INVISIBLE);
-                            updateUI(null);
                         }
                     }
                 });
