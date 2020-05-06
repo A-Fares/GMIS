@@ -43,6 +43,10 @@ public class UserMsgFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_user_msg, container, false);
+
+
+        final View alert_msg_layout = rootView.findViewById(R.id.alert_msg_layout);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         userMsgModel = new UserMsgModel();
         DatabaseReference myRef = database.getReference("Responses");
@@ -52,7 +56,7 @@ public class UserMsgFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         final List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
-        msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
+        // msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
        // msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.complaint_response)));
         //msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.message_maintenance_success)));
  myRef.addValueEventListener(new ValueEventListener() {
@@ -72,6 +76,11 @@ public class UserMsgFragment extends Fragment {
         UserMsgAdapter adapter = new UserMsgAdapter(msgModelList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        if(msgModelList.isEmpty()){
+            alert_msg_layout.setVisibility(View.VISIBLE);
+        }
+        else alert_msg_layout.setVisibility(View.INVISIBLE);
 
     }
 
