@@ -1,6 +1,7 @@
 package com.example.gmisproject;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,13 +40,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class Registration extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
     FirebaseUser user;
-    Button buttonSignUp, buttonSignIn;
+    CircularProgressButton  buttonSignIn;
+    Button  buttonSignInview ,buttonSignUp;
     TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
@@ -53,8 +57,7 @@ public class Registration extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
     String type;
-    ProgressBar progressBarLoading;
-
+    ProgressBar progressBaranimation ;
     @Override
     protected void onStart() {
         super.onStart();
@@ -67,7 +70,7 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registeration);
 
         // VIEWS
-        buttonSignIn = findViewById(R.id.btn_sign_in_bottom);
+        buttonSignInview = findViewById(R.id.btn_sign_in_bottom);
 
         //get instance from firebase authentication
         firebaseAuth = FirebaseAuth.getInstance();
@@ -82,7 +85,7 @@ public class Registration extends AppCompatActivity {
         };
         configGoogleSignIn();
 
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+        buttonSignInview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showButtonSheet();
@@ -102,22 +105,43 @@ public class Registration extends AppCompatActivity {
         buttonSignUp = bottomSheetDialog.findViewById(R.id.btn_signup);
         facebookLogin = bottomSheetDialog.findViewById(R.id.facebook_login);
         googleLogin = bottomSheetDialog.findViewById(R.id.gmail_login);
-        progressBarLoading = findViewById(R.id.progress_loading);
+        progressBaranimation  =findViewById(R.id.spin_kit);
         //Go to SignUP Activity
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Registration.this, SignUp.class);
                 startActivity(intent);
+
+
             }
+
         });
+
         //Login button
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startSignIn();
+                //implement button animation signin
+                AsyncTask<String, String, String> demoLogin = new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... params) {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return "done";
+                    }
+
+                };
+                buttonSignIn.startAnimation();
+                demoLogin.execute();
             }
+
         });
+
         //Facebook Login
         mCallbackManager = CallbackManager.Factory.create();
         facebookLogin.setOnClickListener(new View.OnClickListener() {
@@ -127,10 +151,14 @@ public class Registration extends AppCompatActivity {
             }
         });
         //Google Login
+
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
+                progressBaranimation.setVisibility(View.VISIBLE);
                 SignInGoogle();
+
             }
         });
     }
@@ -170,15 +198,16 @@ public class Registration extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        progressBarLoading.setVisibility(View.VISIBLE);
+
+
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+
                     //     checkUserType();
                 } else {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+
                     editTextEmail.getEditText().setText("");
                     editTextPassword.getEditText().setText("");
                 }
@@ -223,7 +252,7 @@ public class Registration extends AppCompatActivity {
 
 
     void SignInGoogle() {
-        progressBarLoading.setVisibility(View.VISIBLE);
+        //progressBaranimation.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
         bottomSheetDialog.dismiss();
@@ -257,10 +286,10 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    progressBaranimation.setVisibility(View.VISIBLE);
                     //     checkUserType();
                 } else {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    progressBaranimation.setVisibility(View.GONE);
                 }
             }
         });
@@ -274,10 +303,10 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            progressBaranimation.setVisibility(View.VISIBLE);
                             //            checkUserType();
                         } else {
-                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            progressBaranimation.setVisibility(View.GONE);
                         }
                     }
                 });

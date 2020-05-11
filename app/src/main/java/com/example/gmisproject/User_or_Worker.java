@@ -36,6 +36,7 @@ public class User_or_Worker extends AppCompatActivity {
         buttonUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //tips for guide new users
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {

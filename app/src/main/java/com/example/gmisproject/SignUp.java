@@ -1,6 +1,7 @@
 package com.example.gmisproject;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -36,6 +37,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class SignUp extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
@@ -43,13 +46,14 @@ public class SignUp extends AppCompatActivity {
     CallbackManager mCallbackManager;
     FirebaseUser user;
     TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
-    Button buttonSignUp, buttonSignIn;
+    Button  buttonSignIn;
     FirebaseAuth firebaseAuth;
     ImageView googleSignUp, facebookSignUp;
     GoogleSignInClient mGoogleSignInClient;
-    ProgressBar progressBarLoading;
     String userName, userEmail;
     ImageView imageViewUserPhotoProfile;
+    CircularProgressButton buttonSignUp ;
+    ProgressBar progressBaranimationLoading ;
 
 
     @Override
@@ -65,7 +69,7 @@ public class SignUp extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.inputLayout_password);
         inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
-        progressBarLoading = findViewById(R.id.progress_loading);
+        progressBaranimationLoading = findViewById(R.id.spin_kit);
         imageViewUserPhotoProfile = findViewById(R.id.user_logo);
 
 
@@ -166,24 +170,49 @@ public class SignUp extends AppCompatActivity {
             inputLayoutConfirmPassword.requestFocus();
             return;
         }
-        progressBarLoading.setVisibility(View.VISIBLE);
+        progressBaranimationLoading.setVisibility(View.VISIBLE);
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    progressBaranimationLoading.setVisibility(View.GONE);
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    progressBaranimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
         });
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //implement button signup
+                AsyncTask<String, String, String> demoLogin = new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... params) {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return "done";
+                    }
+
+
+                };
+
+                buttonSignUp.startAnimation();
+                demoLogin.execute();
+            }
+
+        });
+
     }
 
     void SignInGoogle() {
-        progressBarLoading.setVisibility(View.VISIBLE);
+        //set progressbar visible
+        progressBaranimationLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
@@ -217,11 +246,13 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    //set progressbar gone
+                    progressBaranimationLoading.setVisibility(View.GONE);
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
-                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    //set progressbar gone
+                    progressBaranimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
@@ -255,7 +286,7 @@ public class SignUp extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG2, "signInWithCredential:success");
-                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            progressBaranimationLoading.setVisibility(View.GONE);
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -263,7 +294,7 @@ public class SignUp extends AppCompatActivity {
                             Log.w(TAG2, "signInWithCredential:failure", task.getException());
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            progressBarLoading.setVisibility(View.INVISIBLE);
+                            progressBaranimationLoading.setVisibility(View.GONE);
                             updateUI(null);
                         }
                     }

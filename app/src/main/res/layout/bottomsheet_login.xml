@@ -27,6 +27,8 @@
         android:textStyle="bold" />
 
 
+
+
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
@@ -96,13 +98,14 @@
                 android:layout_marginRight="35dp"
                 android:elevation="10dp">
 
-                <Button
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:id="@+id/btn_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_login_background"
                     android:fontFamily="@font/aniq"
                     android:text="دخول"
+                    app:spinning_bar_color="#fff"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="18sp" />

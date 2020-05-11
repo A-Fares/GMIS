@@ -48,24 +48,28 @@ public class UserMsgFragment extends Fragment {
         final View alert_msg_layout = rootView.findViewById(R.id.alert_msg_layout);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //object from userMsgModel
         userMsgModel = new UserMsgModel();
+        //connection to firebase
         DatabaseReference myRef = database.getReference("Responses");
-        final String currentuserfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //get currentUser
+        final String currentUserFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewMessages);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         final List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
         // msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
-       // msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.complaint_response)));
-        //msgModelList.add(new UserMsgModel(COMPLAINING_RESPONSE, getResources().getString(R.string.message_maintenance_success)));
+
+        //Retrive list of data from firebase
  myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        //loop data
         for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
             UserMsgModel userMsgModel = postSnapshot.getValue(UserMsgModel.class);
-            if (userMsgModel.getId().equals(currentuserfirebase)){
-
+            //check  method
+            if (userMsgModel.getId().equals(currentUserFirebase)){
 
                 msgModelList.add(userMsgModel);
 
@@ -90,9 +94,7 @@ public class UserMsgFragment extends Fragment {
     }
 });
 
-        //UserMsgAdapter adapter = new UserMsgAdapter(msgModelList);
-        //recyclerView.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
+
 
         return rootView;
     }

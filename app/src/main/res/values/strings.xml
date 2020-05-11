@@ -32,4 +32,5 @@
     <!-- SharedPreference Worker -->
     <string name="login_preferences_status_worker">com.example.gmisproject_login_preferences_status_worker</string>
 
+
 </resources>

@@ -21,13 +21,15 @@
         android:textSize="38sp"
         android:textStyle="bold" />
 
-    <ProgressBar
-        android:id="@+id/progress_loading"
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.Circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="30dp"
-        android:visibility="invisible" />
+        android:layout_marginLeft="290dp"
+        android:visibility="gone"
+        app:SpinKit_Color="@color/colorAccent" />
 
 
     <ScrollView
@@ -145,14 +147,22 @@
                 android:layout_marginRight="35dp"
                 android:elevation="10dp">
 
-                <Button
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+
                     android:id="@+id/btn_sign_up"
                     android:layout_width="match_parent"
+                    android:layout_marginRight="30dp"
                     android:layout_height="wrap_content"
+                    app:spinning_bar_width="4dp"
+                    app:spinning_bar_padding="6dp"
+                    app:spinning_bar_color="#fff"
                     android:background="@drawable/btn_login_background"
                     android:fontFamily="@font/aniq"
                     android:text="تسجيل"
                     android:textAllCaps="false"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+
                     android:textColor="#fff"
                     android:textSize="18sp" />
             </RelativeLayout>

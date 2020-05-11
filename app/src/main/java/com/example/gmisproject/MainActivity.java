@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private Toast backToast;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
+    ImageView imagViewStar;
+    FloatingActionButton floatingButtonSignOut;
 
 
 
@@ -95,34 +97,34 @@ public class MainActivity extends AppCompatActivity {
 
         configGoogleSignIn();
 
-        ////////////////////////////////////////////////Bshaaaaayr Code/////////////////////////////////
-                                        //Set id for Textview
-                                        ImageView imageView = findViewById(R.id.image_view_star);
-                                        imageView.setOnClickListener(new View.OnClickListener() {
+        //Set id for Textview
+        imagViewStar = findViewById(R.id.image_view_star);
+        imagViewStar.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
                                                 Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);
                                                 startActivity(intent);
                                             }
                                         });
-                                        FloatingActionButton floatingbuttonsignout = findViewById(R.id.floating_button_signout);
-                                        floatingbuttonsignout.setOnClickListener(new View.OnClickListener() {
+        floatingButtonSignOut = findViewById(R.id.floating_button_signout);
+        floatingButtonSignOut.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
+                                                //show alertdialog
                                                 final Dialog dialog = new Dialog(MainActivity.this);
                                                 dialog.setContentView(R.layout.alertdialogsignoutuser);
                                                 dialog.setCancelable(false);
                                                 dialog.show();
-                                                TextView textviewsignoutyesuser = dialog.findViewById(R.id.text_view_yesfor_signout_user);
-                                                TextView textviewsignoutnouser = dialog.findViewById(R.id.text_view_no_for_signout_user);
-                                                textviewsignoutyesuser.setOnClickListener(new View.OnClickListener() {
+                                                TextView textViewSignOutYesUser = dialog.findViewById(R.id.text_view_yesfor_signout_user);
+                                                TextView textViewSignOutNoUser = dialog.findViewById(R.id.text_view_no_for_signout_user);
+                                                textViewSignOutYesUser.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
                                                         FirebaseAuth.getInstance().signOut();
                                             //            startActivity(new Intent(MainActivity.this,Registration.class));
                                                     }
                                                 });
-                                                textviewsignoutnouser.setOnClickListener(new View.OnClickListener() {
+                                                textViewSignOutNoUser.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
                                                         dialog.dismiss();
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                                             }
                                         });
-                ////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
         // Find the view pager that will allow the user to swipe between fragments

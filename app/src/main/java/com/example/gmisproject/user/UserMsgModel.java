@@ -1,5 +1,5 @@
 package com.example.gmisproject.user;
-
+//update attributes
 public class UserMsgModel {
 
     public static final int REQUEST_RESPONSE=0;

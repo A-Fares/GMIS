@@ -1,7 +1,5 @@
 package com.example.gmisproject;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,63 +11,95 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class explicit_star_rating_activity extends AppCompatActivity {
-    private float rating_bin;
-    private FirebaseAuth mAuth;
-
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.starforrating_activity);
+        //prevent ScreenRotation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //views
+        ImageView imageViewBackFromRatingPage = findViewById(R.id.image_view_backfrom_ratingpage);
+        Button  buttonSendCompliantSFromUser = findViewById(R.id.button_send_complaints);
+        final RatingBar RatingFromUser = findViewById(R.id.explicit_Rating_bar_id);
+        //Retrive data from firebase to save last userRate whatever happened
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("complaintmessages") .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                //check method
+                if(dataSnapshot != null && dataSnapshot.getValue() != null){
+                    int Rate =  Integer.parseInt(dataSnapshot.getValue().toString());
+                   RatingFromUser.setRating(Rate);
+                }
+            }
 
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ImageView imageviewbackfromratingpage = findViewById(R.id.image_view_backfrom_ratingpage);
-        imageviewbackfromratingpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
+
+        imageViewBackFromRatingPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(explicit_star_rating_activity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
-        Button  buttonsendcompliants = findViewById(R.id.button_send_complaints);
-        final RatingBar ratingbarexplicit = findViewById(R.id.explicit_Rating_bar_id);
-        ratingbarexplicit.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+       RatingFromUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                int ratingresult = (int) Math.round(rating);
-                String rate = String.valueOf(ratingresult);
-                // if (firebaseAuth.getCurrentUser() != null) {
+                //cast rate from float to integer
+                int RatingResult = (int) Math.round(rating);
+                // save it in string
+                String rate = String.valueOf(RatingResult);
+               //get Email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                //get Username
                 String username = email.substring(0, email.indexOf("@"));
-                Toast.makeText(explicit_star_rating_activity.this, "your rate is " + String.valueOf(rate), Toast.LENGTH_LONG).show();
+                //get current firebaseuser
+                String userfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
+               //write data in firebase
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("uid");
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userfirebase);
 
 
             }
         });
-        final EditText edittextinputcompliants = findViewById(R.id.edittext_view_addnotes);
-        buttonsendcompliants.setOnClickListener(new View.OnClickListener() {
+        buttonSendCompliantSFromUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                // if (firebaseAuth.getCurrentUser() != null) {
+                // if (firebaseAuth.getCurrentUser() != null)
+                //get email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                //get username
                 String username = email.substring(0, email.indexOf("@"));
-                final EditText edittextinputcompliants = findViewById(R.id.edittext_view_addnotes);
-                String report = edittextinputcompliants.getText().toString();
+                final EditText editTextInputCompliantsUser = findViewById(R.id.edittext_view_addnotes);
+                //report compliants for user
+                String report = editTextInputCompliantsUser.getText().toString();
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").setValue(report );
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").push().setValue(report );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userfirebase);
+                Toast.makeText(explicit_star_rating_activity.this,"تم الارسال",Toast.LENGTH_LONG).show();
+                editTextInputCompliantsUser.setText("");
 
             }
         });

@@ -109,10 +109,10 @@ public class Employee extends AppCompatActivity {
             }
         };
 
-/////////////////////////////////////////////////Bshaaaayr/////////////////////////////////////
-                        signOut.setOnClickListener(new View.OnClickListener() {
+        signOut.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(View view) {
+                             public void onClick(View view) {
+                                //show alertdialog for employee to signout or dismiss action
                                 final Dialog dialog = new Dialog(Employee.this);
                                 dialog.setContentView(R.layout.alertdialogsignoutemp);
                                 dialog.setCancelable(false);
@@ -122,9 +122,9 @@ public class Employee extends AppCompatActivity {
                                 textviewsignoutyes.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
+                                        //sign out method
                                         FirebaseAuth.getInstance().signOut();
-                                  //      startActivity(new Intent(Employee.this, Registration.class));
+
                                     }
                                 });
                                 textviewsignoutno.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +135,7 @@ public class Employee extends AppCompatActivity {
                                 });
 
                             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         });
 
         binAlertLayout = findViewById(R.id.alert_bin_layout);
