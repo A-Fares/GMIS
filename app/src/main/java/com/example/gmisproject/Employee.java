@@ -122,6 +122,10 @@ public class Employee extends AppCompatActivity {
                                 textviewsignoutyes.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+
+                                        // delete tokenId when employee logout...
+                                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
+                                        databaseReference.removeValue();
                                         //sign out method
                                         FirebaseAuth.getInstance().signOut();
 

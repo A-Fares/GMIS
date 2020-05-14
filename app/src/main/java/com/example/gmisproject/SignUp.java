@@ -46,14 +46,14 @@ public class SignUp extends AppCompatActivity {
     CallbackManager mCallbackManager;
     FirebaseUser user;
     TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
-    Button  buttonSignIn;
+    Button buttonSignIn;
     FirebaseAuth firebaseAuth;
     ImageView googleSignUp, facebookSignUp;
     GoogleSignInClient mGoogleSignInClient;
     String userName, userEmail;
     ImageView imageViewUserPhotoProfile;
-    CircularProgressButton buttonSignUp ;
-    ProgressBar progressBaranimationLoading ;
+    CircularProgressButton buttonSignUp;
+    ProgressBar progressBaranimationLoading;
 
 
     @Override
@@ -175,9 +175,12 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    Intent intent = new Intent(SignUp.this, User_or_Worker.class);
+                    startActivity(intent);
                     progressBaranimationLoading.setVisibility(View.GONE);
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
+
                 } else {
                     progressBaranimationLoading.setVisibility(View.GONE);
                     updateUI(null);

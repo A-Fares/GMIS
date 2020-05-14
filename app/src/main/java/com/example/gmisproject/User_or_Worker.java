@@ -3,6 +3,7 @@ package com.example.gmisproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,11 +15,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class User_or_Worker extends AppCompatActivity {
 
     Button buttonUser, buttonWorker;
     Task<Void> databaseReference;
+    // update for token id.......
     String email, username, type;
 
 
@@ -50,6 +54,8 @@ public class User_or_Worker extends AppCompatActivity {
                 handler.postDelayed(runnable, 0);
                 Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
                 startActivity(intentUser);
+
+                // set tokenId .......
                 UsersModel user = new UsersModel(email, username, type = "عميل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())
@@ -57,6 +63,8 @@ public class User_or_Worker extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        // set tokenId for each user
+                                        getToken();
                                         Toast.makeText(User_or_Worker.this, "User created...", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
@@ -72,6 +80,7 @@ public class User_or_Worker extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // set tokenId .......
                 UsersModel user = new UsersModel(email, username, type = "عامل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())
@@ -79,6 +88,8 @@ public class User_or_Worker extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        // set tokenId for each employee
+                                        getToken();
                                         Toast.makeText(User_or_Worker.this, "Employee created...", Toast.LENGTH_SHORT).show();
                                         Intent intentWorker = new Intent(User_or_Worker.this, Employee.class);
                                         startActivity(intentWorker);
@@ -90,6 +101,38 @@ public class User_or_Worker extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    // method to get tokenId
+    private void getToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId")
+                                .setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(User_or_Worker.this, "token added successfully", Toast.LENGTH_SHORT).show();
+                                    //     Intent intentWorker = new Intent(User_or_Worker.this, Employee.class);
+                                    //     startActivity(intentWorker);
+                                } else {
+                                    Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        // Get new Instance ID token
+
+                    }
+                });
 
     }
 }

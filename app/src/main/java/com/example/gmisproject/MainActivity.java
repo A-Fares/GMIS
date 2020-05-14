@@ -3,7 +3,6 @@ package com.example.gmisproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -120,7 +119,12 @@ public class MainActivity extends AppCompatActivity {
                                                 textViewSignOutYesUser.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
+
+                                                        // delete tokenId when user logout...
+                                                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
+                                                        databaseReference.removeValue();
                                                         FirebaseAuth.getInstance().signOut();
+
                                             //            startActivity(new Intent(MainActivity.this,Registration.class));
                                                     }
                                                 });

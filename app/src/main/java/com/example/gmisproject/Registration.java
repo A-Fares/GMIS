@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Arrays;
 
@@ -48,16 +51,17 @@ public class Registration extends AppCompatActivity {
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
     FirebaseUser user;
-    CircularProgressButton  buttonSignIn;
-    Button  buttonSignInview ,buttonSignUp;
+    CircularProgressButton buttonSignIn;
+    Button buttonSignInview, buttonSignUp;
     TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
     ImageView facebookLogin, googleLogin;
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
-    String type;
-    ProgressBar progressBaranimation ;
+    String type, token;
+    ProgressBar progressBaranimation;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -88,6 +92,7 @@ public class Registration extends AppCompatActivity {
         buttonSignInview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showButtonSheet();
             }
         });
@@ -105,7 +110,7 @@ public class Registration extends AppCompatActivity {
         buttonSignUp = bottomSheetDialog.findViewById(R.id.btn_signup);
         facebookLogin = bottomSheetDialog.findViewById(R.id.facebook_login);
         googleLogin = bottomSheetDialog.findViewById(R.id.gmail_login);
-        progressBaranimation  =findViewById(R.id.spin_kit);
+        progressBaranimation = findViewById(R.id.spin_kit);
         //Go to SignUP Activity
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,9 +238,13 @@ public class Registration extends AppCompatActivity {
                 type = dataSnapshot.getValue(String.class);
                 if (type != null) {
                     if (type.equals("عميل")) {
+                        // set tokenId for each user login
+                        getToken();
                         startActivity(new Intent(Registration.this, MainActivity.class));
                         finish();
                     } else if (type.equals("عامل")) {
+                        // set tokenId for each employee login
+                        getToken();
                         startActivity(new Intent(Registration.this, Employee.class));
                         finish();
                     }
@@ -308,6 +317,34 @@ public class Registration extends AppCompatActivity {
                         } else {
                             progressBaranimation.setVisibility(View.GONE);
                         }
+                    }
+                });
+    }
+
+    // method to get tokenId
+    private void getToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId")
+                                .setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Registration.this, "token added successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Registration.this, "error.....", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
                     }
                 });
     }
