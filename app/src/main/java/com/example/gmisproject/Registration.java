@@ -50,7 +50,6 @@ public class Registration extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
-    FirebaseUser user;
     CircularProgressButton buttonSignIn;
     Button buttonSignInview, buttonSignUp;
     TextInputLayout editTextEmail, editTextPassword;
@@ -59,7 +58,7 @@ public class Registration extends AppCompatActivity {
     ImageView facebookLogin, googleLogin;
     BottomSheetDialog bottomSheetDialog;
     GoogleSignInClient mGoogleSignInClient;
-    String type, token;
+    String type;
     ProgressBar progressBaranimation;
 
     @Override

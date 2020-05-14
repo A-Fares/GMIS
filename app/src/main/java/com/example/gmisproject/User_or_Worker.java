@@ -22,7 +22,6 @@ public class User_or_Worker extends AppCompatActivity {
 
     Button buttonUser, buttonWorker;
     Task<Void> databaseReference;
-    // update for token id.......
     String email, username, type;
 
 
@@ -122,14 +121,12 @@ public class User_or_Worker extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(User_or_Worker.this, "token added successfully", Toast.LENGTH_SHORT).show();
-                                    //     Intent intentWorker = new Intent(User_or_Worker.this, Employee.class);
-                                    //     startActivity(intentWorker);
                                 } else {
                                     Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                        // Get new Instance ID token
+
 
                     }
                 });

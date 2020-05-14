@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -29,8 +27,7 @@ public class firebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder mBuilder;
 
-        // click action for opening profile
-        Intent intent = new Intent(clickActionNotification);
+        // content of notification for bins
 
         int notificationId = (int) System.currentTimeMillis();
         mBuilder = new NotificationCompat.Builder(this, "default")
@@ -40,7 +37,9 @@ public class firebaseMessagingService extends FirebaseMessagingService {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Log.i("notificationId", String.valueOf(notificationId));
 
-        // Create an explicit intent for an Activity in your app
+
+        // click action for opening profile
+        Intent intent = new Intent(clickActionNotification);
         Bundle bundle = new Bundle();
 
         bundle.putString("userName", notificationMessage);
@@ -53,8 +52,8 @@ public class firebaseMessagingService extends FirebaseMessagingService {
 
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        // notificationId is a unique int for each notification that you must define
 
+        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(notificationId, mBuilder.build());
 
 

@@ -1,7 +1,6 @@
 package com.example.gmisproject;
 
 import java.util.ArrayList;
-// update for token id setter && getter && constructor.............
 public class UsersModel {
 
     private String username, email, type,rate,report,tokenId;

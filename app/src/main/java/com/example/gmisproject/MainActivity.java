@@ -1,7 +1,10 @@
 package com.example.gmisproject;
 
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,10 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.gmisproject.user.UserFragmentAdapter;
+import com.example.gmisproject.user.UserMsgModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authStateListener;
     ImageView imagViewStar;
     FloatingActionButton floatingButtonSignOut;
+    UserMsgModel userMsgModel;
+    String currentUserId,userId;
 
 
 
@@ -76,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        // method for sending notification message for specific user
+        getMessage();
     }
 
 
@@ -123,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
                                                         // delete tokenId when user logout...
                                                         databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
                                                         databaseReference.removeValue();
+                                                        //sign out method
                                                         FirebaseAuth.getInstance().signOut();
 
-                                            //            startActivity(new Intent(MainActivity.this,Registration.class));
                                                     }
                                                 });
                                                 textViewSignOutNoUser.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +172,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    // send notification message for specific user
+
+    public void getMessage(){
+        DatabaseReference msgRef = FirebaseDatabase.getInstance().getReference("Responses");
+        msgRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    userMsgModel = ds.getValue(UserMsgModel.class);
+                    userId = userMsgModel.getId();
+                    currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    if (userId.equals( currentUserId)) {
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            NotificationChannel channel = new NotificationChannel("notify", "notify", NotificationManager.IMPORTANCE_DEFAULT);
+                            NotificationManager manager = getSystemService(NotificationManager.class);
+                            manager.createNotificationChannel(channel);
+                        }
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "notify")
+                                .setContentText("Messages")
+                                .setSmallIcon(R.mipmap.ic_trash)
+                                .setAutoCancel(true)
+                                .setContentText("new messages delivered");
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
+                        managerCompat.notify(999, builder.build());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
+
 
     private void configGoogleSignIn() {
         // Configure Google Sign In
