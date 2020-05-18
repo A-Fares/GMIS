@@ -20,6 +20,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,21 +40,20 @@ import java.util.Arrays;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
-public class SignUp extends AppCompatActivity {
+public class SignUp<sprite> extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
     FirebaseUser user;
     TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
-    Button buttonSignIn;
+    Button buttonSignIn,buttonSignUp;
     FirebaseAuth firebaseAuth;
     ImageView googleSignUp, facebookSignUp;
     GoogleSignInClient mGoogleSignInClient;
     String userName, userEmail;
     ImageView imageViewUserPhotoProfile;
-    CircularProgressButton buttonSignUp;
-    ProgressBar progressBaranimationLoading;
+    ProgressBar progressBarAnimationLoading;
 
 
     @Override
@@ -69,7 +69,7 @@ public class SignUp extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.inputLayout_password);
         inputLayoutConfirmPassword = findViewById(R.id.inputLayout_confirmPassword);
         buttonSignUp = findViewById(R.id.btn_sign_up);
-        progressBaranimationLoading = findViewById(R.id.spin_kit);
+        progressBarAnimationLoading = findViewById(R.id.spin_kit);
         imageViewUserPhotoProfile = findViewById(R.id.user_logo);
 
 
@@ -88,8 +88,14 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startSignUP();
+
+
             }
+
         });
+
+
+
         //on Click the logo of Facebook
         mCallbackManager = CallbackManager.Factory.create();
         facebookSignUp.setOnClickListener(new View.OnClickListener() {
@@ -170,52 +176,44 @@ public class SignUp extends AppCompatActivity {
             inputLayoutConfirmPassword.requestFocus();
             return;
         }
-        progressBaranimationLoading.setVisibility(View.VISIBLE);
+
+//implement progressbar animation make it visible
+        DoubleBounce doubleBounce = new DoubleBounce();
+        progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+        progressBarAnimationLoading.setVisibility(View.VISIBLE);
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    //remove load from memory using gone
+                    DoubleBounce doubleBounce = new DoubleBounce();
+                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     Intent intent = new Intent(SignUp.this, User_or_Worker.class);
                     startActivity(intent);
-                    progressBaranimationLoading.setVisibility(View.GONE);
+
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
 
                 } else {
-                    progressBaranimationLoading.setVisibility(View.GONE);
+                    //remove load from memory using gone
+                    DoubleBounce doubleBounce = new DoubleBounce();
+                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
         });
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //implement button signup
-                AsyncTask<String, String, String> demoLogin = new AsyncTask<String, String, String>() {
-                    @Override
-                    protected String doInBackground(String... params) {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return "done";
-                    }
 
-
-                };
-
-                buttonSignUp.startAnimation();
-                demoLogin.execute();
-            }
-
-        });
 
     }
 
     void SignInGoogle() {
         //set progressbar visible
-        progressBaranimationLoading.setVisibility(View.VISIBLE);
+        DoubleBounce doubleBounce = new DoubleBounce();
+        progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+        progressBarAnimationLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
@@ -249,13 +247,17 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    //set progressbar gone
-                    progressBaranimationLoading.setVisibility(View.GONE);
+                         //remove load from memory using gone
+                    DoubleBounce doubleBounce = new DoubleBounce();
+                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
-                    //set progressbar gone
-                    progressBaranimationLoading.setVisibility(View.GONE);
+                    //remove load from memory using gone
+                    DoubleBounce doubleBounce = new DoubleBounce();
+                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
@@ -289,7 +291,10 @@ public class SignUp extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG2, "signInWithCredential:success");
-                            progressBaranimationLoading.setVisibility(View.GONE);
+                            //remove load from memory using gone
+                            DoubleBounce doubleBounce = new DoubleBounce();
+                            progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                            progressBarAnimationLoading.setVisibility(View.GONE);
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -297,7 +302,10 @@ public class SignUp extends AppCompatActivity {
                             Log.w(TAG2, "signInWithCredential:failure", task.getException());
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            progressBaranimationLoading.setVisibility(View.GONE);
+                            //remove load from memory using gone
+                            DoubleBounce doubleBounce = new DoubleBounce();
+                            progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
+                            progressBarAnimationLoading.setVisibility(View.GONE);
                             updateUI(null);
                         }
                     }

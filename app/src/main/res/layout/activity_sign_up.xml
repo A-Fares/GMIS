@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="290dp"
         android:visibility="gone"
-        app:SpinKit_Color="@color/colorAccent" />
+        app:SpinKit_Color="@color/colorPrimaryDark" />
 
 
     <ScrollView
@@ -147,24 +147,19 @@
                 android:layout_marginRight="35dp"
                 android:elevation="10dp">
 
-                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                <Button
 
                     android:id="@+id/btn_sign_up"
                     android:layout_width="match_parent"
-                    android:layout_marginRight="30dp"
                     android:layout_height="wrap_content"
-                    app:spinning_bar_width="4dp"
-                    app:spinning_bar_padding="6dp"
-                    app:spinning_bar_color="#fff"
                     android:background="@drawable/btn_login_background"
                     android:fontFamily="@font/aniq"
                     android:text="تسجيل"
                     android:textAllCaps="false"
                     android:layout_centerInParent="true"
-                    android:gravity="center"
-
                     android:textColor="#fff"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <TextView

@@ -71,13 +71,13 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get Username
                 String username = email.substring(0, email.indexOf("@"));
-                //get current firebaseuser
-                String userfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                //get current firebaseUser
+                String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
                //write data in firebase
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userfirebase);
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
 
 
             }
@@ -85,7 +85,7 @@ public class explicit_star_rating_activity extends AppCompatActivity {
         buttonSendCompliantSFromUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userfirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // if (firebaseAuth.getCurrentUser() != null)
                 //get email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -97,7 +97,7 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").push().setValue(report );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userfirebase);
+                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
                 Toast.makeText(explicit_star_rating_activity.this,"تم الارسال",Toast.LENGTH_LONG).show();
                 editTextInputCompliantsUser.setText("");
 
