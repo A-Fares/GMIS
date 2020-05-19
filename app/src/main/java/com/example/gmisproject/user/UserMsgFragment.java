@@ -32,9 +32,8 @@ import static com.example.gmisproject.user.UserMsgModel.REQUEST_RESPONSE;
  * A simple {@link Fragment} subclass.
  */
 public class UserMsgFragment extends Fragment {
-    //DatabaseReference reference;
-    private String complaintMsg;
     UserMsgModel userMsgModel ;
+
     public UserMsgFragment() {
         // Required empty public constructor
     }
@@ -61,7 +60,7 @@ public class UserMsgFragment extends Fragment {
         final List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
         // msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
 
-        //Retrive list of data from firebase
+        //Retrieve  list of data from firebase
  myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

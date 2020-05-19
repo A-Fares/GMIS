@@ -147,7 +147,7 @@ public class Registration extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                //implement progressbaranimation make it visible
+                //implement progressBarAnimation make it visible
                 DoubleBounce doubleBounce = new DoubleBounce();
                 progressBarAnimation.setIndeterminateDrawable(doubleBounce);
                progressBarAnimation.setVisibility(View.VISIBLE);
@@ -192,7 +192,7 @@ public class Registration extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        //implement progressbaranimation make it visible
+        //implement progressBarAnimation make it visible
 
         DoubleBounce doubleBounce = new DoubleBounce();
         progressBarAnimation.setIndeterminateDrawable(doubleBounce);
@@ -201,7 +201,6 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
                     //     checkUserType();
                 } else {
 
@@ -293,7 +292,6 @@ public class Registration extends AppCompatActivity {
                     //     checkUserType();
                 } else {
                     // make it gone remove load from memory
-
                     DoubleBounce doubleBounce = new DoubleBounce();
                     progressBarAnimation.setIndeterminateDrawable(doubleBounce);
                     progressBarAnimation.setVisibility(View.GONE);

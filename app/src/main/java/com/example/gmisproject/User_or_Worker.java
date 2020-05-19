@@ -44,8 +44,8 @@ public class User_or_Worker extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        Intent intenttips = new Intent(User_or_Worker.this, tips.class);
-                        startActivity(intenttips);
+                        Intent intentTips = new Intent(User_or_Worker.this, tips.class);
+                        startActivity(intentTips);
 
                     }
                 };
@@ -54,7 +54,7 @@ public class User_or_Worker extends AppCompatActivity {
                 Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
                 startActivity(intentUser);
 
-                // set tokenId .......
+
                 UsersModel user = new UsersModel(email, username, type = "عميل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())
@@ -79,7 +79,7 @@ public class User_or_Worker extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // set tokenId .......
+
                 UsersModel user = new UsersModel(email, username, type = "عامل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
                     databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid())

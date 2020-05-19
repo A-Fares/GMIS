@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // method for sending notification message for specific user
-        getMessage();
+        getUserMessageNotification();
     }
 
 
@@ -118,14 +118,15 @@ public class MainActivity extends AppCompatActivity {
         floatingButtonSignOut.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                //show alertdialog
+
+                                                //show alertDialog for user to signOut or dismiss action
                                                 final Dialog dialog = new Dialog(MainActivity.this);
                                                 dialog.setContentView(R.layout.alertdialogsignoutuser);
                                                 dialog.setCancelable(false);
                                                 dialog.show();
-                                                TextView textViewSignOutYesUser = dialog.findViewById(R.id.text_view_yesfor_signout_user);
-                                                TextView textViewSignOutNoUser = dialog.findViewById(R.id.text_view_no_for_signout_user);
-                                                textViewSignOutYesUser.setOnClickListener(new View.OnClickListener() {
+                                                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_user);
+                                                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_user);
+                                                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
 
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                     }
                                                 });
-                                                textViewSignOutNoUser.setOnClickListener(new View.OnClickListener() {
+                                                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
                                                         dialog.dismiss();
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
     // send notification message for specific user
 
-    public void getMessage(){
+    public void getUserMessageNotification(){
         DatabaseReference msgRef = FirebaseDatabase.getInstance().getReference("Responses");
         msgRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -217,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
+
+    // backButton to close app
     @Override
     public void onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {

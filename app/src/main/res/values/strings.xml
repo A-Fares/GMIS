@@ -25,13 +25,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
 
-    <!-- SharedPreference User -->
-    <string name="login_preferences_user">com.example.gmisproject_login_preferences_user</string>
-    <string name="login_preferences_status_user">com.example.gmisproject_login_preferences_status_user</string>
-
-    <!-- SharedPreference Worker -->
-    <string name="login_preferences_status_worker">com.example.gmisproject_login_preferences_status_worker</string>
-
-
-
 </resources>

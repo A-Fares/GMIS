@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinHolder> {
 
     private ArrayList<BinsModel> binsModels;
-    private OnItemClickListener mlistener;
+    private OnItemClickListener mListener;
 
     public UserBinAdapter(ArrayList<BinsModel> binsModels) {
         this.binsModels = binsModels;
@@ -28,7 +28,7 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
     @Override
     public UserBinHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_bin_item, parent, false);
-        UserBinHolder viewHolder = new UserBinHolder(v , mlistener);
+        UserBinHolder viewHolder = new UserBinHolder(v , mListener);
         return viewHolder;
     }
 
@@ -52,7 +52,7 @@ public class UserBinAdapter extends RecyclerView.Adapter<UserBinAdapter.UserBinH
         void onItemClick(int position);
     }
     public void SetOnItemClickListener(OnItemClickListener listener){
-        mlistener = listener;
+        mListener = listener;
     }
 
     public static class UserBinHolder extends RecyclerView.ViewHolder {

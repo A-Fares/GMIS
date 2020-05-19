@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> {
 
     private ArrayList<BinsModel> binsModels;
-    private OnItemClickListener mlistener;
+    private OnItemClickListener mListener;
 
     public BinsAdapter(ArrayList<BinsModel> empBinsList) {
         this.binsModels = empBinsList;
@@ -43,7 +43,7 @@ public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> 
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
-        mlistener = listener;
+        mListener = listener;
     }
 
     public interface OnItemClickListener {
@@ -66,10 +66,10 @@ public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mlistener != null) {
+                    if (mListener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            mlistener.onItemClick(position);
+                            mListener.onItemClick(position);
                         }
                     }
                 }

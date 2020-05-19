@@ -12,47 +12,47 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 public class tips extends AppCompatActivity {
-    private ViewPager mainviewpager;
-    private LinearLayout mDotslinearLayout;
+    private ViewPager mainViewPager;
+    private LinearLayout mDotsLinearLayout;
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
-    private Button previousbtn ;
-    private Button Nextbtn ;
+    private Button previousBtn ;
+    private Button nextBtn ;
     private int currentPage ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
-        mainviewpager = (ViewPager)findViewById(R.id.view_pager_id);
-        mDotslinearLayout=(LinearLayout)findViewById(R.id.linear_layout_id);
-        previousbtn =(Button)findViewById(R.id.button_previous);
-        Nextbtn =(Button)findViewById(R.id.button_next);
+        mainViewPager = (ViewPager)findViewById(R.id.view_pager_id);
+        mDotsLinearLayout=(LinearLayout)findViewById(R.id.linear_layout_id);
+        previousBtn =(Button)findViewById(R.id.button_previous);
+        nextBtn =(Button)findViewById(R.id.button_next);
         sliderAdapter = new SliderAdapter(this);
-        mainviewpager.setAdapter(sliderAdapter);
+        mainViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
-        mainviewpager.addOnPageChangeListener(viewlistner);
-        Nextbtn.setOnClickListener(new View.OnClickListener() {
+        mainViewPager.addOnPageChangeListener(viewlistner);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainviewpager.setCurrentItem(currentPage +1);
+                mainViewPager.setCurrentItem(currentPage +1);
             }
         });
-        previousbtn.setOnClickListener(new View.OnClickListener() {
+        previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainviewpager.setCurrentItem(currentPage -1);
+                mainViewPager.setCurrentItem(currentPage -1);
             }
         });
     }
     public void addDotsIndicator(int position){
         mDots = new TextView[3];
-        mDotslinearLayout.removeAllViews();
+        mDotsLinearLayout.removeAllViews();
         for(int i =0 ; i < mDots.length ; i++){
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(35);
             mDots[i].setTextColor(getResources().getColor(R.color.colortransportwhite));
-            mDotslinearLayout.addView(mDots[i]);
+            mDotsLinearLayout.addView(mDots[i]);
         }
         if(mDots.length > 0){
             mDots[position].setTextColor(getResources().getColor(R.color.colorWhite));
@@ -70,31 +70,31 @@ public class tips extends AppCompatActivity {
             addDotsIndicator(i);
             currentPage= i;
             if(i==0){
-                Nextbtn.setEnabled(true);
-                previousbtn.setEnabled(false);
-                previousbtn.setVisibility(View.INVISIBLE);
-                Nextbtn.setText("Next");
-                previousbtn.setText("");
+                nextBtn.setEnabled(true);
+                previousBtn.setEnabled(false);
+                previousBtn.setVisibility(View.INVISIBLE);
+                nextBtn.setText("Next");
+                previousBtn.setText("");
             }
             else if (i == mDots.length -1){
-                Nextbtn.setEnabled(true);
-                previousbtn.setEnabled(true);
-                previousbtn.setVisibility(View.VISIBLE);
-                Nextbtn.setText("finish");
-                Nextbtn.setOnClickListener(new View.OnClickListener() {
+                nextBtn.setEnabled(true);
+                previousBtn.setEnabled(true);
+                previousBtn.setVisibility(View.VISIBLE);
+                nextBtn.setText("finish");
+                nextBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(tips.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
-                previousbtn.setText("previous");
+                previousBtn.setText("previous");
             } else {
-                Nextbtn.setEnabled(true);
-                previousbtn.setEnabled(true);
-                previousbtn.setVisibility(View.VISIBLE);
-                Nextbtn.setText("Next");
-                previousbtn.setText("previous");
+                nextBtn.setEnabled(true);
+                previousBtn.setEnabled(true);
+                previousBtn.setVisibility(View.VISIBLE);
+                nextBtn.setText("Next");
+                previousBtn.setText("previous");
             }
         }
 

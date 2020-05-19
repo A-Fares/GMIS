@@ -31,6 +31,7 @@ public class firebaseMessagingService extends FirebaseMessagingService {
 
         int notificationId = (int) System.currentTimeMillis();
         mBuilder = new NotificationCompat.Builder(this, "default")
+                // payLoad from function in firebase
                 .setSmallIcon(R.mipmap.ic_trash)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationMessage)

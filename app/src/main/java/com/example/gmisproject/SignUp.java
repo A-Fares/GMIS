@@ -177,7 +177,7 @@ public class SignUp<sprite> extends AppCompatActivity {
             return;
         }
 
-//implement progressbar animation make it visible
+//implement progressBarAnimation make it visible
         DoubleBounce doubleBounce = new DoubleBounce();
         progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
         progressBarAnimationLoading.setVisibility(View.VISIBLE);

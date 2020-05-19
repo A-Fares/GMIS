@@ -42,6 +42,7 @@ public class UserMsgModel {
 
     public UserMsgModel() {
     }
+
     public String getId() {
         return id;
     }
@@ -49,6 +50,7 @@ public class UserMsgModel {
     public void setId (String usename) {
         this.id = usename;
     }
+
     public String getAddress() {
         return address;
     }

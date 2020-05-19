@@ -30,7 +30,7 @@ public class explicit_star_rating_activity extends AppCompatActivity {
         ImageView imageViewBackFromRatingPage = findViewById(R.id.image_view_backfrom_ratingpage);
         Button  buttonSendCompliantSFromUser = findViewById(R.id.button_send_complaints);
         final RatingBar RatingFromUser = findViewById(R.id.explicit_Rating_bar_id);
-        //Retrive data from firebase to save last userRate whatever happened
+        //Retrieve data from firebase to save last userRate whatever happened
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("complaintmessages") .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -92,7 +92,7 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 //get username
                 String username = email.substring(0, email.indexOf("@"));
                 final EditText editTextInputCompliantsUser = findViewById(R.id.edittext_view_addnotes);
-                //report compliants for user
+                //report complaints for user
                 String report = editTextInputCompliantsUser.getText().toString();
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );

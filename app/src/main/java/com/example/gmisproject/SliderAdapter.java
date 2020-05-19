@@ -14,6 +14,8 @@ import androidx.viewpager.widget.PagerAdapter;
 public class SliderAdapter extends PagerAdapter {
     Context context;
     LayoutInflater layoutInflater;
+    ImageView sliderImageView;
+    TextView slidHeading,slidDesc;
 
     public SliderAdapter(Context context) {
         this.context = context;
@@ -54,12 +56,12 @@ public class SliderAdapter extends PagerAdapter {
         layoutInflater =(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view =layoutInflater.inflate(R.layout.side_layout,container,false);
         //views with casting
-        ImageView sliderimageview = (ImageView) view.findViewById(R.id.image_view_slide);
-        TextView slidheading = (TextView) view.findViewById(R.id.textview_heading);
-        TextView sliddesc = (TextView) view.findViewById(R.id.textview_desc);
-        sliderimageview.setImageResource(slide_image[position]);
-        slidheading.setText(slide_inputs[position]);
-        sliddesc.setText(slide_disc[position]);
+        sliderImageView = (ImageView) view.findViewById(R.id.image_view_slide);
+        slidHeading = (TextView) view.findViewById(R.id.textview_heading);
+        slidDesc = (TextView) view.findViewById(R.id.textview_desc);
+        sliderImageView.setImageResource(slide_image[position]);
+        slidHeading.setText(slide_inputs[position]);
+        slidDesc.setText(slide_disc[position]);
         container.addView(view);
 
         return view;

@@ -37,14 +37,11 @@ public class Employee extends AppCompatActivity {
     ArrayList<Integer> BinsData;
     UsersModel usersModel;
     BinsModel binsModel;
-    String userName, final_location;
+    String final_location;
     ImageView signOut;
     TextView textViewUsername;
     View binAlertLayout;
-    //SharedPreferencesConfig preferencesConfig;
     ArrayList<BinsModel> binsModels;
-    GoogleSignInClient mGoogleSignInClient;
-    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseUser user;
     String profilePicture;
@@ -112,14 +109,15 @@ public class Employee extends AppCompatActivity {
         signOut.setOnClickListener(new View.OnClickListener() {
                             @Override
                              public void onClick(View view) {
-                                //show alertdialog for employee to signout or dismiss action
+
+                                //show alertDialog for employee to signOut or dismiss action
                                 final Dialog dialog = new Dialog(Employee.this);
                                 dialog.setContentView(R.layout.alertdialogsignoutemp);
                                 dialog.setCancelable(false);
                                 dialog.show();
-                                TextView textviewsignoutyes = dialog.findViewById(R.id.text_view_yesfor_signout_emp);
-                                TextView textviewsignoutno = dialog.findViewById(R.id.text_view_no_for_signout_emp);
-                                textviewsignoutyes.setOnClickListener(new View.OnClickListener() {
+                                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_emp);
+                                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_emp);
+                                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
 
@@ -131,7 +129,7 @@ public class Employee extends AppCompatActivity {
 
                                     }
                                 });
-                                textviewsignoutno.setOnClickListener(new View.OnClickListener() {
+                                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         dialog.dismiss();
@@ -238,6 +236,7 @@ public class Employee extends AppCompatActivity {
         });
     }
 
+    // backButton to close app
     @Override
     public void onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
