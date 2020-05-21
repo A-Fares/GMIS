@@ -22,6 +22,8 @@
     //facebook id
     <string name="facebook_app_id">908722636207521</string>
     <string name="fb_login_protocol_scheme">fb908722636207521</string>
+    <string name="default_web_client_id" />
+
 
     <!-- TODO: Remove or change this placeholder text -->
 

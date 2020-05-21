@@ -64,6 +64,8 @@ public class UserMsgFragment extends Fragment {
  myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        // Remove unnecessary updates
+        msgModelList.clear();
         //loop data
         for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
             UserMsgModel userMsgModel = postSnapshot.getValue(UserMsgModel.class);
