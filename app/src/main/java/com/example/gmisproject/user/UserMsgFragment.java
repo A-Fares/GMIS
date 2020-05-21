@@ -64,7 +64,9 @@ public class UserMsgFragment extends Fragment {
  myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        // Remove unnecessary updates
+        // This method is called once with the initial value and again
+        // whenever data at this location is updated.
+        // Remove unnecessary updates to each user
         msgModelList.clear();
         //loop data
         for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
