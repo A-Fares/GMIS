@@ -91,15 +91,15 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get username
                 String username = email.substring(0, email.indexOf("@"));
-                final EditText editTextInputCompliantsUser = findViewById(R.id.edittext_view_addnotes);
+                final EditText editTextInputComplaintsUser = findViewById(R.id.edittext_view_addnotes);
                 //report complaints for user
-                String report = editTextInputCompliantsUser.getText().toString();
+                String report = editTextInputComplaintsUser.getText().toString();
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").push().setValue(report );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
                 Toast.makeText(explicit_star_rating_activity.this,"تم الارسال",Toast.LENGTH_LONG).show();
-                editTextInputCompliantsUser.setText("");
+                editTextInputComplaintsUser.setText("");
 
             }
         });

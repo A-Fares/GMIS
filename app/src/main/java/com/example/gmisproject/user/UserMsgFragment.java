@@ -1,6 +1,9 @@
 package com.example.gmisproject.user;
 
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gmisproject.MainActivity;
 import com.example.gmisproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +45,7 @@ public class UserMsgFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_user_msg, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_user_msg, container, false);
 
 
         final View alert_msg_layout = rootView.findViewById(R.id.alert_msg_layout);
@@ -58,10 +62,9 @@ public class UserMsgFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         final List<UserMsgModel> msgModelList = new ArrayList<UserMsgModel>();
-        // msgModelList.add(new UserMsgModel(REQUEST_RESPONSE, getResources().getString(R.string.msg_response), "012245555", " 50 جنيه"));
 
         //Retrieve  list of data from firebase
- myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again

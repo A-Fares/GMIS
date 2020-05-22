@@ -84,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        // method for sending notification message for specific user
-        getUserMessageNotification();
+
     }
 
 
@@ -105,7 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
         configGoogleSignIn();
 
-        //Set id for Textview
+        // method for sending notification message for specific user
+        getUserMessageNotification();
+
+        //Set id for TextView
         imagViewStar = findViewById(R.id.image_view_star);
         imagViewStar.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -114,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         });
+
+        // logout from user profile
         floatingButtonSignOut = findViewById(R.id.floating_button_signout);
         floatingButtonSignOut.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -185,8 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     userMsgModel = ds.getValue(UserMsgModel.class);
                     userId = userMsgModel.getId();
                     currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if (userId.equals( currentUserId)) {
-
+                    if (userId.equals(currentUserId)) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             NotificationChannel channel = new NotificationChannel("notify", "notify", NotificationManager.IMPORTANCE_DEFAULT);
                             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -196,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setContentText("Messages")
                                 .setSmallIcon(R.mipmap.ic_trash)
                                 .setAutoCancel(true)
-                                .setContentText("new messages delivered");
+                                .setContentText("message delivered");
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
                         managerCompat.notify(999, builder.build());
                     }

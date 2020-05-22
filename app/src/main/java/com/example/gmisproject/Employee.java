@@ -70,6 +70,8 @@ public class Employee extends AppCompatActivity {
             Uri profilePicture = account.getPhotoUrl();
             Picasso.get().load(profilePicture).fit().placeholder(R.drawable.user_logo).into(imageViewProfilePicture);
         }
+        // set userName profile
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users")
                 .child(userId);
@@ -106,6 +108,7 @@ public class Employee extends AppCompatActivity {
             }
         };
 
+        // logout from profile
         signOut.setOnClickListener(new View.OnClickListener() {
                             @Override
                              public void onClick(View view) {

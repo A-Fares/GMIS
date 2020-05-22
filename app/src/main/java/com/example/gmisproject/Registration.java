@@ -192,8 +192,8 @@ public class Registration extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        //implement progressBarAnimation make it visible
 
+        //implement progressBarAnimation make it visible
         DoubleBounce doubleBounce = new DoubleBounce();
         progressBarAnimation.setIndeterminateDrawable(doubleBounce);
         progressBarAnimation.setVisibility(View.VISIBLE);
