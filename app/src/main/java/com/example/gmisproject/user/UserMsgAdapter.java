@@ -26,14 +26,14 @@ public class UserMsgAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-       switch (msgModelsList.get(position).getViewType()){
-           case 0:
-               return REQUEST_RESPONSE;
-           case 1:
-               return COMPLAINING_RESPONSE;
-           default:
-               return -1;
-       }
+        switch (msgModelsList.get(position).getViewType()){
+            case 0:
+                return REQUEST_RESPONSE;
+            case 1:
+                return COMPLAINING_RESPONSE;
+            default:
+                return -1;
+        }
     }
 
     @NonNull

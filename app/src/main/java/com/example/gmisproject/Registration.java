@@ -150,7 +150,7 @@ public class Registration extends AppCompatActivity {
                 //implement progressBarAnimation make it visible
                 DoubleBounce doubleBounce = new DoubleBounce();
                 progressBarAnimation.setIndeterminateDrawable(doubleBounce);
-               progressBarAnimation.setVisibility(View.VISIBLE);
+                progressBarAnimation.setVisibility(View.VISIBLE);
                 SignInGoogle();
 
             }
@@ -192,8 +192,8 @@ public class Registration extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-
         //implement progressBarAnimation make it visible
+
         DoubleBounce doubleBounce = new DoubleBounce();
         progressBarAnimation.setIndeterminateDrawable(doubleBounce);
         progressBarAnimation.setVisibility(View.VISIBLE);

@@ -38,7 +38,6 @@ public class UserBinFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserBinAdapter mAdapter;
     String final_location2;
-    DatabaseReference  refLocation;
 
     public UserBinFragment() {
         // Required empty public constructor
@@ -117,8 +116,11 @@ public class UserBinFragment extends Fragment {
                     @Override
                     public void onItemClick(int position) {
                         String position1 = String.valueOf(position+1);
-                        refLocation = FirebaseDatabase.getInstance().getReference("Bins").child(position1).child("location");
-                        refLocation.addValueEventListener(new ValueEventListener() {
+                        DatabaseReference  reference_location = FirebaseDatabase.getInstance().getReference("Bins");
+                        DatabaseReference reference_location1 = reference_location.child(position1);
+                        DatabaseReference final_ref_location = reference_location1.child("location");
+
+                        final_ref_location.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 final_location2 = String.valueOf(dataSnapshot.getValue());
@@ -138,6 +140,13 @@ public class UserBinFragment extends Fragment {
                     }
                 });
 
+                /*mAdapter.setOnItemClickListener(new BinsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Intent intent = new Intent(getActivity(), MapActivity.class);
+                        startActivity(intent);
+                    }
+                });*/
             }
 
             @Override

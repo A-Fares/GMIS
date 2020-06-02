@@ -107,50 +107,48 @@ public class MainActivity extends AppCompatActivity {
         // method for sending notification message for specific user
         getUserMessageNotification();
 
-        //Set id for TextView
+        //Set id for Textview
         imagViewStar = findViewById(R.id.image_view_star);
         imagViewStar.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);
-                                                startActivity(intent);
-                                            }
-                                        });
-
-        // logout from user profile
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);
+                startActivity(intent);
+            }
+        });
         floatingButtonSignOut = findViewById(R.id.floating_button_signout);
         floatingButtonSignOut.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                                                //show alertDialog for user to signOut or dismiss action
-                                                final Dialog dialog = new Dialog(MainActivity.this);
-                                                dialog.setContentView(R.layout.alertdialogsignoutuser);
-                                                dialog.setCancelable(false);
-                                                dialog.show();
-                                                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_user);
-                                                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_user);
-                                                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
+                //show alertDialog for user to signOut or dismiss action
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.alertdialogsignoutuser);
+                dialog.setCancelable(false);
+                dialog.show();
+                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_user);
+                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_user);
+                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                                                        // delete tokenId when user logout...
-                                                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
-                                                        databaseReference.removeValue();
-                                                        //sign out method
-                                                        FirebaseAuth.getInstance().signOut();
+                        // delete tokenId when user logout...
+                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
+                        databaseReference.removeValue();
+                        //sign out method
+                        FirebaseAuth.getInstance().signOut();
 
-                                                    }
-                                                });
-                                                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
-                                                        dialog.dismiss();
-                                                    }
-                                                });
+                    }
+                });
+                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
-                                            }
-                                        });
+            }
+        });
 
 
 
@@ -189,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
                     userMsgModel = ds.getValue(UserMsgModel.class);
                     userId = userMsgModel.getId();
                     currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if (userId.equals(currentUserId)) {
+                    if (userId.equals( currentUserId)) {
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             NotificationChannel channel = new NotificationChannel("notify", "notify", NotificationManager.IMPORTANCE_DEFAULT);
                             NotificationManager manager = getSystemService(NotificationManager.class);

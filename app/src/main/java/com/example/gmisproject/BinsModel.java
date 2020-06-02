@@ -33,6 +33,10 @@ public class BinsModel {
         return address;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     public int getPercentage() {
         return percentage;
     }
@@ -41,5 +45,7 @@ public class BinsModel {
         return binId;
     }
 
-
+    public int getBinImageId() {
+        return binImageId;
+    }
 }

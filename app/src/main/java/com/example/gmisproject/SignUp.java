@@ -247,7 +247,7 @@ public class SignUp<sprite> extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                         //remove load from memory using gone
+                    //remove load from memory using gone
                     DoubleBounce doubleBounce = new DoubleBounce();
                     progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
                     progressBarAnimationLoading.setVisibility(View.GONE);

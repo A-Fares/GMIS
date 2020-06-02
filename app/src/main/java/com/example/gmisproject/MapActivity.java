@@ -22,7 +22,7 @@ public class MapActivity extends AppCompatActivity {
         child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(getParentActivityIntent());
+                startActivity(getParentActivityIntent());
             }
         });
     }

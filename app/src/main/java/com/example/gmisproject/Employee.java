@@ -70,8 +70,6 @@ public class Employee extends AppCompatActivity {
             Uri profilePicture = account.getPhotoUrl();
             Picasso.get().load(profilePicture).fit().placeholder(R.drawable.user_logo).into(imageViewProfilePicture);
         }
-        // set userName profile
-
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users")
                 .child(userId);
@@ -108,38 +106,37 @@ public class Employee extends AppCompatActivity {
             }
         };
 
-        // logout from profile
         signOut.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                             public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                                //show alertDialog for employee to signOut or dismiss action
-                                final Dialog dialog = new Dialog(Employee.this);
-                                dialog.setContentView(R.layout.alertdialogsignoutemp);
-                                dialog.setCancelable(false);
-                                dialog.show();
-                                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_emp);
-                                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_emp);
-                                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                //show alertDialog for employee to signOut or dismiss action
+                final Dialog dialog = new Dialog(Employee.this);
+                dialog.setContentView(R.layout.alertdialogsignoutemp);
+                dialog.setCancelable(false);
+                dialog.show();
+                TextView textViewSignOutYes = dialog.findViewById(R.id.text_view_yesfor_signout_emp);
+                TextView textViewSignOutNo = dialog.findViewById(R.id.text_view_no_for_signout_emp);
+                textViewSignOutYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                                        // delete tokenId when employee logout...
-                                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
-                                        databaseReference.removeValue();
-                                        //sign out method
-                                        FirebaseAuth.getInstance().signOut();
+                        // delete tokenId when employee logout...
+                        databaseReference=FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("tokenId");
+                        databaseReference.removeValue();
+                        //sign out method
+                        FirebaseAuth.getInstance().signOut();
 
-                                    }
-                                });
-                                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                    }
+                });
+                textViewSignOutNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
-                            }
+            }
 
         });
 

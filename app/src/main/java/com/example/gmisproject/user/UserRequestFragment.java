@@ -49,7 +49,7 @@ public class UserRequestFragment extends Fragment {
         radioButton = rootView.findViewById(R.id.radio_btn_yearly);
 
         referenceRequest = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-         uId=referenceRequest.getKey();
+        uId=referenceRequest.getKey();
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

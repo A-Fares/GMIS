@@ -41,7 +41,7 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 //check method
                 if(dataSnapshot != null && dataSnapshot.getValue() != null){
                     int Rate =  Integer.parseInt(dataSnapshot.getValue().toString());
-                   RatingFromUser.setRating(Rate);
+                    RatingFromUser.setRating(Rate);
                 }
             }
 
@@ -60,20 +60,20 @@ public class explicit_star_rating_activity extends AppCompatActivity {
             }
         });
 
-       RatingFromUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        RatingFromUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 //cast rate from float to integer
                 int RatingResult = (int) Math.round(rating);
                 // save it in string
                 String rate = String.valueOf(RatingResult);
-               //get Email
+                //get Email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get Username
                 String username = email.substring(0, email.indexOf("@"));
                 //get current firebaseUser
                 String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
-               //write data in firebase
+                //write data in firebase
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
@@ -91,15 +91,15 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get username
                 String username = email.substring(0, email.indexOf("@"));
-                final EditText editTextInputComplaintsUser = findViewById(R.id.edittext_view_addnotes);
+                final EditText editTextInputCompliantsUser = findViewById(R.id.edittext_view_addnotes);
                 //report complaints for user
-                String report = editTextInputComplaintsUser.getText().toString();
+                String report = editTextInputCompliantsUser.getText().toString();
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").push().setValue(report );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
                 Toast.makeText(explicit_star_rating_activity.this,"تم الارسال",Toast.LENGTH_LONG).show();
-                editTextInputComplaintsUser.setText("");
+                editTextInputCompliantsUser.setText("");
 
             }
         });

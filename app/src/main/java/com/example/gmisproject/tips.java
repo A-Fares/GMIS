@@ -30,7 +30,7 @@ public class tips extends AppCompatActivity {
         sliderAdapter = new SliderAdapter(this);
         mainViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
-        mainViewPager.addOnPageChangeListener(viewListener);
+        mainViewPager.addOnPageChangeListener(viewlistner);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class tips extends AppCompatActivity {
         }
 
     }
-    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+    ViewPager.OnPageChangeListener viewlistner = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int i, float v, int i1) {
 
