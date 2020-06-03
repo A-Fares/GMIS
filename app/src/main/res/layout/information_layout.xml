@@ -12,19 +12,22 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginTop="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:cardElevation="4dp"
         app:ignore="NamespaceTypo"
         card_view:cardCornerRadius="15dp"
-        card_view:contentPadding="18dp">
+        card_view:contentPaddingLeft="8dp"
+        card_view:contentPaddingRight="8dp"
+        card_view:contentPaddingTop="18dp"
+        card_view:contentPaddingBottom="18dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="10dp">
 
 
             <TextView
@@ -33,10 +36,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
+                android:textAlignment="center"
                 android:fontFamily="@font/monadi"
                 android:text="@string/msg_response"
                 android:textColor="#00058B"
-                android:textSize="11sp" />
+                android:lineSpacingExtra="10dp"
+                android:textSize="14sp"/>
 
 
             <TextView

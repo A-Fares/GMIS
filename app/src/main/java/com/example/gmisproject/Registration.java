@@ -339,7 +339,6 @@ public class Registration extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Registration.this, "token added successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(Registration.this, "error.....", Toast.LENGTH_SHORT).show();
                                 }

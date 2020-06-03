@@ -11,14 +11,17 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
         app:cardElevation="4dp"
         app:ignore="NamespaceTypo"
         card_view:cardCornerRadius="15dp"
-        card_view:contentPadding="18dp">
+        card_view:contentPaddingBottom="18dp"
+        card_view:contentPaddingLeft="8dp"
+        card_view:contentPaddingRight="8dp"
+        card_view:contentPaddingTop="18dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,13 +32,14 @@
                 android:id="@+id/complaint_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/monadi"
                 android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
