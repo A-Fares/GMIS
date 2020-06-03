@@ -115,6 +115,7 @@ public class SignUp<sprite> extends AppCompatActivity {
     }
 
     private void facebookSignUp(CallbackManager mCallbackManager) {
+        progressBarAnimationLoading.setVisibility(View.VISIBLE);
         LoginManager.getInstance().logInWithReadPermissions(SignUp.this, Arrays.asList("email", "public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -126,12 +127,14 @@ public class SignUp<sprite> extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG2, "facebook:onCancel");
+                progressBarAnimationLoading.setVisibility(View.GONE);
                 // ...
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG2, "facebook:onError", error);
+                progressBarAnimationLoading.setVisibility(View.GONE);
                 // ...
             }
         });
@@ -178,18 +181,13 @@ public class SignUp<sprite> extends AppCompatActivity {
         }
 
 //implement progressBarAnimation make it visible
-        DoubleBounce doubleBounce = new DoubleBounce();
-        progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-        progressBarAnimationLoading.setVisibility(View.VISIBLE);
-
+       progressBarAnimationLoading.setVisibility(View.VISIBLE);
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //remove load from memory using gone
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-                    progressBarAnimationLoading.setVisibility(View.GONE);
+                  progressBarAnimationLoading.setVisibility(View.GONE);
                     Intent intent = new Intent(SignUp.this, User_or_Worker.class);
                     startActivity(intent);
 
@@ -198,9 +196,11 @@ public class SignUp<sprite> extends AppCompatActivity {
 
                 } else {
                     //remove load from memory using gone
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
                     progressBarAnimationLoading.setVisibility(View.GONE);
+                    inputLayoutUsername.getEditText().setText("");
+                    inputLayoutEmail.getEditText().setText("");
+                    inputLayoutPassword.getEditText().setText("");
+                    inputLayoutConfirmPassword.getEditText().setText("");
                     updateUI(null);
                 }
             }
@@ -211,9 +211,7 @@ public class SignUp<sprite> extends AppCompatActivity {
 
     void SignInGoogle() {
         //set progressbar visible
-        DoubleBounce doubleBounce = new DoubleBounce();
-        progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-        progressBarAnimationLoading.setVisibility(View.VISIBLE);
+       progressBarAnimationLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
@@ -248,16 +246,12 @@ public class SignUp<sprite> extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //remove load from memory using gone
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
                     progressBarAnimationLoading.setVisibility(View.GONE);
                     user = firebaseAuth.getCurrentUser();
                     updateUI(user);
                 } else {
                     //remove load from memory using gone
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-                    progressBarAnimationLoading.setVisibility(View.GONE);
+                   progressBarAnimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
@@ -292,9 +286,8 @@ public class SignUp<sprite> extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG2, "signInWithCredential:success");
                             //remove load from memory using gone
-                            DoubleBounce doubleBounce = new DoubleBounce();
-                            progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-                            progressBarAnimationLoading.setVisibility(View.GONE);
+
+                           progressBarAnimationLoading.setVisibility(View.GONE);
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -303,9 +296,7 @@ public class SignUp<sprite> extends AppCompatActivity {
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //remove load from memory using gone
-                            DoubleBounce doubleBounce = new DoubleBounce();
-                            progressBarAnimationLoading.setIndeterminateDrawable(doubleBounce);
-                            progressBarAnimationLoading.setVisibility(View.GONE);
+                           progressBarAnimationLoading.setVisibility(View.GONE);
                             updateUI(null);
                         }
                     }

@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="290dp"
         android:visibility="gone"
-        app:SpinKit_Color="@color/colorPrimaryDark" />
+        app:SpinKit_Color="@color/colorAccent" />
 
 
     <ScrollView

@@ -27,17 +27,18 @@
             android:src="@drawable/ic_back" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/text_View_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="64dp"
-            android:fontFamily="@font/amin"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="70dp"
+            android:fontFamily="@font/tansik"
             android:text="تقييم"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="40sp"
+             />
 
     </RelativeLayout>
 
@@ -77,11 +78,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="يهمنا راحه عملائنا"
-                    android:textStyle="bold"
+                    
                     android:textColor="#000000"
                     android:textSize="30sp"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/amin"
+                    android:fontFamily="@font/tansik"
 
                     />
                 <TextView

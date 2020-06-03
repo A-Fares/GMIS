@@ -50,10 +50,7 @@ public class User_or_Worker extends AppCompatActivity {
                     }
                 };
                 Handler handler = new Handler();
-                handler.postDelayed(runnable, 0);
-                Intent intentUser = new Intent(User_or_Worker.this, MainActivity.class);
-                startActivity(intentUser);
-
+                handler.postDelayed(runnable, 50);
 
                 UsersModel user = new UsersModel(email, username, type = "عميل");
                 if (FirebaseAuth.getInstance().getUid() != null) {
@@ -64,12 +61,15 @@ public class User_or_Worker extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // set tokenId for each user
                                         getToken();
-                                        Toast.makeText(User_or_Worker.this, "User created...", Toast.LENGTH_SHORT).show();
+                                      Toast.makeText(User_or_Worker.this, "User created...", Toast.LENGTH_SHORT).show();
+
                                     } else {
                                         Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
+
+
                 }
             }
         });
@@ -120,6 +120,7 @@ public class User_or_Worker extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
                                 } else {
                                     Toast.makeText(User_or_Worker.this, "error.....", Toast.LENGTH_SHORT).show();
                                 }

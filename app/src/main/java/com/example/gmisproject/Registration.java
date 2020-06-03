@@ -148,9 +148,8 @@ public class Registration extends AppCompatActivity {
             public void onClick(View v) {
 
                 //implement progressBarAnimation make it visible
-                DoubleBounce doubleBounce = new DoubleBounce();
-                progressBarAnimation.setIndeterminateDrawable(doubleBounce);
-                progressBarAnimation.setVisibility(View.VISIBLE);
+
+               progressBarAnimation.setVisibility(View.VISIBLE);
                 SignInGoogle();
 
             }
@@ -158,8 +157,10 @@ public class Registration extends AppCompatActivity {
     }
 
     private void facebookLogin(CallbackManager mCallbackManager) {
+        progressBarAnimation.setVisibility(View.VISIBLE);
         LoginManager.getInstance().logInWithReadPermissions(Registration.this, Arrays.asList("email", "public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
@@ -168,12 +169,17 @@ public class Registration extends AppCompatActivity {
 
             @Override
             public void onCancel() {
+
                 Log.d(TAG2, "facebook:onCancel");
+                progressBarAnimation.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onError(FacebookException error) {
+
                 Log.d(TAG2, "facebook:onError", error);
+                progressBarAnimation.setVisibility(View.GONE);
             }
         });
     }
@@ -194,16 +200,17 @@ public class Registration extends AppCompatActivity {
         }
         //implement progressBarAnimation make it visible
 
-        DoubleBounce doubleBounce = new DoubleBounce();
-        progressBarAnimation.setIndeterminateDrawable(doubleBounce);
         progressBarAnimation.setVisibility(View.VISIBLE);
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // Remove load from memory
+                    progressBarAnimation.setVisibility(View.GONE);
                     //     checkUserType();
                 } else {
-
+                    // Remove load from memory
+                    progressBarAnimation.setVisibility(View.GONE);
                     editTextEmail.getEditText().setText("");
                     editTextPassword.getEditText().setText("");
                 }
@@ -286,14 +293,11 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimation.setIndeterminateDrawable(doubleBounce);
-                    progressBarAnimation.setVisibility(View.VISIBLE);
+                    // make it gone remove load from memory
+                    progressBarAnimation.setVisibility(View.GONE);
                     //     checkUserType();
                 } else {
                     // make it gone remove load from memory
-                    DoubleBounce doubleBounce = new DoubleBounce();
-                    progressBarAnimation.setIndeterminateDrawable(doubleBounce);
                     progressBarAnimation.setVisibility(View.GONE);
                 }
             }
@@ -308,16 +312,13 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //implement progressbar
-                            DoubleBounce doubleBounce = new DoubleBounce();
-                            progressBarAnimation.setIndeterminateDrawable(doubleBounce);
-                            progressBarAnimation.setVisibility(View.VISIBLE);
+                            // Make it gone
+                            progressBarAnimation.setVisibility(View.GONE);
                             //            checkUserType();
                         } else {
                             // make it gone remove load from memory
-                            DoubleBounce doubleBounce = new DoubleBounce();
-                            progressBarAnimation.setIndeterminateDrawable(doubleBounce);
-                            progressBarAnimation.setVisibility(View.GONE);;
+
+                            progressBarAnimation.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -339,6 +340,7 @@ public class Registration extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
                                 } else {
                                     Toast.makeText(Registration.this, "error.....", Toast.LENGTH_SHORT).show();
                                 }
