@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "notify")
                                 .setContentText("Messages")
-                                .setSmallIcon(R.mipmap.ic_trash)
+                                .setSmallIcon(R.mipmap.ic_launcher)
                                 .setAutoCancel(true)
                                 .setContentText("message delivered");
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
