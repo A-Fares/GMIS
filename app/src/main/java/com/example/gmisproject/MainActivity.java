@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Toast backToast;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
-    ImageView imagViewStar;
+    ImageView ImageViewStar;
     FloatingActionButton floatingButtonSignOut;
     UserMsgModel userMsgModel;
     String currentUserId,userId;
@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         // method for sending notification message for specific user
         getUserMessageNotification();
 
-        //Set id for Textview
-        imagViewStar = findViewById(R.id.image_view_star);
-        imagViewStar.setOnClickListener(new View.OnClickListener() {
+        //Set id for Text view
+        ImageViewStar = findViewById(R.id.image_view_star);
+        ImageViewStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, explicit_star_rating_activity.class);

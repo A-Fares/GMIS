@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class explicit_star_rating_activity extends AppCompatActivity {
+    String username;
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,28 @@ public class explicit_star_rating_activity extends AppCompatActivity {
                 //get Email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get Username
-                String username = email.substring(0, email.indexOf("@"));
+                final DatabaseReference myRef = database.getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("username");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        username =  dataSnapshot.getValue().toString();
+                        FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+
+                    }
+                });
+
                 //get current firebaseUser
                 String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                //write data in firebase
+                                //write data in firebase
+
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rate").setValue(rate );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
 
@@ -85,21 +102,39 @@ public class explicit_star_rating_activity extends AppCompatActivity {
         buttonSendCompliantSFromUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                final String userFirebase = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // if (firebaseAuth.getCurrentUser() != null)
                 //get email
                 String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 //get username
-                String username = email.substring(0, email.indexOf("@"));
-                final EditText editTextInputCompliantsUser = findViewById(R.id.edittext_view_addnotes);
+                final DatabaseReference myRef = database.getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("username");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        //check method
+                        //String username = dataSnapshot.getValue(UsersModel.class);
+
+                        username =  dataSnapshot.getValue().toString();
+                        FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+
+                    }
+                });
+                final EditText editTextInputComplaintsUser = findViewById(R.id.edittext_view_addnotes);
                 //report complaints for user
-                String report = editTextInputCompliantsUser.getText().toString();
+                String report = editTextInputComplaintsUser.getText().toString();
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("email").setValue(email );
-                FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("username").setValue(username );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("report").push().setValue(report );
                 FirebaseDatabase.getInstance().getReference("complaintmessages").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("id").setValue(userFirebase);
                 Toast.makeText(explicit_star_rating_activity.this,"تم الارسال",Toast.LENGTH_LONG).show();
-                editTextInputCompliantsUser.setText("");
+                editTextInputComplaintsUser.setText("");
 
             }
         });
