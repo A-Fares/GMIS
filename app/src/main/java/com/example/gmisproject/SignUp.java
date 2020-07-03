@@ -1,7 +1,7 @@
 package com.example.gmisproject;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -20,7 +21,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -38,8 +38,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-
 public class SignUp<sprite> extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
@@ -47,7 +45,7 @@ public class SignUp<sprite> extends AppCompatActivity {
     CallbackManager mCallbackManager;
     FirebaseUser user;
     TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPassword, inputLayoutConfirmPassword;
-    Button buttonSignIn,buttonSignUp;
+    Button buttonSignIn, buttonSignUp;
     FirebaseAuth firebaseAuth;
     ImageView googleSignUp, facebookSignUp;
     GoogleSignInClient mGoogleSignInClient;
@@ -60,6 +58,7 @@ public class SignUp<sprite> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         //  Views
         buttonSignIn = findViewById(R.id.btn_sign_in);
         googleSignUp = findViewById(R.id.gmail_login);
@@ -72,6 +71,10 @@ public class SignUp<sprite> extends AppCompatActivity {
         progressBarAnimationLoading = findViewById(R.id.spin_kit);
         imageViewUserPhotoProfile = findViewById(R.id.user_logo);
 
+        //set custom font to inputLayout type password
+        final Typeface typeface = ResourcesCompat.getFont(this, R.font.monadi);
+        inputLayoutPassword.setTypeface(typeface);
+        inputLayoutConfirmPassword.setTypeface(typeface);
 
         //get instance from firebase
         firebaseAuth = FirebaseAuth.getInstance();
@@ -93,7 +96,6 @@ public class SignUp<sprite> extends AppCompatActivity {
             }
 
         });
-
 
 
         //on Click the logo of Facebook
@@ -181,13 +183,13 @@ public class SignUp<sprite> extends AppCompatActivity {
         }
 
 //implement progressBarAnimation make it visible
-       progressBarAnimationLoading.setVisibility(View.VISIBLE);
+        progressBarAnimationLoading.setVisibility(View.VISIBLE);
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //remove load from memory using gone
-                  progressBarAnimationLoading.setVisibility(View.GONE);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     Intent intent = new Intent(SignUp.this, User_or_Worker.class);
                     startActivity(intent);
 
@@ -211,7 +213,7 @@ public class SignUp<sprite> extends AppCompatActivity {
 
     void SignInGoogle() {
         //set progressbar visible
-       progressBarAnimationLoading.setVisibility(View.VISIBLE);
+        progressBarAnimationLoading.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
@@ -251,7 +253,7 @@ public class SignUp<sprite> extends AppCompatActivity {
                     updateUI(user);
                 } else {
                     //remove load from memory using gone
-                   progressBarAnimationLoading.setVisibility(View.GONE);
+                    progressBarAnimationLoading.setVisibility(View.GONE);
                     updateUI(null);
                 }
             }
@@ -287,7 +289,7 @@ public class SignUp<sprite> extends AppCompatActivity {
                             Log.d(TAG2, "signInWithCredential:success");
                             //remove load from memory using gone
 
-                           progressBarAnimationLoading.setVisibility(View.GONE);
+                            progressBarAnimationLoading.setVisibility(View.GONE);
                             user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -296,7 +298,7 @@ public class SignUp<sprite> extends AppCompatActivity {
                             Toast.makeText(SignUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //remove load from memory using gone
-                           progressBarAnimationLoading.setVisibility(View.GONE);
+                            progressBarAnimationLoading.setVisibility(View.GONE);
                             updateUI(null);
                         }
                     }

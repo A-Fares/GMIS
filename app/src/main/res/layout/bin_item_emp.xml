@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/private_bin_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +10,10 @@
     card_view:cardBackgroundColor="#FCFFFF"
     card_view:cardCornerRadius="30dp">
 
-
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_left_arrow" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,21 +21,22 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp">
 
-        <ProgressBar
+        <io.netopen.hotbitmapgg.library.view.RingProgressBar
             android:id="@+id/progress_bin"
-            style="?android:progressBarStyleHorizontal"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
-            android:indeterminateDrawable="@drawable/progress_employee_bin"
-            android:max="100"
-            android:progress="70"
-            android:progressDrawable="@drawable/progress_employee_bin"
-            android:secondaryProgress="100" />
-
+            app:max="100"
+            app:ringColor="#E7EFF6"
+            app:ringProgressColor="#137ED3"
+            app:ringWidth="3dp"
+            app:style="STROKE"
+            app:textColor="@color/colorPrimary"
+            app:textIsShow="true"
+            app:textSize="16sp" />
 
         <TextView
             android:id="@+id/bin_id"
@@ -42,7 +48,6 @@
             android:text="0"
             android:textColor="#000"
             android:textSize="13sp" />
-
 
         <TextView
             android:id="@+id/client_address"

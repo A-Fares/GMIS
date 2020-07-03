@@ -1,15 +1,17 @@
 package com.example.gmisproject;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 
 public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> {
 
@@ -24,8 +26,7 @@ public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> 
     @Override
     public EmpBinHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bin_item_emp, parent, false);
-        BinsAdapter.EmpBinHolder viewHolder = new BinsAdapter.EmpBinHolder(v);
-        return viewHolder;
+        return new EmpBinHolder(v);
     }
 
     @Override
@@ -35,6 +36,11 @@ public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> 
         holder.binId.setText(String.valueOf(currentBin.getBinId()));
         holder.binStatus.setText(currentBin.getStatus());
         holder.binPercentage.setProgress(currentBin.getPercentage());
+        if (currentBin.getStatus().equals("تعمل")) {
+            holder.binStatus.setTextColor(Color.parseColor("#12AC5A"));
+        } else {
+            holder.binStatus.setTextColor(Color.parseColor("#E60039"));
+        }
     }
 
     @Override
@@ -51,7 +57,7 @@ public class BinsAdapter extends RecyclerView.Adapter<BinsAdapter.EmpBinHolder> 
     }
 
     public class EmpBinHolder extends RecyclerView.ViewHolder {
-        public ProgressBar binPercentage;
+        public RingProgressBar binPercentage;
         public TextView binId;
         public TextView binStatus;
         public TextView clientAddress;

@@ -41,9 +41,6 @@
         </activity>
 
         <activity
-            android:name=".MapActivity"
-            android:parentActivityName=".Employee" />
-        <activity
             android:name=".Registration"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>

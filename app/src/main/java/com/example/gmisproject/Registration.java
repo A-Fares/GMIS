@@ -1,16 +1,23 @@
 package com.example.gmisproject;
+
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -18,7 +25,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,13 +32,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,14 +49,12 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Arrays;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-
 public class Registration extends AppCompatActivity {
     static final int GOOGLE_SIGN_IN = 123;
     private static final String TAG = "GoogleActivity";
     private static final String TAG2 = "FacebookActivity";
     CallbackManager mCallbackManager;
-    Button buttonSignInView, buttonSignUp,buttonSignIn;
+    Button buttonSignInView, buttonSignUp, buttonSignIn;
     TextInputLayout editTextEmail, editTextPassword;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
@@ -59,6 +63,8 @@ public class Registration extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     String type;
     ProgressBar progressBarAnimation;
+    BottomSheetBehavior mBehavior;
+
 
     @Override
     protected void onStart() {
@@ -97,10 +103,26 @@ public class Registration extends AppCompatActivity {
     }
 
     private void showButtonSheet() {
+        // initiate BottomSheet Dialog
         bottomSheetDialog = new BottomSheetDialog(Registration.this);
-        bottomSheetDialog.setContentView(R.layout.bottomsheet_login);
+        bottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
+                RelativeLayout bottomSheet = bottomSheetDialog.findViewById(R.id.bottom_sheet_layout);
+                assert bottomSheet != null;
+                ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
+                bottomSheet.setLayoutParams(params);
+            }
+        });
+        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.bottomsheet_login, null);
+        bottomSheetDialog.setContentView(view);
+        mBehavior = BottomSheetBehavior.from((View) view.getParent());
+        mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         bottomSheetDialog.show();
+
         //VIEWS
         editTextEmail = bottomSheetDialog.findViewById(R.id.inputLayout_email);
         editTextPassword = bottomSheetDialog.findViewById(R.id.inputLayout_password);
@@ -109,14 +131,17 @@ public class Registration extends AppCompatActivity {
         facebookLogin = bottomSheetDialog.findViewById(R.id.facebook_login);
         googleLogin = bottomSheetDialog.findViewById(R.id.gmail_login);
         progressBarAnimation = findViewById(R.id.spin_kit);
+
+        //set custom font to inputLayout type password
+        final Typeface typeface = ResourcesCompat.getFont(this, R.font.monadi);
+        editTextPassword.setTypeface(typeface);
+
         //Go to SignUP Activity
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Registration.this, SignUp.class);
                 startActivity(intent);
-
-
             }
 
         });
@@ -126,8 +151,6 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startSignIn();
-
-
             }
 
         });
@@ -137,21 +160,19 @@ public class Registration extends AppCompatActivity {
         facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarAnimation.setVisibility(View.VISIBLE);
                 facebookLogin(mCallbackManager);
             }
         });
-        //Google Login
 
+        //Google Login
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
-
                 //implement progressBarAnimation make it visible
-
-               progressBarAnimation.setVisibility(View.VISIBLE);
+                progressBarAnimation.setVisibility(View.VISIBLE);
                 SignInGoogle();
-
             }
         });
     }

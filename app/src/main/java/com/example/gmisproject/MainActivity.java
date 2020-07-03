@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
         //   viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.getTabAt(0).setIcon(R.drawable.bin);
-        tabLayout.getTabAt(1).setIcon(R.drawable.request);
-        tabLayout.getTabAt(2).setIcon(R.drawable.msg);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_request);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_mail);
 
 
     }

@@ -5,7 +5,8 @@
     android:background="@drawable/btnsheet_login"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/bottom_sheet_layout">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/header"
@@ -13,27 +14,24 @@
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_login" />
 
-
     <TextView
         android:id="@+id/textView_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:fontFamily="@font/aniq"
-        android:text="GMIS"
+        android:fontFamily="@font/khebrat"
+        android:text="G M I S"
         android:textColor="#FFFFFF"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
-
-
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@+id/header">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,8 +57,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:textDirection="rtl">
+                        android:layout_marginTop="20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -74,13 +71,11 @@
                         android:id="@+id/inputLayout_password"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textDirection="rtl">
+                        android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/monadi"
                             android:hint="كلمة السر"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -105,7 +100,6 @@
                     android:background="@drawable/btn_login_background"
                     android:fontFamily="@font/aniq"
                     android:text="دخول"
-
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="18sp" />
@@ -153,7 +147,7 @@
                 android:layout_below="@+id/login_icons"
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="25dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/btn_signup_bottomsheet"
                 android:fontFamily="@font/aniq"
                 android:text="تسجيل حساب"
@@ -161,5 +155,5 @@
                 android:textSize="20sp" />
 
         </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
