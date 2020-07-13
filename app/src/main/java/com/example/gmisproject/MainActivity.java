@@ -34,10 +34,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-    static String string;
     TextView textViewUsername;
     GoogleSignInClient mGoogleSignInClient;
     DatabaseReference databaseReference;
@@ -52,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingButtonSignOut;
     UserMsgModel userMsgModel;
     String currentUserId,userId;
-
-
+    private ArrayList<Integer> BinsData;
+    private UsersModel usersModel;
+    ViewPager viewPager;
 
     @Override
     protected void onStart() {
@@ -153,14 +155,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Find the view pager that will allow the user to swipe between fragments
-        ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         // Create an adapter that knows which fragment should be shown on each page
         UserFragmentAdapter adapter = new UserFragmentAdapter(this, getSupportFragmentManager());
 
         viewPager.setPageTransformer(true, new ZoomAnimation());
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(1);
+
+        // set current item for viewPager depending on userBins
+        checkUserBins();
+
         // Find the tab layout that shows the tabs
         TabLayout tabLayout = findViewById(R.id.tabs);
 
@@ -219,6 +224,29 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+    private void checkUserBins() {
+        //reading the Bin id that user have
+        DatabaseReference referenceBins = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        referenceBins.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                usersModel = dataSnapshot.getValue(UsersModel.class);
+                assert usersModel != null;
+                BinsData = usersModel.getBins();
+                if (BinsData == null) {
+                    viewPager.setCurrentItem(1);
+                } else {
+                    viewPager.setCurrentItem(0);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "something went wrong ..", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // backButton to close app
