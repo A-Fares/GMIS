@@ -150,6 +150,7 @@ public class Registration extends AppCompatActivity {
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottomSheetDialog.dismiss();
                 startSignIn();
             }
 
@@ -172,6 +173,7 @@ public class Registration extends AppCompatActivity {
             public void onClick(View v) {
                 //implement progressBarAnimation make it visible
                 progressBarAnimation.setVisibility(View.VISIBLE);
+                bottomSheetDialog.dismiss();
                 SignInGoogle();
             }
         });
@@ -253,7 +255,7 @@ public class Registration extends AppCompatActivity {
                 .child("type").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                assert type != null;
+                //  assert type != null;
                 type = dataSnapshot.getValue(String.class);
                 if (type != null) {
                     if (type.equals("عميل")) {
@@ -372,4 +374,5 @@ public class Registration extends AppCompatActivity {
                     }
                 });
     }
+
 }
